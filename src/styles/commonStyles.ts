@@ -17,7 +17,7 @@ const commonStyles = StyleSheet.create({
 		fontWeight: '600',
 	},
 	sectionBox: {
-		backgroundColor: colors.bgGray,
+		backgroundColor: colors.white,
 		borderRadius: 12,
 		padding: spacing.m,
 		marginBottom: spacing.m,
@@ -40,7 +40,7 @@ const commonStyles = StyleSheet.create({
 	},
 	bodyText: {
 		...typography.body,
-		color: colors.grayscaleGray7,
+		color: colors.black,
 	},
 	bodyBoldText: {
 		...typography.bodyBold,
