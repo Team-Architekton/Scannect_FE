@@ -1,4 +1,10 @@
-const typography = {
+import { TextStyle } from 'react-native';
+
+type TypographyStyle = {
+	[key: string]: TextStyle;
+};
+
+const typography: TypographyStyle = {
 	h1: {
 		fontSize: 32,
 		fontWeight: '700',
