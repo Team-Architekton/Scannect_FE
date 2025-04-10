@@ -1,4 +1,4 @@
-export const Colors = {
+const colors = {
 	primary: '#05AA5B',
 	lightGreen: '#24D785',
 	paleGreen: 'rgba(238, 249, 243, 0.6)',
@@ -18,3 +18,5 @@ export const Colors = {
 	bgWhite: '#FFFFFF',
 	bgGray: '#EDEFF2',
 };
+
+export default colors;
