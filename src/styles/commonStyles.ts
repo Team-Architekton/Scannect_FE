@@ -4,16 +4,40 @@ import typography from './typography';
 import colors from './colors';
 
 const commonStyles = StyleSheet.create({
-	mainButton: {
+	buttonLarge: {
 		backgroundColor: colors.primary,
 		paddingVertical: 16,
-		paddingHorizontal: 20,
 		borderRadius: 8,
 		alignItems: 'center',
 	},
-	mainButtonText: {
+	buttonMedium: {
+		backgroundColor: colors.primary,
+		width: 160,
+		paddingVertical: 14,
+		borderRadius: 8,
+		alignItems: 'center',
+	},
+	buttonSmall: {
+		backgroundColor: colors.primary,
+		width: 90,
+		paddingVertical: 10,
+		borderRadius: 8,
+		alignItems: 'center',
+	},
+
+	buttonTextLarge: {
 		color: colors.white,
 		fontSize: 16,
+		fontWeight: '600',
+	},
+	buttonTextMedium: {
+		color: colors.white,
+		fontSize: 15,
+		fontWeight: '600',
+	},
+	buttonTextSmall: {
+		color: colors.white,
+		fontSize: 14,
 		fontWeight: '600',
 	},
 	sectionBox: {
