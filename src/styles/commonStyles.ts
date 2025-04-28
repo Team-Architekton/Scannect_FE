@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 import spacing from './spacing';
 import typography from './typography';
-import colors from './colors';
+import colors from './Colors';
 
 const commonStyles = StyleSheet.create({
 	buttonLarge: {

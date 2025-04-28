@@ -1,6 +1,6 @@
 import React from 'react';
 import { SafeAreaView, StyleSheet, ViewStyle, ViewProps, View } from 'react-native';
-import colors from '../styles/colors';
+import colors from '../styles/Colors';
 import spacing from '../styles/spacing';
 
 interface ScreenContainerProps extends ViewProps {

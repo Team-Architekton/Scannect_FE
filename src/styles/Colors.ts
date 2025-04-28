@@ -3,6 +3,7 @@ const colors = {
 	lightGreen: '#24D785',
 	paleGreen: 'rgba(238, 249, 243, 0.6)',
 	darkGreen: '#004131',
+	paleDarkGreen: 'rgba(198, 219, 208, 0.6)',
 
 	white: '#FFFFFF',
 	black: '#000000',
