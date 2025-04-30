@@ -30,6 +30,7 @@ module.exports = {
 		'@typescript-eslint/no-explicit-any': 'warn', // any 사용
 		'@typescript-eslint/no-empty-function': 'warn', // 빈 함수 허용
 		'import/no-duplicates': 'warn', // 동일한 모듈을 여러 번 import
+		'import/no-unresolved': 'off',
 		'import/order': [
 			'warn',
 			{
