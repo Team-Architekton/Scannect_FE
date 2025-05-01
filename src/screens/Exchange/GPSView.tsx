@@ -9,9 +9,10 @@ import { useGPSStore } from '../../store/gpsStore';
 import { useEffect } from 'react';
 import { dummyData } from '../../model/gpsUser';
 import spacing from '../../styles/spacing';
+import GPSOffView from '../../components/gps/GPSOffView';
 
 export default function GPSView() {
-	const { gpsUserList, selectedUserIds, setGPSUserList } = useGPSStore();
+	const { gpsUserList, selectedUserIds, setGPSUserList, isLocationOn } = useGPSStore();
 
 	useEffect(() => {
 		setGPSUserList(dummyData); 
@@ -23,7 +24,11 @@ export default function GPSView() {
 				<Text style={commonStyles.titleText}>명함 교환</Text>
 				<GPSSwitch></GPSSwitch>
 			</View>
-			<GPSSectionList data={gpsUserList} />
+			{isLocationOn ? (
+				<GPSSectionList data={gpsUserList} />
+			) : (
+				<GPSOffView />
+			)}
 			<View style={styles.footer}>
 			<CommonButton
 							title="선택한 유저와 교환"
