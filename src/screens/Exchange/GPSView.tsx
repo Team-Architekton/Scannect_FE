@@ -15,49 +15,45 @@ import ExchangeBottomSheet from '../../components/gps/ExchangeBottomSheet';
 export default function GPSView() {
 	const { gpsUserList, selectedUserIds, setGPSUserList, isLocationOn } = useGPSStore();
 	const [isBottomSheetVisible, setBottomSheetVisible] = useState(false);
-	
+
 	useEffect(() => {
-		setGPSUserList(dummyData); 
+		setGPSUserList(dummyData);
 	}, []);
 
 	const handleExchangeOption = (type: 'qr-generate' | 'qr-scan' | 'paper-scan') => {
-		console.log('선택한 방식:', type);
+		console.log('클릭한 뷰로 이동 :', type);
 		setBottomSheetVisible(false);
-	  };
-	
+	};
+
 	return (
 		<ScreenContainer>
 			<View style={styles.header}>
 				<Text style={commonStyles.titleText}>명함 교환</Text>
 				<GPSSwitch></GPSSwitch>
 			</View>
-			{isLocationOn ? (
-				<GPSSectionList data={gpsUserList} />
-			) : (
-				<GPSOffView />
-			)}
+			{isLocationOn ? <GPSSectionList data={gpsUserList} /> : <GPSOffView />}
 			<View style={styles.footer}>
 				<CommonButton
-								title="선택한 유저와 교환"
-								onPress={() => console.log(selectedUserIds)}
-								buttonStyle={{ marginTop: 18 }}
-								size='large'
-					/>
+					title="선택한 유저와 교환"
+					onPress={() => console.log(selectedUserIds)}
+					buttonStyle={{ marginTop: 18 }}
+					size="large"
+				/>
 				<CommonButton
-								title="다른 방법으로 교환"
-								onPress={() => setBottomSheetVisible(true)}
-								buttonStyle={{ marginTop: 18 }}
-								size='large'
-					/>
+					title="다른 방법으로 교환"
+					onPress={() => setBottomSheetVisible(true)}
+					buttonStyle={{ marginTop: 18 }}
+					size="large"
+				/>
 			</View>
 			<ExchangeBottomSheet
-  visible={isBottomSheetVisible}
-  onClose={() => setBottomSheetVisible(false)}
-  onSelect={(type) => {
-    handleExchangeOption(type)
-    setBottomSheetVisible(false);
-  }}
-/>			
+				visible={isBottomSheetVisible}
+				onClose={() => setBottomSheetVisible(false)}
+				onSelect={type => {
+					handleExchangeOption(type);
+					setBottomSheetVisible(false);
+				}}
+			/>
 		</ScreenContainer>
 	);
 }
@@ -72,4 +68,4 @@ const styles = StyleSheet.create({
 	footer: {
 		marginVertical: spacing.m,
 	},
-})
+});

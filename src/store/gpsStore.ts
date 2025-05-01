@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import { IGpsUser } from '../model/gpsUser';
+import * as Location from 'expo-location';
 
 type GPSStore = {
 	gpsUserList: IGpsUser[];
@@ -23,5 +24,22 @@ export const useGPSStore = create<GPSStore>(set => ({
 				: [...state.selectedUserIds, id];
 			return { selectedUserIds: newSelection };
 		}),
-	toggleLocation: () => set(state => ({ isLocationOn: !state.isLocationOn })),
+	toggleLocation: async () => {
+		const newStatus = !useGPSStore.getState().isLocationOn;
+
+		if (newStatus) {
+			const { status } = await Location.requestForegroundPermissionsAsync();
+			if (status !== 'granted') {
+				console.log('⛔ 위치 권한 거부됨');
+				useGPSStore.setState({ isLocationOn: false });
+				return;
+			}
+
+			const location = await Location.getCurrentPositionAsync({});
+			const { latitude, longitude } = location.coords;
+			console.log('📍 현재 위치:', { latitude, longitude });
+		}
+
+		useGPSStore.setState({ isLocationOn: newStatus });
+	},
 }));
