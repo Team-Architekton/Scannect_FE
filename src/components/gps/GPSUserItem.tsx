@@ -2,6 +2,8 @@ import { View, Text, StyleSheet, Pressable } from 'react-native';
 import { useGPSStore } from '../../store/gpsStore';
 import { IGpsUser } from '../../model/gpsUser';
 import colors from '../../styles/Colors';
+import spacing from '../../styles/spacing';
+import typography from '../../styles/typography';
 
 export default function GPSUserItem({ user }: { user: IGpsUser }) {
 	const { selectedUserIds, toggleSelectUser } = useGPSStore();
@@ -14,8 +16,8 @@ export default function GPSUserItem({ user }: { user: IGpsUser }) {
 		>
 			<View />
 			<View>
-				<Text style={styles.name}>{user.name}</Text>
-				<Text style={styles.detail}>
+				<Text style={typography.bodyBold}>{user.name}</Text>
+				<Text style={typography.caption}>
 					{user.job} / {user.company}
 				</Text>
 			</View>
@@ -27,14 +29,12 @@ const styles = StyleSheet.create({
 	item: {
 		flexDirection: 'row',
 		alignItems: 'center',
-		padding: 16,
+		padding: spacing.m,
 		borderRadius: 10,
 		backgroundColor: colors.grayscaleGray1,
-		marginVertical: 5,
+		marginVertical: spacing.xs,
 	},
 	selected: {
 		backgroundColor: colors.primary,
 	},
-	name: { fontSize: 16, fontWeight: 'bold' },
-	detail: { fontSize: 12, color: '#555' },
 });

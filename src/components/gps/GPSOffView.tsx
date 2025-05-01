@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
 	},
 	text: {
 		fontSize: 14,
-		color: colors.grayscaleGray5,
+		color: colors.grayscaleGray4,
 		marginVertical: 5,
 	},
 });

@@ -1,6 +1,7 @@
 import { View, Text, StyleSheet, Switch } from 'react-native';
 import colors from '../../styles/Colors';
 import { useGPSStore } from '../../store/gpsStore';
+import spacing from '../../styles/spacing';
 
 export default function GPSSwitch() {
 	const { isLocationOn, toggleLocation } = useGPSStore();
@@ -24,6 +25,6 @@ const styles = StyleSheet.create({
 	},
 	label: {
 		color: colors.grayscaleGray4,
-		marginRight: 8,
+		marginRight: spacing.s,
 	},
 });
