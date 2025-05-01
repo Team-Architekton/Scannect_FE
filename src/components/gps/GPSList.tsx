@@ -9,7 +9,6 @@ export default function GPSSectionList({ data }: { data: IGpsUser[] }) {
 			data={data}
 			keyExtractor={item => item.id.toString()}
 			renderItem={({ item }) => <GPSUserItem user={item} />}
-			scrollEnabled={false}
 		/>
 	);
 }

@@ -3,18 +3,25 @@ import { IGpsUser } from '../model/gpsUser';
 
 type GPSStore = {
 	gpsUserList: IGpsUser[];
-	selectedUserId: number | null;
+	selectedUserIds: number[];
 	setGPSUserList: (list: IGpsUser[]) => void;
-	selectUser: (id: number) => void;
+	toggleSelectUser: (id: number) => void;
 	toggleLocation: () => void;
 	isLocationOn: boolean;
 };
 
 export const useGPSStore = create<GPSStore>(set => ({
 	gpsUserList: [],
-	selectedUserId: null,
+	selectedUserIds: [],
 	isLocationOn: false,
 	setGPSUserList: list => set({ gpsUserList: list }),
-	selectUser: id => set({ selectedUserId: id }),
+	toggleSelectUser: id =>
+		set(state => {
+			const isSelected = state.selectedUserIds.includes(id);
+			const newSelection = isSelected
+				? state.selectedUserIds.filter(userId => userId !== id)
+				: [...state.selectedUserIds, id];
+			return { selectedUserIds: newSelection };
+		}),
 	toggleLocation: () => set(state => ({ isLocationOn: !state.isLocationOn })),
 }));

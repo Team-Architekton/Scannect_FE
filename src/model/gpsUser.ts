@@ -36,4 +36,34 @@ export const dummyData: IGpsUser[] = [
 		job: '백엔드 인턴',
 		company: '무슨무슨회사',
 	},
+	{
+		id: 6,
+		name: '김선우',
+		job: 'iOS 개발자',
+		company: '김컴퍼니',
+	},
+	{
+		id: 21,
+		name: '박유진',
+		job: '프론트엔드 엔지니어',
+		company: '아키텍톤',
+	},
+	{
+		id: 31,
+		name: '조영은',
+		job: '기획자',
+		company: '아키텍톤',
+	},
+	{
+		id: 41,
+		name: '이구매',
+		job: '구매팀 대리',
+		company: '무슨무슨회사',
+	},
+	{
+		id: 51,
+		name: '박개발',
+		job: '백엔드 인턴',
+		company: '무슨무슨회사',
+	},
 ];
