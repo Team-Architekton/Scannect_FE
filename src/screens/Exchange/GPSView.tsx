@@ -28,7 +28,10 @@ export default function GPSView() {
 	return (
 		<ScreenContainer>
 			<View style={styles.header}>
-				<Text style={commonStyles.titleText}>명함 교환</Text>
+				<View style={styles.headerText}>
+					<Text style={commonStyles.titleText}>명함 교환</Text>
+					<Text style={commonStyles.captionText}>교환 할 유저를 선택하세요</Text>
+				</View>
 				<GPSSwitch></GPSSwitch>
 			</View>
 			{isLocationOn ? <GPSSectionList data={gpsUserList} /> : <GPSOffView />}
@@ -36,13 +39,13 @@ export default function GPSView() {
 				<CommonButton
 					title="선택한 유저와 교환"
 					onPress={() => console.log(selectedUserIds)}
-					buttonStyle={{ marginTop: 18 }}
+					buttonStyle={{ marginTop: spacing.s }}
 					size="large"
 				/>
 				<CommonButton
 					title="다른 방법으로 교환"
 					onPress={() => setBottomSheetVisible(true)}
-					buttonStyle={{ marginTop: 18 }}
+					buttonStyle={{ marginTop: spacing.s }}
 					size="large"
 				/>
 			</View>
@@ -64,6 +67,11 @@ const styles = StyleSheet.create({
 		justifyContent: 'space-between',
 		alignItems: 'center',
 		marginVertical: spacing.m,
+	},
+	headerText: {
+		flexDirection: 'column',
+		justifyContent: 'space-evenly',
+		alignItems: 'flex-start',
 	},
 	footer: {
 		marginVertical: spacing.m,
