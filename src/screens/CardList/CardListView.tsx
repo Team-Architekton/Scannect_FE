@@ -10,6 +10,7 @@ import CardSectionList from '../../components/cardList/CardSectionList';
 import { useCardStore } from '../../store/cardStore';
 import { dummyData } from '../../model/cardItem';
 import CommonButton from '../../components/CommonButton';
+import spacing from '../../styles/spacing';
 
 // 안드로이드 환경에서도 레이아웃 애니메이션 동작하도록 설정
 if (Platform.OS === 'android' && UIManager.setLayoutAnimationEnabledExperimental) {
@@ -39,7 +40,7 @@ export default function CardListView({ navigation }: any) {
 						<CommonButton
 							title="명함 교환하러 가기"
 							onPress={() => console.log('clicked')}
-							buttonStyle={{ marginTop: 18 }}
+							buttonStyle={{ marginTop: spacing.m }}
 						/>
 					</View>
 				) : (
