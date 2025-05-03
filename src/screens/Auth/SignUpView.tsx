@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import AuthTextInput from '../../components/auth/AuthTextInput';
 import CommonButton from '../../components/CommonButton';
@@ -48,15 +47,13 @@ const styles = StyleSheet.create({
 	container: {
 		flex: 1,
 		justifyContent: 'space-between',
-		paddingHorizontal: 20,
-		paddingTop: 80,
+		paddingHorizontal: spacing.l,
 	},
 	title: {
-		marginTop: 50,
-		marginBottom: 20,
+		marginBottom: spacing.l,
 	},
 	inputGroup: {
 		marginTop: 100,
-		marginBottom: 40,
+		marginBottom: spacing.xxl,
 	},
 });

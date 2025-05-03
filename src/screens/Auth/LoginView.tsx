@@ -1,6 +1,5 @@
 import { View, Text, StyleSheet } from 'react-native';
 import CommonButton from '../../components/CommonButton';
-import { useState } from 'react';
 import typography from '../../styles/typography';
 import AuthTextInput from '../../components/auth/AuthTextInput';
 import spacing from '../../styles/spacing';
@@ -38,7 +37,7 @@ export default function LoginView() {
 
 const styles = StyleSheet.create({
 	container: {
-		padding: 24,
+		padding: spacing.l,
 		justifyContent: 'center',
 		flex: 1,
 	},
@@ -47,7 +46,7 @@ const styles = StyleSheet.create({
 		marginBottom: spacing.l,
 	},
 	inputGroup: {
-		gap: spacing.s, // 입력 필드 간격
+		gap: spacing.s,
 	},
 	buttonGroup: {
 		marginTop: spacing.xxl,
