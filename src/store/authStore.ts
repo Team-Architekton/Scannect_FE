@@ -14,8 +14,10 @@ type AuthStore = {
 	setName: (value: string) => void;
 	setId: (value: string) => void;
 	setPassword: (value: string) => void;
-	validateFields: () => boolean;
+	validateFields: (type: 'login' | 'signup') => boolean;
 	clearErrors: () => void;
+	signUp: () => void;
+	login: () => void;
 };
 
 export const useAuthStore = create<AuthStore>((set, get) => ({
@@ -30,11 +32,11 @@ export const useAuthStore = create<AuthStore>((set, get) => ({
 
 	clearErrors: () => set({ errors: {} }),
 
-	validateFields: () => {
+	validateFields: type => {
 		const { name, id, password } = get();
 		const newErrors: AuthError = {};
 
-		if (name.length > 10) newErrors.name = '이름은 10자 이하로 입력해주세요';
+		if (type === 'signup' && name.length > 10) newErrors.name = '이름은 10자 이하로 입력해주세요';
 		if (id.length < 6 || id.length > 20)
 			newErrors.id = '아이디는 6자 이상 20자 이하로 입력해주세요';
 		if (password.length < 6 || password.length > 20)
@@ -42,5 +44,25 @@ export const useAuthStore = create<AuthStore>((set, get) => ({
 
 		set({ errors: newErrors });
 		return Object.keys(newErrors).length === 0;
+	},
+
+	signUp: () => {
+		const { name, id, password, validateFields } = get();
+		if (validateFields('signup')) {
+			console.log('회원가입 요청:', { name, id, password });
+			// 추후 서버 통신 위치
+		} else {
+			console.log('회원가입 유효성 실패');
+		}
+	},
+
+	login: () => {
+		const { id, password, validateFields } = get();
+		if (validateFields('login')) {
+			console.log('로그인 요청:', { id, password });
+			// 추후 서버 통신 위치
+		} else {
+			console.log('로그인 유효성 실패');
+		}
 	},
 }));

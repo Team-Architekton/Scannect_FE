@@ -1,4 +1,4 @@
-import { TextInput, StyleSheet } from 'react-native';
+import { TextInput, StyleSheet, View, Text } from 'react-native';
 import colors from '../../styles/Colors';
 import spacing from '../../styles/spacing';
 
@@ -7,6 +7,7 @@ interface Props {
 	value: string;
 	onChangeText: (text: string) => void;
 	secureTextEntry?: boolean;
+	errorMessage?: string;
 }
 
 export default function AuthTextInput({
@@ -14,25 +15,39 @@ export default function AuthTextInput({
 	value,
 	onChangeText,
 	secureTextEntry,
+	errorMessage,
 }: Props) {
 	return (
-		<TextInput
-			style={styles.input}
-			placeholder={placeholder}
-			value={value}
-			onChangeText={onChangeText}
-			secureTextEntry={secureTextEntry}
-			placeholderTextColor={colors.grayscaleGray4}
-		/>
+		<View style={styles.wrapper}>
+			<TextInput
+				placeholder={placeholder}
+				value={value}
+				onChangeText={onChangeText}
+				secureTextEntry={secureTextEntry}
+				style={[styles.input, errorMessage && styles.errorInput]}
+			/>
+			{errorMessage && <Text style={styles.errorText}>{errorMessage}</Text>}
+		</View>
 	);
 }
 
 const styles = StyleSheet.create({
+	wrapper: {
+		marginBottom: spacing.s,
+	},
 	input: {
 		height: 48,
 		borderBottomWidth: 1,
 		borderBottomColor: colors.grayscaleGray4,
 		marginBottom: spacing.m,
 		paddingHorizontal: spacing.s,
+	},
+	errorInput: {
+		borderColor: 'red',
+	},
+	errorText: {
+		color: 'red',
+		marginTop: 4,
+		fontSize: 12,
 	},
 });
