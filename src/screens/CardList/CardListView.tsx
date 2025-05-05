@@ -8,6 +8,7 @@ import SearchInput from '../../components/cardList/SearchInput';
 import SortDropDown from '../../components/cardList/SortDropDown';
 import CardSectionList from '../../components/cardList/CardSectionList';
 import CommonButton from '../../components/CommonButton';
+import CardBottomSheet from '../../components/cardList/CardBottomSheet';
 import { useCardStore } from '../../store/cardStore';
 import { dummyData } from '../../model/cardItem';
 
@@ -46,6 +47,7 @@ export default function CardListView({ navigation }: any) {
 					<CardSectionList />
 				)}
 			</View>
+			<CardBottomSheet />
 		</ScreenContainer>
 	);
 }
