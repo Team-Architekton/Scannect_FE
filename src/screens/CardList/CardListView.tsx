@@ -40,7 +40,7 @@ export default function CardListView({ navigation }: any) {
 						<CommonButton
 							title="명함 교환하러 가기"
 							onPress={() => console.log('clicked')}
-							buttonStyle={{ marginTop: 18 }}
+							buttonStyle={{ marginTop: spacing.m }}
 						/>
 					</View>
 				) : (

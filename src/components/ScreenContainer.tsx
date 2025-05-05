@@ -14,7 +14,7 @@ const ScreenContainer = ({
 	children,
 	style,
 	noPadding = false,
-	backgroundColor = colors.white,
+	backgroundColor = colors.bgWhite,
 	...props
 }: ScreenContainerProps) => {
 	return (
