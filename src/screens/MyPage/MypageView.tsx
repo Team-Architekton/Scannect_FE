@@ -1,4 +1,4 @@
-import { Pressable, View } from 'react-native';
+import { Pressable, ScrollView, View } from 'react-native';
 import ScreenContainer from '../../components/ScreenContainer';
 import Header from '../../components/mypage/Header';
 import CardPreview from '../../components/mypage/CardPreview';
@@ -11,13 +11,16 @@ export default function MyPage() {
 
 	return (
 		<ScreenContainer>
-			<Pressable onPress={clearAllPopups} style={{ flex: 1 }}>
-				<View style={{ gap: spacing.m }}>
+			<ScrollView
+				contentContainerStyle={{ paddingVertical: spacing.l }}
+				showsVerticalScrollIndicator={false}
+			>
+				<Pressable onPress={clearAllPopups} style={{ flex: 1, gap: spacing.m }}>
 					<Header />
 					<CardPreview />
 					<ProfileSection />
-				</View>
-			</Pressable>
+				</Pressable>
+			</ScrollView>
 		</ScreenContainer>
 	);
-}
+};
