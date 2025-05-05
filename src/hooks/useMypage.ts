@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useMypageStore } from '../store/myPageStore';
+import { useMypageStore } from '../store/useMyPageStore';
 import { Card } from '../model/card';
 
 export function useMypage() {

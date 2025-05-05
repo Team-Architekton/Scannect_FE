@@ -1,19 +1,15 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Alert } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Alert, TouchableWithoutFeedback } from 'react-native';
 import Entypo from '@expo/vector-icons/Entypo';
 import { useMypage } from '../../../hooks/useMypage';
 import ColorPickerModal from './ColorPicker';
 import colors from '../../../styles/Colors';
+import { useUiStore } from '../../../store/useUiStore';
 
 const Hamburger = () => {
-	const [visible, setVisible] = useState(false);
 	const [showColorPicker, setShowColorPicker] = useState(false);
-	const {
-		selectedCard,
-		setDefaultCard,
-		deleteCard,
-		updateCardColor,
-	} = useMypage();
+	const { selectedCard, setDefaultCard, deleteCard, updateCardColor } = useMypage();
+	const { hamburgerOpen: visible, setHamburgerOpen: setVisible } = useUiStore();
 
 	const handleAction = (action: string) => {
 		setVisible(false);
@@ -48,9 +44,7 @@ const Hamburger = () => {
 
 	const menuItems = [
 		'명함 색상 지정',
-		...(selectedCard?.isDefault
-			? ['수정', '삭제']
-			: ['기본 명함 지정', '수정', '삭제']),
+		...(selectedCard?.isDefault ? ['수정', '삭제'] : ['기본 명함 지정', '수정', '삭제']),
 	];
 
 	return (
@@ -61,19 +55,24 @@ const Hamburger = () => {
 				</TouchableOpacity>
 
 				{visible && (
-					<View style={styles.dropdownWrapper}>
-						<View style={styles.dropdown}>
-							{menuItems.map(item => (
-								<TouchableOpacity
-									key={item}
-									style={styles.item}
-									onPress={() => handleAction(item)}
-								>
-									<Text>{item}</Text>
-								</TouchableOpacity>
-							))}
+					<>
+						<TouchableWithoutFeedback onPress={() => setVisible(false)}>
+							<View style={styles.overlay} />
+						</TouchableWithoutFeedback>
+						<View style={styles.dropdownWrapper}>
+							<View style={styles.dropdown}>
+								{menuItems.map(item => (
+									<TouchableOpacity
+										key={item}
+										style={styles.item}
+										onPress={() => handleAction(item)}
+									>
+										<Text>{item}</Text>
+									</TouchableOpacity>
+								))}
+							</View>
 						</View>
-					</View>
+					</>
 				)}
 			</View>
 
@@ -89,6 +88,11 @@ const Hamburger = () => {
 const styles = StyleSheet.create({
 	container: {
 		position: 'relative',
+	},
+	overlay: {
+		position: 'absolute',
+		top: 0, left: 0, right: 0, bottom: 0,
+		zIndex: 9,
 	},
 	dropdownWrapper: {
 		position: 'absolute',

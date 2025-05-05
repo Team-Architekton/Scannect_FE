@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { useMypage } from '../../../hooks/useMypage';
-import { useMypageStore } from '../../../store/myPageStore';
+import { useMypageStore } from '../../../store/useMyPageStore';
 import { Card } from '../../../model/card';
 import spacing from '../../../styles/spacing';
 import colors from '../../../styles/Colors';
 import AntDesign from '@expo/vector-icons/AntDesign';
+import { useUiStore } from '../../../store/useUiStore';
 
 const DropdownMenu: React.FC = () => {
 	const { selectedCard, setSelectedCard } = useMypageStore();
 	const { cards } = useMypage();
-	const [open, setOpen] = useState(false);
+	const { dropdownOpen: open, setDropdownOpen: setOpen } = useUiStore();
 
 	useEffect(() => {
 		if (!selectedCard && cards.length > 0) {
@@ -39,29 +40,31 @@ const DropdownMenu: React.FC = () => {
 			</TouchableOpacity>
 
 			{open && (
-				<View style={styles.dropdownList}>
-					{sortedCards.map(card => (
-						<TouchableOpacity
-							key={card.id}
-							style={styles.dropdownItem}
-							onPress={() => handleSelect(card)}
-						>
-							<View style={styles.cardRow}>
-								<Text>{card.title}</Text>
-								{card.isDefault && (
-									<Text style={styles.defaultBadge}>기본</Text>
-								)}
-							</View>
-						</TouchableOpacity>
-					))}
-					<View style={styles.divider} />
+				<>
 					<TouchableOpacity
-						style={styles.dropdownItem}
-						onPress={() => handleSelect('new')}
-					>
-						<Text style={styles.createCardText}>+ 새로운 명함 생성</Text>
-					</TouchableOpacity>
-				</View>
+						style={styles.overlay}
+						onPress={() => setOpen(false)}
+						activeOpacity={1}
+					/>
+					<View style={styles.dropdownList}>
+						{sortedCards.map(card => (
+							<TouchableOpacity
+								key={card.id}
+								style={styles.dropdownItem}
+								onPress={() => handleSelect(card)}
+							>
+								<View style={styles.cardRow}>
+									<Text>{card.title}</Text>
+									{card.isDefault && <Text style={styles.defaultBadge}>기본</Text>}
+								</View>
+							</TouchableOpacity>
+						))}
+						<View style={styles.divider} />
+						<TouchableOpacity style={styles.dropdownItem} onPress={() => handleSelect('new')}>
+							<Text style={styles.createCardText}>+ 새로운 명함 생성</Text>
+						</TouchableOpacity>
+					</View>
+				</>
 			)}
 		</View>
 	);
@@ -88,6 +91,14 @@ const styles = StyleSheet.create({
 		flexDirection: 'row',
 		alignItems: 'center',
 		gap: 8,
+	},
+	overlay: {
+		position: 'absolute',
+		top: 0,
+		left: 0,
+		right: 0,
+		bottom: 0,
+		zIndex: 9,
 	},
 	dropdownList: {
 		position: 'absolute',

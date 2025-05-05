@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { useMypageStore } from '../../store/myPageStore';
+import { useMypageStore } from '../../store/useMyPageStore';
 import colors from '../../styles/Colors';
 import spacing from '../../styles/spacing';
 import { Feather, Entypo } from '@expo/vector-icons';
