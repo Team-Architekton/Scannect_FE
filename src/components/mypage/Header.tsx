@@ -1,11 +1,22 @@
-import React, { useState } from 'react';
-import { Text, View } from 'react-native';
+import { View, StyleSheet  } from 'react-native';
 import Dropdown from './elements/Dropdown';
+import Hamburger from './elements/Hamburger';
 
 export default function Header() {
 	return (
-		<View>
-			<Dropdown/>
+		<View style={styles.container}>
+			<Dropdown />
+			<Hamburger />
 		</View>
 	);
-};
+}
+
+const styles = StyleSheet.create({
+	container: {
+		flexDirection: 'row',
+		justifyContent: 'center',
+		alignItems: 'center',
+		position: 'relative',
+		zIndex: 1,
+	},
+});
