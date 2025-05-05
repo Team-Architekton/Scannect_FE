@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
 		elevation: 3,
 	},
 	company: {
-		fontSize: 14,
+		fontSize: 18,
 		fontWeight: 'bold',
 		marginBottom: spacing.sm,
 	},

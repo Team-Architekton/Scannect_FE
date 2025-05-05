@@ -77,8 +77,7 @@ const styles = StyleSheet.create({
 		position: 'relative',
 	},
 	dropdownHeader: {
-		paddingVertical: spacing.sm,
-		paddingHorizontal: spacing.m,
+		padding: spacing.s,
 		backgroundColor: colors.white,
 		borderRadius: 8,
 		borderWidth: 1,
@@ -102,7 +101,7 @@ const styles = StyleSheet.create({
 	},
 	dropdownList: {
 		position: 'absolute',
-		top: 50,
+		top: 40,
 		left: 0,
 		zIndex: 10,
 		width: 180,

@@ -17,7 +17,7 @@ export function useMypage() {
 				email: 'yujin@daangn.com',
 				website: 'https://daangn.com',
 				isDefault: true,
-				profileImage: 'https://example.com/profile.jpg',
+				profileImage: 'https://randomuser.me/api/portraits/women/21.jpg',
 				introduction: '안녕하세요! 당근마켓 프론트엔드 개발자 박유진입니다 😊',
 				landline: '02-123-4567',
 				category: 'IT/개발',

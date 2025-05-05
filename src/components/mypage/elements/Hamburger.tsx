@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
 	},
 	dropdownWrapper: {
 		position: 'absolute',
-		top: 32,
+		top: 25,
 		right: 0,
 		zIndex: 10,
 	},
