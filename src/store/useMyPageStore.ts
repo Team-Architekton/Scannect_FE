@@ -1,5 +1,4 @@
 import { create } from 'zustand';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Card } from '../model/card';
 
 type MypageStore = {
@@ -18,12 +17,10 @@ export const useMypageStore = create<MypageStore>((set, get) => ({
 		if (cards.length > 0) {
 			const stored = cards.find(c => c.isDefault) ?? cards[0];
 			set({ selectedCard: stored });
-			AsyncStorage.setItem('selectedCard', JSON.stringify(stored));
 		}
 	},
 
 	setSelectedCard: card => {
 		set({ selectedCard: card });
-		AsyncStorage.setItem('selectedCard', JSON.stringify(card));
 	},
 }));
