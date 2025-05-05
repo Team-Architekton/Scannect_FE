@@ -23,7 +23,7 @@ export default function CardBottomSheet() {
 						text: '확인',
 						onPress: () => {
 							hideCard(cardId, newStatus);
-							Alert.alert('명함이 숨김 처리되었습니다');
+							Alert.alert('명함이 숨김 처리되었습니다.');
 						},
 					},
 					{ text: '취소' },
@@ -31,7 +31,7 @@ export default function CardBottomSheet() {
 			} else {
 				// 명함을 숨김 해제하는 경우
 				hideCard(cardId, newStatus);
-				Alert.alert('명함 숨김이 해제되었습니다');
+				Alert.alert('명함 숨김이 해제되었습니다.');
 			}
 		} catch {
 			Alert.alert('처리에 실패했습니다. 잠시 후 다시 시도해주세요.');
