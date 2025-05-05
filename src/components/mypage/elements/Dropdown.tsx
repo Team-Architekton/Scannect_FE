@@ -18,11 +18,14 @@ const DropdownMenu: React.FC = () => {
 		}
 	}, [cards, selectedCard]);
 
+	const sortedCards = [...cards].sort((a, b) =>
+		a.isDefault === b.isDefault ? 0 : a.isDefault ? -1 : 1
+	);
+
 	const handleSelect = (card: Card | 'new') => {
 		setOpen(false);
 		if (card === 'new') {
 			console.log('명함 생성 뷰로 이동!');
-			// navigation.navigate('CardCreate');
 		} else {
 			setSelectedCard(card);
 		}
@@ -37,13 +40,18 @@ const DropdownMenu: React.FC = () => {
 
 			{open && (
 				<View style={styles.dropdownList}>
-					{cards.map(card => (
+					{sortedCards.map(card => (
 						<TouchableOpacity
 							key={card.id}
 							style={styles.dropdownItem}
 							onPress={() => handleSelect(card)}
 						>
-							<Text>{card.title}</Text>
+							<View style={styles.cardRow}>
+								<Text>{card.title}</Text>
+								{card.isDefault && (
+									<Text style={styles.defaultBadge}>기본</Text>
+								)}
+							</View>
 						</TouchableOpacity>
 					))}
 					<View style={styles.divider} />
@@ -51,7 +59,7 @@ const DropdownMenu: React.FC = () => {
 						style={styles.dropdownItem}
 						onPress={() => handleSelect('new')}
 					>
-						<Text style={styles.createCardText}>새로운 명함 생성</Text>
+						<Text style={styles.createCardText}>+ 새로운 명함 생성</Text>
 					</TouchableOpacity>
 				</View>
 			)}
@@ -86,7 +94,7 @@ const styles = StyleSheet.create({
 		top: 50,
 		left: 0,
 		zIndex: 10,
-		width: 160,
+		width: 180,
 		borderRadius: 8,
 		backgroundColor: colors.white,
 		borderWidth: 1,
@@ -100,6 +108,20 @@ const styles = StyleSheet.create({
 	dropdownItem: {
 		paddingVertical: 12,
 		paddingHorizontal: 16,
+	},
+	cardRow: {
+		flexDirection: 'row',
+		justifyContent: 'space-between',
+		alignItems: 'flex-end',
+	},
+	defaultBadge: {
+		fontSize: 10,
+		color: colors.primary,
+		paddingHorizontal: 6,
+		paddingVertical: 2,
+		borderRadius: 6,
+		backgroundColor: colors.grayscaleGray1,
+		marginLeft: 8,
 	},
 	createCardText: {
 		color: colors.primary,
