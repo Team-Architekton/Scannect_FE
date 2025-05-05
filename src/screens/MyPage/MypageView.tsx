@@ -1,10 +1,18 @@
-import { Text, View, Button } from 'react-native';
+import ScreenContainer from '../../components/ScreenContainer';
+import Header from '../../components/mypage/Header';
+import CardPreview from '../../components/mypage/CardPreview';
+import ProfileSection from '../../components/mypage/ProfileSection';
+import spacing from '../../styles/spacing';
+import { View } from 'react-native';
 
-export default function MyPage({ navigation }: any) {
+export default function MyPage() {
 	return (
-		<View>
-			<Text>마이페이지</Text>
-			<Button title="명함 생성" onPress={() => navigation.navigate('명함 생성')} />
-		</View>
+		<ScreenContainer>
+			<View style={{ gap: spacing.m }}>
+				<Header />
+				<CardPreview />
+				<ProfileSection />
+			</View>
+		</ScreenContainer>
 	);
 }

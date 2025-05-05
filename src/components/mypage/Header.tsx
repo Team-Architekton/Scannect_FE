@@ -1,6 +1,7 @@
 import { View, StyleSheet  } from 'react-native';
 import Dropdown from './elements/Dropdown';
 import Hamburger from './elements/Hamburger';
+import spacing from '../../styles/spacing';
 
 export default function Header() {
 	return (
@@ -13,6 +14,7 @@ export default function Header() {
 
 const styles = StyleSheet.create({
 	container: {
+		paddingHorizontal: spacing.sm,
 		flexDirection: 'row',
 		justifyContent: 'center',
 		alignItems: 'center',

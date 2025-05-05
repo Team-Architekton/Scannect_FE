@@ -14,14 +14,15 @@ const DropdownMenu: React.FC = () => {
 
 	useEffect(() => {
 		if (!selectedCard && cards.length > 0) {
-			setSelectedCard(cards[0]);
+			setSelectedCard(cards.find(c => c.isDefault) ?? cards[0]);
 		}
 	}, [cards, selectedCard]);
 
-	const handleSelect = (card: Card) => {
+	const handleSelect = (card: Card | 'new') => {
 		setOpen(false);
-		if (card.name === '새 명함 생성') {
-			console.log('새 명함 생성뷰로~');
+		if (card === 'new') {
+			console.log('명함 생성 뷰로 이동!');
+			// navigation.navigate('CardCreate');
 		} else {
 			setSelectedCard(card);
 		}
@@ -30,7 +31,7 @@ const DropdownMenu: React.FC = () => {
 	return (
 		<View style={styles.container}>
 			<TouchableOpacity style={styles.dropdownHeader} onPress={() => setOpen(!open)}>
-				<Text>{selectedCard?.name}</Text>
+				<Text>{selectedCard?.title ?? '명함 선택'}</Text>
 				<AntDesign name="caretdown" size={12} color="black" />
 			</TouchableOpacity>
 
@@ -42,9 +43,16 @@ const DropdownMenu: React.FC = () => {
 							style={styles.dropdownItem}
 							onPress={() => handleSelect(card)}
 						>
-							<Text>{card.name}</Text>
+							<Text>{card.title}</Text>
 						</TouchableOpacity>
 					))}
+					<View style={styles.divider} />
+					<TouchableOpacity
+						style={styles.dropdownItem}
+						onPress={() => handleSelect('new')}
+					>
+						<Text style={styles.createCardText}>새로운 명함 생성</Text>
+					</TouchableOpacity>
 				</View>
 			)}
 		</View>
@@ -92,6 +100,15 @@ const styles = StyleSheet.create({
 	dropdownItem: {
 		paddingVertical: 12,
 		paddingHorizontal: 16,
+	},
+	createCardText: {
+		color: colors.primary,
+		fontWeight: 'bold',
+	},
+	divider: {
+		height: 1,
+		backgroundColor: colors.grayscaleGray2,
+		marginVertical: 4,
 	},
 });
 
