@@ -14,7 +14,7 @@ export default function IntroductionSection() {
 		<View style={styles.container}>
 			<Image source={{ uri: selectedCard.profileImage }} style={styles.profileImage} />
 			<View style={styles.textContainer}>
-				<Text style={[typography.h2]}>자기소개</Text>
+				<Text style={[typography.h2, styles.text]}>자기소개</Text>
 				<View style={styles.divider} />
 				<Text style={styles.introText}>{selectedCard.introduction}</Text>
 			</View>
@@ -25,9 +25,9 @@ export default function IntroductionSection() {
 const styles = StyleSheet.create({
 	container: {
 		flexDirection: 'row',
-		alignItems: 'center',
+		alignItems: 'flex-end',
 		gap: spacing.m,
-		marginTop: spacing.ml,
+		marginTop: spacing.s,
 	},
 	profileImage: {
 		width: 90,
@@ -39,6 +39,10 @@ const styles = StyleSheet.create({
 		flex: 1,
 		gap: 7,
 	},
+    text: {
+        marginTop: spacing.l,
+		marginBottom: spacing.xs,
+    },
 	divider: {
 		height: 2,
 		backgroundColor: colors.grayscaleGray3,
