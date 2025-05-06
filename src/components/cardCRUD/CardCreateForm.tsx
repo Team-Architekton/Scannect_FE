@@ -1,12 +1,17 @@
 import LabeledInput from '../../components/cardCRUD/LabeledInput';
 import { useCardForm } from '../../hooks/useCardForm';
 import LabeledTextarea from './LabeledTextarea';
+import ProfileImagePicker from './Profile';
 
 export default function CardCreateForm() {
 	const { form, errors, handleChange, validateField } = useCardForm();
 
 	return (
 		<>
+            <ProfileImagePicker
+                imageUri={form.profileImage ?? null}
+                onChange={uri => handleChange('profileImage', uri)}
+            />
 			<LabeledTextarea
 				label="자기소개"
 				value={form.introduction ?? ''}

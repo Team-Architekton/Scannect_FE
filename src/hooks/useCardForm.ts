@@ -15,7 +15,7 @@ export function useCardForm(initial: Partial<CardForm> = {}) {
 		website: '',
 		introduction: '',
 		landline: '',
-		profileImage: '',
+		profileImage: null,
 		category: '',
 		color: '',
 		...initial,
@@ -23,7 +23,7 @@ export function useCardForm(initial: Partial<CardForm> = {}) {
 
 	const [errors, setErrors] = useState<CardFormErrors>({});
 
-	const handleChange = (key: keyof CardForm, value: string) => {
+	const handleChange = (key: keyof CardForm, value: string | null) => {
 		setForm(prev => ({ ...prev, [key]: value }));
 		setErrors(prev => ({ ...prev, [key]: undefined }));
 	};

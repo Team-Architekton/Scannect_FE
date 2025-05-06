@@ -9,9 +9,9 @@ export interface Card {
 	website: string;
 	isDefault: boolean;
 
-	profileImage?: string;
+	profileImage?: string | null;
 	introduction?: string;
 	landline?: string;
 	category?: string;
 	color?: string;
-}
+};
