@@ -22,6 +22,7 @@ export default function AuthTextInput({
 			<TextInput
 				placeholder={placeholder}
 				value={value}
+				autoCapitalize="none"
 				onChangeText={onChangeText}
 				secureTextEntry={secureTextEntry}
 				style={[styles.input, errorMessage && styles.errorInput]}
@@ -36,7 +37,7 @@ const styles = StyleSheet.create({
 		marginBottom: spacing.s,
 	},
 	input: {
-		height: 48,
+		height: spacing.xxxl,
 		borderBottomWidth: 1,
 		borderBottomColor: colors.grayscaleGray4,
 		marginBottom: spacing.m,
@@ -47,7 +48,7 @@ const styles = StyleSheet.create({
 	},
 	errorText: {
 		color: 'red',
-		marginTop: 4,
+		marginTop: spacing.xs,
 		fontSize: 12,
 	},
 });
