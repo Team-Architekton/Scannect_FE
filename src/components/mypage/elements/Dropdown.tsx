@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
+import { useNavigation } from '@react-navigation/native';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { useMypage } from '../../../hooks/useMypage';
 import { useMypageStore } from '../../../store/useMyPageStore';
@@ -12,6 +13,7 @@ const DropdownMenu: React.FC = () => {
 	const { selectedCard, setSelectedCard } = useMypageStore();
 	const { cards } = useMypage();
 	const { dropdownOpen: open, setDropdownOpen: setOpen } = useUiStore();
+	const navigation = useNavigation<any>();
 
 	useEffect(() => {
 		if (!selectedCard && cards.length > 0) {
@@ -26,7 +28,7 @@ const DropdownMenu: React.FC = () => {
 	const handleSelect = (card: Card | 'new') => {
 		setOpen(false);
 		if (card === 'new') {
-			console.log('명함 생성 뷰로 이동!');
+			navigation.navigate('명함 생성');
 		} else {
 			setSelectedCard(card);
 		}
