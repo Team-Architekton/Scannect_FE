@@ -1,5 +1,4 @@
 import { create } from 'zustand';
-
 import { ICardItem } from '../model/cardItem';
 
 type CardStore = {
@@ -16,9 +15,7 @@ type CardStore = {
 };
 
 export const useCardStore = create<CardStore>((set, get) => ({
-	// GET 해온 전체 명함 목록 (임시 더미데이터)
 	cardList: [],
-	// 실제 렌더링 할 명함 목록 (중요 인맥, 일반 명함, 숨긴 명함)
 	renderingList: {
 		importantCards: [],
 		commonCards: [],
