@@ -7,10 +7,10 @@ import ScreenContainer from '../../components/ScreenContainer';
 import SearchInput from '../../components/cardList/SearchInput';
 import SortDropDown from '../../components/cardList/SortDropDown';
 import CardSectionList from '../../components/cardList/CardSectionList';
+import CommonButton from '../../components/CommonButton';
+import CardBottomSheet from '../../components/cardList/CardBottomSheet';
 import { useCardStore } from '../../store/cardStore';
 import { dummyData } from '../../model/cardItem';
-import CommonButton from '../../components/CommonButton';
-import spacing from '../../styles/spacing';
 
 // 안드로이드 환경에서도 레이아웃 애니메이션 동작하도록 설정
 if (Platform.OS === 'android' && UIManager.setLayoutAnimationEnabledExperimental) {
@@ -26,7 +26,7 @@ export default function CardListView({ navigation }: any) {
 
 	return (
 		<ScreenContainer>
-			<View style={{ ...commonStyles.sectionBox, height: '100%' }}>
+			<View style={{ height: '100%' }}>
 				<Text style={styles.headerTitle}>명함 리스트</Text>
 				<SearchInput />
 				<View style={styles.mainLabelWrapper}>
@@ -47,6 +47,7 @@ export default function CardListView({ navigation }: any) {
 					<CardSectionList />
 				)}
 			</View>
+			<CardBottomSheet />
 		</ScreenContainer>
 	);
 }
