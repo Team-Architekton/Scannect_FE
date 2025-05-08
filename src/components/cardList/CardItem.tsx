@@ -5,8 +5,10 @@ import { Ionicons, AntDesign } from '@expo/vector-icons';
 import colors from '../../styles/Colors';
 import typography from '../../styles/typography';
 import { ICardItem } from '../../model/cardItem';
+import { useModalStore } from '../../store/modalStore';
 
 export default function CardItem(props: ICardItem) {
+	const { isModalOpen, selectedCardId, openModal } = useModalStore();
 	const [isImportant, setIsImportant] = useState(props.favorite);
 	const toggleHeart = () => {
 		setIsImportant(prev => {
@@ -14,12 +16,17 @@ export default function CardItem(props: ICardItem) {
 			return !prev;
 		});
 	};
+
 	return (
 		<Pressable
+			onLongPress={() => openModal(props.id)}
 			style={({ pressed }) => [
 				styles.cardItem,
 				{
-					backgroundColor: pressed ? colors.paleDarkGreen : colors.paleGreen,
+					backgroundColor:
+						pressed || (isModalOpen && selectedCardId === props.id)
+							? colors.paleDarkGreen
+							: colors.paleGreen,
 				},
 			]}
 		>

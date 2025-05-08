@@ -1,0 +1,7 @@
+export const CARD_COLORS = [
+	'#FFEB3B', '#FCE4EC', '#FFCDD2', '#FF8A65',
+	'#BA68C8', '#9575CD', '#4FC3F7', '#81C784',
+	'#AED581', '#B2DFDB', '#90CAF9', '#64B5F6',
+	'#4DB6AC', '#7986CB', '#E57373', '#DCE775',
+	'#A1887F', '#E0E0E0', '#B0BEC5', '#90A4AE',
+];
