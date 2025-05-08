@@ -8,10 +8,10 @@ import colors from '../../styles/Colors';
 import typography from '../../styles/typography';
 import { ICardItem } from '../../model/cardItem';
 import { useModalStore } from '../../store/modalStore';
-import { StackParamList } from '../../navigations/CardListStack';
+import { CardListStackParamList } from '../../navigations/types';
 
 export default function CardItem(props: ICardItem) {
-	const navigation = useNavigation<NativeStackNavigationProp<StackParamList>>();
+	const navigation = useNavigation<NativeStackNavigationProp<CardListStackParamList>>();
 	const { isModalOpen, selectedCardId, openModal } = useModalStore();
 	const [isImportant, setIsImportant] = useState(props.favorite);
 	const toggleHeart = () => {
@@ -24,7 +24,7 @@ export default function CardItem(props: ICardItem) {
 	return (
 		<Pressable
 			onLongPress={() => openModal(props.id)}
-			onPress={() => navigation.navigate('CardDetail', { cardId: props.id })}
+			onPress={() => navigation.navigate('명함 상세', { cardId: props.id })}
 			style={({ pressed }) => [
 				styles.cardItem,
 				{
