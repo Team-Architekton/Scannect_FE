@@ -20,7 +20,8 @@ export function useMypage() {
 				profileImage: 'https://randomuser.me/api/portraits/women/21.jpg',
 				introduction: '안녕하세요! 당근마켓 프론트엔드 개발자 박유진입니다 😊',
 				landline: '02-123-4567',
-				category: 'IT/개발',
+				industry: 'IT',
+				job: '개발',
 			},
 			{
 				id: 2,
@@ -32,6 +33,8 @@ export function useMypage() {
 				email: 'yujin@example.com',
 				website: 'https://hufs.ac.kr',
 				isDefault: false,
+				industry: 'IT',
+				job: '개발',
 			},
 			{
 				id: 3,
@@ -43,6 +46,8 @@ export function useMypage() {
 				email: 'yujin@example.com',
 				website: 'https://likelion.org',
 				isDefault: false,
+				industry: 'IT',
+				job: '개발',
 			},
 			{
 				id: 4,
@@ -54,6 +59,8 @@ export function useMypage() {
 				email: 'yujin@example.com',
 				website: '',
 				isDefault: false,
+				industry: 'IT',
+				job: '개발',
 			},
 		];
 
@@ -61,9 +68,7 @@ export function useMypage() {
 	}, []);
 
 	const updateCardColor = (cardId: number, color: string) => {
-		const updatedCards = cards.map(card =>
-			card.id === cardId ? { ...card, color } : card
-		);
+		const updatedCards = cards.map(card => (card.id === cardId ? { ...card, color } : card));
 		setCards(updatedCards);
 
 		if (selectedCard?.id === cardId) {
@@ -97,4 +102,4 @@ export function useMypage() {
 		setDefaultCard,
 		deleteCard,
 	};
-};
+}

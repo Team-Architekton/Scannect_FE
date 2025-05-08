@@ -16,7 +16,8 @@ export function useCardForm(initial: Partial<CardForm> = {}) {
 		introduction: '',
 		landline: '',
 		profileImage: null,
-		category: '',
+		industry: '',
+		job: '',
 		color: '',
 		...initial,
 	});

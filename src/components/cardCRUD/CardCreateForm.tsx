@@ -1,5 +1,6 @@
 import LabeledInput from '../../components/cardCRUD/LabeledInput';
 import { useCardForm } from '../../hooks/useCardForm';
+import IndustryJobPicker from './JopSelector';
 import LabeledTextarea from './LabeledTextarea';
 import ProfileImagePicker from './Profile';
 
@@ -8,10 +9,10 @@ export default function CardCreateForm() {
 
 	return (
 		<>
-            <ProfileImagePicker
-                imageUri={form.profileImage ?? null}
-                onChange={uri => handleChange('profileImage', uri)}
-            />
+			<ProfileImagePicker
+				imageUri={form.profileImage ?? null}
+				onChange={uri => handleChange('profileImage', uri)}
+			/>
 			<LabeledTextarea
 				label="자기소개"
 				value={form.introduction ?? ''}
@@ -26,7 +27,7 @@ export default function CardCreateForm() {
 				onChangeText={text => handleChange('name', text)}
 				errorMessage={errors.name}
 				placeholder="이름을 입력하세요"
-                onBlur={() => validateField('name', form.name)}
+				onBlur={() => validateField('name', form.name)}
 			/>
 			<LabeledInput
 				label="소속"
@@ -50,6 +51,12 @@ export default function CardCreateForm() {
 				onChangeText={text => handleChange('department', text)}
 				placeholder="부서를 입력하세요"
 			/>
+			<IndustryJobPicker
+				industry={form.industry}
+				job={form.title}
+				onChangeIndustry={value => handleChange('industry', value)}
+				onChangeJob={value => handleChange('title', value)}
+			/>
 			<LabeledInput
 				label="휴대폰"
 				required
@@ -58,7 +65,7 @@ export default function CardCreateForm() {
 				errorMessage={errors.phone}
 				placeholder="010-1234-5678"
 				keyboardType="phone-pad"
-                onBlur={() => validateField('phone', form.phone)}
+				onBlur={() => validateField('phone', form.phone)}
 			/>
 			<LabeledInput
 				label="유선전화"
@@ -75,7 +82,7 @@ export default function CardCreateForm() {
 				errorMessage={errors.email}
 				placeholder="example@domain.com"
 				keyboardType="email-address"
-                onBlur={() => validateField('email', form.email)}
+				onBlur={() => validateField('email', form.email)}
 			/>
 			<LabeledInput
 				label="URL"

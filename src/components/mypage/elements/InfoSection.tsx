@@ -5,14 +5,21 @@ import typography from '../../../styles/typography';
 import colors from '../../../styles/Colors';
 import { useMypageStore } from '../../../store/useMyPageStore';
 
+const DEFAULT_PROFILE_IMAGE = require('../../../assets/emptyProfile.png');
+
 export default function IntroductionSection() {
 	const { selectedCard } = useMypageStore();
 
 	if (!selectedCard) return null;
 
+	const imageSource =
+		selectedCard.profileImage && selectedCard.profileImage.trim() !== ''
+			? { uri: selectedCard.profileImage }
+			: DEFAULT_PROFILE_IMAGE;
+
 	return (
 		<View style={styles.container}>
-			<Image source={{ uri: selectedCard.profileImage }} style={styles.profileImage} />
+			<Image source={imageSource} style={styles.profileImage} />
 			<View style={styles.textContainer}>
 				<Text style={[typography.h2, styles.text]}>자기소개</Text>
 				<View style={styles.divider} />
@@ -20,7 +27,7 @@ export default function IntroductionSection() {
 			</View>
 		</View>
 	);
-}
+};
 
 const styles = StyleSheet.create({
 	container: {

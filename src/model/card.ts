@@ -3,15 +3,16 @@ export interface Card {
 	name: string;
 	title: string;
 	company: string;
-	department: string;
 	phone: string;
 	email: string;
 	website: string;
 	isDefault: boolean;
+	industry: string;
+	job: string;
 
+	department?: string;
 	profileImage?: string | null;
 	introduction?: string;
 	landline?: string;
-	category?: string;
 	color?: string;
-};
+}

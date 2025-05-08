@@ -32,7 +32,7 @@ export default function CardInfoSection() {
 			</View>
 			<View style={styles.infoRow}>
 				<Text style={styles.label}>업종/직무</Text>
-				<Text style={styles.value}>{selectedCard.category}</Text>
+				<Text style={styles.value}>{selectedCard.industry}/{selectedCard.job}</Text>
 			</View>
 
 			<Text style={[typography.h2, styles.sectionTitle]}>연락처</Text>
