@@ -1,13 +1,17 @@
 import { Text, View, StyleSheet, Pressable, Alert } from 'react-native';
 import { useState } from 'react';
 import { Ionicons, AntDesign } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 import colors from '../../styles/Colors';
 import typography from '../../styles/typography';
 import { ICardItem } from '../../model/cardItem';
 import { useModalStore } from '../../store/modalStore';
+import { StackParamList } from '../../navigations/CardListStack';
 
 export default function CardItem(props: ICardItem) {
+	const navigation = useNavigation<NativeStackNavigationProp<StackParamList>>();
 	const { isModalOpen, selectedCardId, openModal } = useModalStore();
 	const [isImportant, setIsImportant] = useState(props.favorite);
 	const toggleHeart = () => {
@@ -20,6 +24,7 @@ export default function CardItem(props: ICardItem) {
 	return (
 		<Pressable
 			onLongPress={() => openModal(props.id)}
+			onPress={() => navigation.navigate('CardDetail', { cardId: props.id })}
 			style={({ pressed }) => [
 				styles.cardItem,
 				{

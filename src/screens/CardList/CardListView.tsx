@@ -18,7 +18,7 @@ if (Platform.OS === 'android' && UIManager.setLayoutAnimationEnabledExperimental
 	UIManager.setLayoutAnimationEnabledExperimental(true);
 }
 
-export default function CardListView({ navigation }: any) {
+export default function CardListView() {
 	const { cardList, setCardList } = useCardStore();
 
 	useEffect(() => {
