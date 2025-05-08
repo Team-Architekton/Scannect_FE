@@ -1,10 +1,10 @@
 import { Alert, Modal, StyleSheet, TouchableOpacity, View } from 'react-native';
 import Entypo from '@expo/vector-icons/Entypo';
 
-import CommonButton from './../CommonButton';
-import colors from '../../styles/Colors';
-import { useCardStore } from '../../store/cardStore';
-import { useModalStore } from '../../store/modalStore';
+import CommonButton from '../../CommonButton';
+import colors from '../../../styles/Colors';
+import { useCardStore } from '../../../store/cardStore';
+import { useModalStore } from '../../../store/modalStore';
 
 export default function CardBottomSheet() {
 	const { cardList, hideCard, deleteCard } = useCardStore();

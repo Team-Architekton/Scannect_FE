@@ -3,8 +3,8 @@ import { useMemo, useState } from 'react';
 
 import CardItem from './CardItem';
 import SectionHeader from './SectionHeader';
-import colors from '../../styles/Colors';
-import { useCardStore } from '../../store/cardStore';
+import colors from '../../../styles/Colors';
+import { useCardStore } from '../../../store/cardStore';
 
 export default function CardSectionList() {
 	const {

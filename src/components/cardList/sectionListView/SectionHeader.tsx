@@ -1,7 +1,7 @@
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
-import colors from '../../styles/Colors';
+import colors from '../../../styles/Colors';
 
 interface ISectionHeaderProps {
 	sectionKey: string;

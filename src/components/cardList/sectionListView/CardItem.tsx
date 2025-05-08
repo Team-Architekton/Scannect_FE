@@ -4,11 +4,11 @@ import { Ionicons, AntDesign } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
-import colors from '../../styles/Colors';
-import typography from '../../styles/typography';
-import { ICardItem } from '../../model/cardItem';
-import { useModalStore } from '../../store/modalStore';
-import { CardListStackParamList } from '../../navigations/types';
+import colors from '../../../styles/Colors';
+import typography from '../../../styles/typography';
+import { ICardItem } from '../../../model/cardItem';
+import { useModalStore } from '../../../store/modalStore';
+import { CardListStackParamList } from '../../../navigations/types';
 
 export default function CardItem(props: ICardItem) {
 	const navigation = useNavigation<NativeStackNavigationProp<CardListStackParamList>>();
