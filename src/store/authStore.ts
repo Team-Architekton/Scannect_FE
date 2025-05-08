@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import { setIsLoggedIn } from '../utils/authStorage';
 
 type AuthError = {
 	name?: string;
@@ -46,21 +47,21 @@ export const useAuthStore = create<AuthStore>((set, get) => ({
 		return Object.keys(newErrors).length === 0;
 	},
 
-	signUp: () => {
+	signUp: async () => {
 		const { name, id, password, validateFields } = get();
 		if (validateFields('signup')) {
 			console.log('회원가입 요청:', { name, id, password });
-			// 추후 서버 통신 위치
+			await setIsLoggedIn(true); // 로그인 상태 저장
 		} else {
 			console.log('회원가입 유효성 실패');
 		}
 	},
 
-	login: () => {
+	login: async () => {
 		const { id, password, validateFields } = get();
 		if (validateFields('login')) {
 			console.log('로그인 요청:', { id, password });
-			// 추후 서버 통신 위치
+			await setIsLoggedIn(true); // 로그인 상태 저장
 		} else {
 			console.log('로그인 유효성 실패');
 		}

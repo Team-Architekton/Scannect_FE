@@ -4,9 +4,15 @@ import typography from '../../styles/typography';
 import AuthTextInput from '../../components/auth/AuthTextInput';
 import spacing from '../../styles/spacing';
 import { useAuthStore } from '../../store/authStore';
+import { useNavigation } from '@react-navigation/native';
 
 export default function LoginView() {
 	const { id, password, setId, setPassword, errors, login } = useAuthStore();
+	const navigation = useNavigation();
+
+	const handleSignUpNavigation = () => {
+		navigation.navigate('회원가입');
+	};
 
 	return (
 		<View style={styles.container}>
@@ -30,6 +36,7 @@ export default function LoginView() {
 
 			<View style={styles.buttonGroup}>
 				<CommonButton title="로그인" onPress={login} size="large" />
+				<CommonButton title="회원가입" onPress={handleSignUpNavigation} size="large" />
 			</View>
 		</View>
 	);
@@ -50,5 +57,6 @@ const styles = StyleSheet.create({
 	},
 	buttonGroup: {
 		marginTop: spacing.xxl,
+		gap: spacing.s,
 	},
 });
