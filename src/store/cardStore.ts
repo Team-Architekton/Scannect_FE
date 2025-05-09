@@ -26,7 +26,7 @@ export const useCardStore = create<CardStore>((set, get) => ({
 		commonCards: [],
 		hiddenCards: [],
 	},
-	sortOption: 'latest',
+	sortOption: 'latest', // 정렬 기준
 
 	filterCardList: () => {
 		const cards = get().cardList;
