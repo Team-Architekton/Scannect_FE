@@ -17,7 +17,7 @@ if (Platform.OS === 'android' && UIManager.setLayoutAnimationEnabledExperimental
 	UIManager.setLayoutAnimationEnabledExperimental(true);
 }
 
-export default function CardListView() {
+export default function CardListView({ navigation }: any) {
 	const { cardList, setCardList } = useCardStore();
 
 	useEffect(() => {
@@ -33,7 +33,7 @@ export default function CardListView() {
 					<Text style={styles.mainLabel}>전체 명함 ({cardList.length})</Text>
 					<SortDropDown />
 				</View>
-				{cardList.length === 0 ? <EmptyListView /> : <CardSectionList />}
+				{cardList.length === 0 ? <EmptyListView navigation={navigation} /> : <CardSectionList />}
 			</View>
 			<CardBottomSheet />
 		</ScreenContainer>

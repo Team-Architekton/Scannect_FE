@@ -4,9 +4,8 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import CardListStack from './CardListStack';
 import ExchangeStack from './ExchangeStack';
 import MyPageStack from './MyPageStack';
-import { RootTabParamList } from './types';
 
-const Tab = createBottomTabNavigator<RootTabParamList>();
+const Tab = createBottomTabNavigator();
 
 export default function RootNavigation() {
 	return (

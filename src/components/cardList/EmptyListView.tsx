@@ -6,10 +6,9 @@ import commonStyles from '../../styles/commonStyles';
 import colors from '../../styles/Colors';
 import CommonButton from '../../components/CommonButton';
 import spacing from '../../styles/spacing';
-import { RootTabParamList } from '../../navigations/types';
 
-export default function EmptyListView() {
-	const navigation = useNavigation<NativeStackNavigationProp<RootTabParamList, '명함교환'>>();
+export default function EmptyListView({ navigation }: any) {
+	//const navigation = useNavigation();
 	return (
 		<View style={styles.emptyListView}>
 			<Text style={styles.emptyListText}>저장된 명함이 없습니다.</Text>

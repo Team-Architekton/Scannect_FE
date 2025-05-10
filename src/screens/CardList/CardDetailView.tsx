@@ -1,35 +1,34 @@
-import { RouteProp, useRoute } from '@react-navigation/native';
-import { StyleSheet, ScrollView } from 'react-native';
+import { ScrollView } from 'react-native';
 import { useEffect } from 'react';
 
 import ScreenContainer from '../../components/ScreenContainer';
-import { CardListStackParamList } from '../../navigations/types';
-import { useCardStore } from '../../store/cardStore';
 import Header from '../../components/cardDetail/Header';
 import MemoInput from '../../components/cardDetail/MemoInput';
 import CardPreview from '../../components/mypage/CardPreview';
 import ProfileIntro from '../../components/mypage/ProfileSection';
-import Contects from '../../components/cardDetail/Contects';
+import Contacts from '../../components/cardDetail/Contacts';
+import CardBottomSheet from '../../components/cardList/elements/CardBottomSheet';
+import { useCardStore } from '../../store/cardStore';
 
-type CardDetailRouteProp = RouteProp<CardListStackParamList, '명함 상세'>;
-
-export default function CardDetailView() {
-	const route = useRoute<CardDetailRouteProp>();
+export default function CardDetailView({ navigation, route }: any) {
 	const { cardId } = route.params;
 	const card = useCardStore(state => state.cardList.find(c => c.id === cardId));
+
+	useEffect(() => {
+		if (!card) navigation.goBack();
+	}, [card]);
 
 	if (!card) return null;
 	return (
 		<ScreenContainer>
 			<ScrollView showsVerticalScrollIndicator={false}>
-				<Header name={card.name} />
+				<Header name={card.name} cardId={card.id} isShown={card.status} />
 				<CardPreview />
-				<Contects />
+				<Contacts />
 				<ProfileIntro />
 				<MemoInput />
 			</ScrollView>
+			<CardBottomSheet />
 		</ScreenContainer>
 	);
 }
-
-const styles = StyleSheet.create({});
