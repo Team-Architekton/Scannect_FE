@@ -12,7 +12,7 @@ export default function CardBottomSheet() {
 
 	const [selectedCard] = cardList.filter(card => card.id === selectedCardId);
 
-	const handleHidingCard = (cardId: number | null) => {
+	const onHideCard = (cardId: number | null) => {
 		if (cardId === null) return;
 		try {
 			const newStatus = !selectedCard.status;
@@ -38,7 +38,7 @@ export default function CardBottomSheet() {
 		}
 		closeModal();
 	};
-	const handleDeletingCard = (cardId: number | null) => {
+	const onDeleteCard = (cardId: number | null) => {
 		if (cardId === null) return;
 		try {
 			Alert.alert('선택한 명함을 삭제합니다.', '정말 삭제하시겠습니까?', [
@@ -56,6 +56,9 @@ export default function CardBottomSheet() {
 		}
 		closeModal();
 	};
+
+	if (!isModalOpen) return null;
+
 	return (
 		<Modal
 			animationType="slide"
@@ -83,14 +86,14 @@ export default function CardBottomSheet() {
 									? '명함 숨김 해제하기'
 									: '명함 리스트에서 숨김'
 							}
-							onPress={() => handleHidingCard(selectedCardId)}
+							onPress={() => onHideCard(selectedCardId)}
 							buttonStyle={styles.button}
 							textStyle={styles.textStyle}
 							size="large"
 						/>
 						<CommonButton
 							title="명함 리스트에서 삭제"
-							onPress={() => handleDeletingCard(selectedCardId)}
+							onPress={() => onDeleteCard(selectedCardId)}
 							buttonStyle={{ ...styles.button, backgroundColor: colors.darkGreen }}
 							textStyle={styles.textStyle}
 							size="large"

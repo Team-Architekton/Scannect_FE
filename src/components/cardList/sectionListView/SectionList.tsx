@@ -68,6 +68,7 @@ export default function CardSectionList() {
 				return null;
 			}}
 			stickySectionHeadersEnabled={false}
+			showsVerticalScrollIndicator={false}
 		/>
 	);
 }
