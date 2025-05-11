@@ -1,6 +1,4 @@
 import { Text, View, StyleSheet } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 import commonStyles from '../../styles/commonStyles';
 import colors from '../../styles/Colors';
@@ -8,7 +6,6 @@ import CommonButton from '../../components/CommonButton';
 import spacing from '../../styles/spacing';
 
 export default function EmptyListView({ navigation }: any) {
-	//const navigation = useNavigation();
 	return (
 		<View style={styles.emptyListView}>
 			<Text style={styles.emptyListText}>저장된 명함이 없습니다.</Text>

@@ -2,8 +2,9 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import CardDetailView from '../screens/CardList/CardDetailView';
 import CardListView from '../screens/CardList/CardListView';
+import { CardListStackParamList } from './types';
 
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator<CardListStackParamList>();
 
 export default function CardListStack() {
 	return (
