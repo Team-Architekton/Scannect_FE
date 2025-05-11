@@ -7,13 +7,13 @@ import CommonButton from '../CommonButton';
 import typography from '../../styles/typography';
 import { useCardStore } from '../../store/cardStore';
 
-interface IProps {
+interface IMemoProps {
 	cardId: number;
 	memo: string | undefined;
 	onFocus: () => void;
 }
 
-export default function MemoInput({ cardId, memo, onFocus }: IProps) {
+export default function MemoInput({ cardId, memo, onFocus }: IMemoProps) {
 	const memoRef = useRef<TextInput>(null);
 	const [newMemo, setNewMemo] = useState(memo);
 	const [isEditing, setIsEditing] = useState(false);

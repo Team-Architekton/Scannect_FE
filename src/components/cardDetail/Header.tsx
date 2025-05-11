@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import { AntDesign, Feather } from '@expo/vector-icons';
+import Feather from '@expo/vector-icons/Feather';
 
 import commonStyles from '../../styles/commonStyles';
 import spacing from '../../styles/spacing';
@@ -18,7 +18,7 @@ export default function Header({ name, cardId, favorite, isActive }: IHeaderProp
 	const { openModal } = useModalStore();
 	return (
 		<View style={styles.headerContainer}>
-			<HeartIcon cardId={cardId} isFavorite={favorite} />
+			<HeartIcon cardId={cardId} isFavorite={favorite} size={24} />
 			<Text
 				style={[
 					commonStyles.subtitleText,
@@ -27,7 +27,7 @@ export default function Header({ name, cardId, favorite, isActive }: IHeaderProp
 			>
 				{name}
 			</Text>
-			<TouchableOpacity onPress={() => openModal(cardId)}>
+			<TouchableOpacity hitSlop={spacing.m} onPress={() => openModal(cardId)}>
 				<Feather name="more-vertical" size={24} color="black" />
 			</TouchableOpacity>
 		</View>
