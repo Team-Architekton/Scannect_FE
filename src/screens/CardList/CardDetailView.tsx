@@ -42,7 +42,7 @@ export default function CardDetailView({ navigation, route }: any) {
 						isActive={card.isActive}
 					/>
 					<CardPreview />
-					<Contacts />
+					<Contacts phone={card.phone} email={card.email} />
 					<ProfileIntro />
 					<MemoInput cardId={card.id} memo={card.memo} onFocus={onFocus} />
 				</ScrollView>

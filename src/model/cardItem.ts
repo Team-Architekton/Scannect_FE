@@ -1,13 +1,16 @@
 export interface ICardItem {
 	id: number;
 	name: string;
+	favorite: boolean;
+	isActive: boolean;
+	created_at: number;
 	belong_to?: string;
 	department?: string;
 	job?: string;
 	memo?: string;
-	favorite: boolean;
-	isActive: boolean;
-	created_at: number;
+	phone: string;
+	email: string;
+	website: string;
 }
 
 // 임시 더미데이터
@@ -22,6 +25,9 @@ export const dummyData = [
 		favorite: true,
 		isActive: true,
 		created_at: 1745413196729,
+		phone: '010-1234-5678',
+		email: 'ababs@gmail.com',
+		website: 'github.com',
 	},
 	{
 		id: 1,
@@ -32,6 +38,9 @@ export const dummyData = [
 		favorite: false,
 		isActive: true,
 		created_at: 1745413199809,
+		phone: '010-1234-5678',
+		email: 'ababs@gmail.com',
+		website: 'github.com',
 	},
 	{
 		id: 2,
@@ -43,6 +52,9 @@ export const dummyData = [
 		favorite: false,
 		isActive: true,
 		created_at: 1745413217276,
+		phone: '010-1234-5678',
+		email: 'ababs@gmail.com',
+		website: 'github.com',
 	},
 	{
 		id: 3,
@@ -54,6 +66,9 @@ export const dummyData = [
 		favorite: false,
 		isActive: true,
 		created_at: 1745413228456,
+		phone: '010-1234-5678',
+		email: 'ababs@gmail.com',
+		website: 'github.com',
 	},
 	{
 		id: 5,
@@ -65,6 +80,9 @@ export const dummyData = [
 		favorite: false,
 		isActive: false,
 		created_at: 1945413229282,
+		phone: '010-1234-5678',
+		email: 'ababs@gmail.com',
+		website: 'github.com',
 	},
 	{
 		id: 6,
@@ -76,6 +94,9 @@ export const dummyData = [
 		favorite: false,
 		isActive: false,
 		created_at: 1845413254937,
+		phone: '010-1234-5678',
+		email: 'ababs@gmail.com',
+		website: 'github.com',
 	},
 	{
 		id: 7,
@@ -87,6 +108,9 @@ export const dummyData = [
 		favorite: false,
 		isActive: false,
 		created_at: 1745413255624,
+		phone: '010-1234-5678',
+		email: 'ababs@gmail.com',
+		website: 'github.com',
 	},
 	{
 		id: 8,
@@ -98,6 +122,9 @@ export const dummyData = [
 		favorite: false,
 		isActive: false,
 		created_at: 1735413244927,
+		phone: '010-1234-5678',
+		email: 'ababs@gmail.com',
+		website: 'github.com',
 	},
 	{
 		id: 9,
@@ -109,6 +136,9 @@ export const dummyData = [
 		favorite: false,
 		isActive: false,
 		created_at: 1732413255620,
+		phone: '010-1234-5678',
+		email: 'ababs@gmail.com',
+		website: 'github.com',
 	},
 	{
 		id: 10,
@@ -120,5 +150,8 @@ export const dummyData = [
 		favorite: false,
 		isActive: false,
 		created_at: 1731413256210,
+		phone: '010-1234-5678',
+		email: 'ababs@gmail.com',
+		website: 'github.com',
 	},
 ];
