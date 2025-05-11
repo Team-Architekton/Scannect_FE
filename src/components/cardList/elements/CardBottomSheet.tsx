@@ -1,63 +1,18 @@
-import { Alert, Modal, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Modal, StyleSheet, TouchableOpacity, View } from 'react-native';
 import Entypo from '@expo/vector-icons/Entypo';
 
 import CommonButton from '../../CommonButton';
 import colors from '../../../styles/Colors';
 import { useCardStore } from '../../../store/cardStore';
 import { useModalStore } from '../../../store/modalStore';
+import { useCardModal } from '../../../hooks/useCardModal';
 
 export default function CardBottomSheet() {
-	const { cardList, hideCard, deleteCard } = useCardStore();
 	const { isModalOpen, selectedCardId, closeModal } = useModalStore();
+	const selectedCard = useCardStore(state => state.cardList.find(c => c.id === selectedCardId));
+	const { onHideCard, onDeleteCard } = useCardModal();
 
-	const [selectedCard] = cardList.filter(card => card.id === selectedCardId);
-
-	const onHideCard = (cardId: number | null) => {
-		if (cardId === null) return;
-		try {
-			const newStatus = !selectedCard.status;
-			if (!newStatus) {
-				// 명함을 숨기는 경우
-				Alert.alert('선택한 명함을 숨김 처리합니다.', '정말 숨기시겠습니까?', [
-					{
-						text: '확인',
-						onPress: () => {
-							hideCard(cardId, newStatus);
-							Alert.alert('명함이 숨김 처리되었습니다.');
-						},
-					},
-					{ text: '취소' },
-				]);
-			} else {
-				// 명함을 숨김 해제하는 경우
-				hideCard(cardId, newStatus);
-				Alert.alert('명함 숨김이 해제되었습니다.');
-			}
-		} catch {
-			Alert.alert('처리에 실패했습니다. 잠시 후 다시 시도해주세요.');
-		}
-		closeModal();
-	};
-	const onDeleteCard = (cardId: number | null) => {
-		if (cardId === null) return;
-		try {
-			Alert.alert('선택한 명함을 삭제합니다.', '정말 삭제하시겠습니까?', [
-				{
-					text: '확인',
-					onPress: () => {
-						deleteCard(cardId);
-						Alert.alert('명함이 삭제되었습니다.');
-					},
-				},
-				{ text: '취소' },
-			]);
-		} catch {
-			Alert.alert('처리에 실패했습니다. 잠시 후 다시 시도해주세요.');
-		}
-		closeModal();
-	};
-
-	if (!isModalOpen) return null;
+	if (!isModalOpen || !selectedCard) return null;
 
 	return (
 		<Modal
@@ -86,7 +41,7 @@ export default function CardBottomSheet() {
 									? '명함 숨김 해제하기'
 									: '명함 리스트에서 숨김'
 							}
-							onPress={() => onHideCard(selectedCardId)}
+							onPress={() => onHideCard(selectedCardId, !selectedCard.status)}
 							buttonStyle={styles.button}
 							textStyle={styles.textStyle}
 							size="large"
