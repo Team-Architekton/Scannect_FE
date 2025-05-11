@@ -30,9 +30,9 @@ export const useCardStore = create<CardStore>((set, get) => ({
 
 	filterCardList: () => {
 		const cards = get().cardList;
-		const importantCards = cards.filter(card => card.favorite && card.status);
-		const commonCards = cards.filter(card => !card.favorite && card.status);
-		const hiddenCards = cards.filter(card => !card.status);
+		const importantCards = cards.filter(card => card.favorite && card.isActive);
+		const commonCards = cards.filter(card => !card.favorite && card.isActive);
+		const hiddenCards = cards.filter(card => !card.isActive);
 		set({ renderingList: { importantCards, commonCards, hiddenCards } });
 	},
 	setCardList: cards => {
@@ -49,7 +49,7 @@ export const useCardStore = create<CardStore>((set, get) => ({
 	hideCard: (cardId, newStatus) => {
 		// 명함 숨김 상태 업데이트 로직
 		const newList = [...get().cardList].map(card =>
-			card.id === cardId ? { ...card, status: newStatus } : card
+			card.id === cardId ? { ...card, isActive: newStatus } : card
 		);
 		get().setCardList(newList);
 	},

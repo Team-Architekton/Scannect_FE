@@ -6,7 +6,7 @@ export interface ICardItem {
 	job?: string;
 	memo?: string;
 	favorite: boolean;
-	status: boolean;
+	isActive: boolean;
 	created_at: number;
 }
 
@@ -20,7 +20,7 @@ export const dummyData = [
 		job: '대리',
 		memo: '어디서 만났고 어떤 사람인지 메모메모',
 		favorite: true,
-		status: true,
+		isActive: true,
 		created_at: 1745413196729,
 	},
 	{
@@ -30,7 +30,7 @@ export const dummyData = [
 		department: '개발부',
 		job: '인턴',
 		favorite: false,
-		status: true,
+		isActive: true,
 		created_at: 1745413199809,
 	},
 	{
@@ -41,7 +41,7 @@ export const dummyData = [
 		job: '대리',
 		memo: '메모는한줄만보이게 메모는한줄만보이게 메모는한줄만보이게',
 		favorite: false,
-		status: true,
+		isActive: true,
 		created_at: 1745413217276,
 	},
 	{
@@ -52,7 +52,7 @@ export const dummyData = [
 		job: '팀장',
 		memo: '메모는 옵션 메모는 옵션 메모는 옵션 메모는 옵션',
 		favorite: false,
-		status: true,
+		isActive: true,
 		created_at: 1745413228456,
 	},
 	{
@@ -63,7 +63,7 @@ export const dummyData = [
 		job: '프론트',
 		memo: '어디서 만났고 어떤 사람인지 메모메모',
 		favorite: false,
-		status: false,
+		isActive: false,
 		created_at: 1945413229282,
 	},
 	{
@@ -74,7 +74,7 @@ export const dummyData = [
 		job: '프론트',
 		memo: '어디서 만났고 어떤 사람인지 메모메모',
 		favorite: false,
-		status: false,
+		isActive: false,
 		created_at: 1845413254937,
 	},
 	{
@@ -85,7 +85,7 @@ export const dummyData = [
 		job: '프론트',
 		memo: '어디서 만났고 어떤 사람인지 메모메모',
 		favorite: false,
-		status: false,
+		isActive: false,
 		created_at: 1745413255624,
 	},
 	{
@@ -96,7 +96,7 @@ export const dummyData = [
 		job: '백',
 		memo: '어디서 만났고 어떤 사람인지 메모메모',
 		favorite: false,
-		status: false,
+		isActive: false,
 		created_at: 1735413244927,
 	},
 	{
@@ -107,7 +107,7 @@ export const dummyData = [
 		job: '기획',
 		memo: '어디서 만났고 어떤 사람인지 메모메모',
 		favorite: false,
-		status: false,
+		isActive: false,
 		created_at: 1732413255620,
 	},
 	{
@@ -118,7 +118,7 @@ export const dummyData = [
 		job: '기획',
 		memo: '어디서 만났고 어떤 사람인지 메모메모',
 		favorite: false,
-		status: false,
+		isActive: false,
 		created_at: 1731413256210,
 	},
 ];

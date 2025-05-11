@@ -22,7 +22,7 @@ export default function CardDetailView({ navigation, route }: any) {
 	return (
 		<ScreenContainer>
 			<ScrollView showsVerticalScrollIndicator={false}>
-				<Header name={card.name} cardId={card.id} isShown={card.status} />
+				<Header name={card.name} cardId={card.id} isActive={card.isActive} />
 				<CardPreview />
 				<Contacts />
 				<ProfileIntro />

@@ -9,10 +9,10 @@ import { useModalStore } from '../../store/modalStore';
 interface IHeaderProps {
 	name: string;
 	cardId: number;
-	isShown: boolean;
+	isActive: boolean;
 }
 
-export default function Header({ name, cardId, isShown }: IHeaderProps) {
+export default function Header({ name, cardId, isActive }: IHeaderProps) {
 	const { openModal } = useModalStore();
 	return (
 		<View style={styles.headerContainer}>
@@ -22,7 +22,7 @@ export default function Header({ name, cardId, isShown }: IHeaderProps) {
 			<Text
 				style={[
 					commonStyles.subtitleText,
-					{ color: isShown ? colors.black : colors.grayscaleGray6 },
+					{ color: isActive ? colors.black : colors.grayscaleGray6 },
 				]}
 			>
 				{name}

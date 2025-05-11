@@ -37,11 +37,11 @@ export default function CardBottomSheet() {
 					<View style={styles.buttonWrapper}>
 						<CommonButton
 							title={
-								selectedCard !== undefined && !selectedCard.status
+								selectedCard !== undefined && !selectedCard.isActive
 									? '명함 숨김 해제하기'
 									: '명함 리스트에서 숨김'
 							}
-							onPress={() => onHideCard(selectedCardId, !selectedCard.status)}
+							onPress={() => onHideCard(selectedCardId, !selectedCard.isActive)}
 							buttonStyle={styles.button}
 							textStyle={styles.textStyle}
 							size="large"
