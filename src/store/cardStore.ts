@@ -67,5 +67,11 @@ export const useCardStore = create<CardStore>((set, get) => ({
 		);
 		get().setCardList(newList);
 	},
-	updateMemo: (cardId, newMemo) => {},
+	updateMemo: (cardId, newMemo) => {
+		// 명함 메모 업데이트 로직
+		const newList = [...get().cardList].map(card =>
+			card.id === cardId ? { ...card, memo: newMemo } : card
+		);
+		get().setCardList(newList);
+	},
 }));
