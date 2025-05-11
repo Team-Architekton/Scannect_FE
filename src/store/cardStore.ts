@@ -15,6 +15,8 @@ type CardStore = {
 	sortCardList: (option: 'latest' | 'name') => void;
 	hideCard: (cardId: number, newStatus: boolean) => void;
 	deleteCard: (cardId: number) => void;
+	updateFavorite: (cardId: number, newStatus: boolean) => void;
+	updateMemo: (cardId: number, newMemo: string) => void;
 };
 
 export const useCardStore = create<CardStore>((set, get) => ({
@@ -58,4 +60,12 @@ export const useCardStore = create<CardStore>((set, get) => ({
 		const newList = [...get().cardList].filter(card => card.id !== cardId);
 		get().setCardList(newList);
 	},
+	updateFavorite: (cardId, newStatus) => {
+		// 명함 중요 상태 업데이트 로직
+		const newList = [...get().cardList].map(card =>
+			card.id === cardId ? { ...card, favorite: newStatus } : card
+		);
+		get().setCardList(newList);
+	},
+	updateMemo: (cardId, newMemo) => {},
 }));

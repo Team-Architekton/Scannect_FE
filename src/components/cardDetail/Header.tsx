@@ -5,20 +5,20 @@ import commonStyles from '../../styles/commonStyles';
 import spacing from '../../styles/spacing';
 import colors from '../../styles/Colors';
 import { useModalStore } from '../../store/modalStore';
+import HeartIcon from '../cardList/elements/HeartIcon';
 
 interface IHeaderProps {
 	name: string;
 	cardId: number;
+	favorite: boolean;
 	isActive: boolean;
 }
 
-export default function Header({ name, cardId, isActive }: IHeaderProps) {
+export default function Header({ name, cardId, favorite, isActive }: IHeaderProps) {
 	const { openModal } = useModalStore();
 	return (
 		<View style={styles.headerContainer}>
-			<TouchableOpacity onPress={() => {}}>
-				<AntDesign name="heart" size={24} color={colors.primary} />
-			</TouchableOpacity>
+			<HeartIcon cardId={cardId} isFavorite={favorite} />
 			<Text
 				style={[
 					commonStyles.subtitleText,
