@@ -15,6 +15,8 @@ type CardStore = {
 	sortCardList: (option: 'latest' | 'name') => void;
 	hideCard: (cardId: number, newStatus: boolean) => void;
 	deleteCard: (cardId: number) => void;
+	updateFavorite: (cardId: number, newStatus: boolean) => void;
+	updateMemo: (cardId: number, newMemo: string) => void;
 };
 
 export const useCardStore = create<CardStore>((set, get) => ({
@@ -26,13 +28,13 @@ export const useCardStore = create<CardStore>((set, get) => ({
 		commonCards: [],
 		hiddenCards: [],
 	},
-	sortOption: 'latest',
+	sortOption: 'latest', // 정렬 기준
 
 	filterCardList: () => {
 		const cards = get().cardList;
-		const importantCards = cards.filter(card => card.favorite && card.status);
-		const commonCards = cards.filter(card => !card.favorite && card.status);
-		const hiddenCards = cards.filter(card => !card.status);
+		const importantCards = cards.filter(card => card.favorite && card.isActive);
+		const commonCards = cards.filter(card => !card.favorite && card.isActive);
+		const hiddenCards = cards.filter(card => !card.isActive);
 		set({ renderingList: { importantCards, commonCards, hiddenCards } });
 	},
 	setCardList: cards => {
@@ -49,13 +51,27 @@ export const useCardStore = create<CardStore>((set, get) => ({
 	hideCard: (cardId, newStatus) => {
 		// 명함 숨김 상태 업데이트 로직
 		const newList = [...get().cardList].map(card =>
-			card.id === cardId ? { ...card, status: newStatus } : card
+			card.id === cardId ? { ...card, isActive: newStatus } : card
 		);
 		get().setCardList(newList);
 	},
 	deleteCard: cardId => {
 		// 명함 삭제 로직
 		const newList = [...get().cardList].filter(card => card.id !== cardId);
+		get().setCardList(newList);
+	},
+	updateFavorite: (cardId, newStatus) => {
+		// 명함 중요 상태 업데이트 로직
+		const newList = [...get().cardList].map(card =>
+			card.id === cardId ? { ...card, favorite: newStatus } : card
+		);
+		get().setCardList(newList);
+	},
+	updateMemo: (cardId, newMemo) => {
+		// 명함 메모 업데이트 로직
+		const newList = [...get().cardList].map(card =>
+			card.id === cardId ? { ...card, memo: newMemo } : card
+		);
 		get().setCardList(newList);
 	},
 }));

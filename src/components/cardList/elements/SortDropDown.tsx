@@ -2,9 +2,9 @@ import { TouchableOpacity, View, Text, LayoutAnimation, StyleSheet } from 'react
 import { useState } from 'react';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
-import { useCardStore } from '../../store/cardStore';
-import colors from '../../styles/Colors';
-import commonStyles from '../../styles/commonStyles';
+import { useCardStore } from '../../../store/cardStore';
+import colors from '../../../styles/Colors';
+import commonStyles from '../../../styles/commonStyles';
 
 export default function SortDropDown() {
 	const { sortOption, sortCardList } = useCardStore();
