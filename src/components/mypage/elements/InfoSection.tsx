@@ -1,63 +1,89 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet } from 'react-native';
-import spacing from '../../../styles/spacing';
-import typography from '../../../styles/typography';
-import colors from '../../../styles/Colors';
+import { View, Text, StyleSheet } from 'react-native';
 import { useMypageStore } from '../../../store/useMyPageStore';
+import spacing from '../../../styles/spacing';
+import colors from '../../../styles/Colors';
+import typography from '../../../styles/typography';
 
-const DEFAULT_PROFILE_IMAGE = require('../../../assets/emptyProfile.png');
-
-export default function IntroductionSection() {
+export default function InfoSection() {
 	const { selectedCard } = useMypageStore();
 
 	if (!selectedCard) return null;
 
-	const imageSource =
-		selectedCard.profileImage && selectedCard.profileImage.trim() !== ''
-			? { uri: selectedCard.profileImage }
-			: DEFAULT_PROFILE_IMAGE;
-
 	return (
 		<View style={styles.container}>
-			<Image source={imageSource} style={styles.profileImage} />
-			<View style={styles.textContainer}>
-				<Text style={[typography.h2, styles.text]}>자기소개</Text>
-				<View style={styles.divider} />
-				<Text style={styles.introText}>{selectedCard.introduction}</Text>
+			<Text style={[typography.h2, styles.sectionTitle]}>명함 정보</Text>
+			<View style={styles.divider} />
+			<View style={styles.infoRow}>
+				<Text style={styles.label}>이름</Text>
+				<Text style={styles.value}>{selectedCard.name}</Text>
+			</View>
+			<View style={styles.infoRow}>
+				<Text style={styles.label}>소속</Text>
+				<Text style={styles.value}>{selectedCard.company}</Text>
+			</View>
+			<View style={styles.infoRow}>
+				<Text style={styles.label}>부서</Text>
+				<Text style={styles.value}>{selectedCard.department}</Text>
+			</View>
+			<View style={styles.infoRow}>
+				<Text style={styles.label}>직책</Text>
+				<Text style={styles.value}>{selectedCard.title}</Text>
+			</View>
+			<View style={styles.infoRow}>
+				<Text style={styles.label}>업종/직무</Text>
+				<Text style={styles.value}>{selectedCard.industry}/{selectedCard.job}</Text>
+			</View>
+
+			<Text style={[typography.h2, styles.sectionTitle]}>연락처</Text>
+			<View style={styles.divider} />
+			<View style={styles.infoRow}>
+				<Text style={styles.label}>휴대폰</Text>
+				<Text style={styles.value}>{selectedCard.phone}</Text>
+			</View>
+			<View style={styles.infoRow}>
+				<Text style={styles.label}>유선전화</Text>
+				<Text style={styles.value}>{selectedCard.landline}</Text>
+			</View>
+			<View style={styles.infoRow}>
+				<Text style={styles.label}>이메일</Text>
+				<Text style={styles.value}>{selectedCard.email}</Text>
+			</View>
+			<View style={styles.infoRow}>
+				<Text style={styles.label}>URL</Text>
+				<Text style={styles.value}>{selectedCard.website}</Text>
 			</View>
 		</View>
 	);
-};
+}
 
 const styles = StyleSheet.create({
 	container: {
-		flexDirection: 'row',
-		alignItems: 'flex-end',
-		gap: spacing.m,
-		marginTop: spacing.s,
+		backgroundColor: colors.white,
+		padding: spacing.m,
+		borderRadius: 12,
+		gap: spacing.s,
 	},
-	profileImage: {
-		width: 90,
-		height: 90,
-		borderRadius: 45,
-		backgroundColor: colors.grayscaleGray1,
-	},
-	textContainer: {
-		flex: 1,
-		gap: 7,
-	},
-    text: {
-        marginTop: spacing.l,
+	sectionTitle: {
+		marginTop: spacing.l,
 		marginBottom: spacing.xs,
-    },
+	},
 	divider: {
 		height: 2,
 		backgroundColor: colors.grayscaleGray3,
 		marginBottom: spacing.s,
 	},
-	introText: {
-		marginTop: spacing.xs,
+	infoRow: {
+		flexDirection: 'row',
+        gap: 20,
+		marginBottom: spacing.xs,
+	},
+	label: {
+		color: colors.grayscaleGray5,
 		fontSize: 14,
-		lineHeight: 20,
+	},
+	value: {
+		color: colors.black,
+		fontSize: 14,
 	},
 });

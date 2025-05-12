@@ -1,12 +1,12 @@
-import { Text, View } from 'react-native';
-import Profile from './elements/Profile';
+import { View } from 'react-native';
+import ProfileIntro from './elements/ProfileIntro';
 import InfoSection from './elements/InfoSection';
 
-export default function ProfileIntro() {
+export default function ProfileSection() {
 	return (
 		<View>
+			<ProfileIntro />
 			<InfoSection />
-			<Profile />
 		</View>
 	);
-}
+};
