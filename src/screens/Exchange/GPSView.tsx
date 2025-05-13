@@ -12,7 +12,7 @@ import spacing from '../../styles/spacing';
 import GPSOffView from '../../components/gps/GPSOffView';
 import ExchangeBottomSheet from '../../components/gps/ExchangeBottomSheet';
 
-export default function GPSView() {
+export default function GPSView({navigation}: any) {
 	const { gpsUserList, selectedUserIds, setGPSUserList, isLocationOn } = useGPSStore();
 	const [isBottomSheetVisible, setBottomSheetVisible] = useState(false);
 
@@ -22,6 +22,7 @@ export default function GPSView() {
 
 	const handleExchangeOption = (type: 'qr-generate' | 'qr-scan' | 'paper-scan') => {
 		console.log('클릭한 뷰로 이동 :', type);
+		navigation.navigate(type);
 		setBottomSheetVisible(false);
 	};
 
