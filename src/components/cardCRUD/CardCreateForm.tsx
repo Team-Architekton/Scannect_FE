@@ -7,10 +7,14 @@ import JobSelector from './JobSelector';
 import LabeledTextarea from './LabeledTextarea';
 import ProfileImagePicker from './Profile';
 import spacing from '../../styles/spacing';
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 export default function CardCreateForm() {
 	const { form, errors, handleChange, validateField } = useCardForm();
 	const { createCard } = useMypage();
+	const navigation = useNavigation<any>();
+
 
 	const requiredFields: (keyof typeof form)[] = [
 		'cardName',
@@ -38,6 +42,7 @@ export default function CardCreateForm() {
 
 		if (!hasError) {
 			createCard(form);
+			navigation.navigate('마이페이지');
 		}
 	};
 
