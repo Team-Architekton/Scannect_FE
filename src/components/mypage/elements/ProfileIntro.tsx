@@ -13,8 +13,8 @@ export default function ProfileIntro() {
 	if (!selectedCard) return null;
 
 	const imageSource =
-		selectedCard.profileImage && selectedCard.profileImage.trim() !== ''
-			? { uri: selectedCard.profileImage }
+		selectedCard.imgUrl && selectedCard.imgUrl.trim() !== ''
+			? { uri: selectedCard.imgUrl }
 			: DEFAULT_PROFILE_IMAGE;
 
 	return (
@@ -23,7 +23,7 @@ export default function ProfileIntro() {
 			<View style={styles.textContainer}>
 				<Text style={[typography.h2, styles.text]}>자기소개</Text>
 				<View style={styles.divider} />
-				<Text style={styles.introText}>{selectedCard.introduction}</Text>
+				<Text style={styles.introText}>{selectedCard.content}</Text>
 			</View>
 		</View>
 	);

@@ -15,7 +15,7 @@ export const useMypageStore = create<MypageStore>((set, get) => ({
 	setCards: cards => {
 		set({ cards });
 		if (cards.length > 0) {
-			const stored = cards.find(c => c.isDefault) ?? cards[0];
+			const stored = cards.find(c => c.isMain) ?? cards[0];
 			set({ selectedCard: stored });
 		}
 	},

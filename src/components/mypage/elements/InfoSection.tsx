@@ -16,11 +16,11 @@ export default function InfoSection() {
 			<View style={styles.divider} />
 			<View style={styles.infoRow}>
 				<Text style={styles.label}>이름</Text>
-				<Text style={styles.value}>{selectedCard.name}</Text>
+				<Text style={styles.value}>{selectedCard.cardName}</Text>
 			</View>
 			<View style={styles.infoRow}>
 				<Text style={styles.label}>소속</Text>
-				<Text style={styles.value}>{selectedCard.company}</Text>
+				<Text style={styles.value}>{selectedCard.belongTo}</Text>
 			</View>
 			<View style={styles.infoRow}>
 				<Text style={styles.label}>부서</Text>
@@ -28,22 +28,22 @@ export default function InfoSection() {
 			</View>
 			<View style={styles.infoRow}>
 				<Text style={styles.label}>직책</Text>
-				<Text style={styles.value}>{selectedCard.title}</Text>
+				<Text style={styles.value}>{selectedCard.job}</Text>
 			</View>
 			<View style={styles.infoRow}>
 				<Text style={styles.label}>업종/직무</Text>
-				<Text style={styles.value}>{selectedCard.industry}/{selectedCard.job}</Text>
+				<Text style={styles.value}>{selectedCard.industry}/{selectedCard.position}</Text>
 			</View>
 
 			<Text style={[typography.h2, styles.sectionTitle]}>연락처</Text>
 			<View style={styles.divider} />
 			<View style={styles.infoRow}>
 				<Text style={styles.label}>휴대폰</Text>
-				<Text style={styles.value}>{selectedCard.phone}</Text>
+				<Text style={styles.value}>{selectedCard.phoneNum}</Text>
 			</View>
 			<View style={styles.infoRow}>
 				<Text style={styles.label}>유선전화</Text>
-				<Text style={styles.value}>{selectedCard.landline}</Text>
+				<Text style={styles.value}>{selectedCard.companyTel}</Text>
 			</View>
 			<View style={styles.infoRow}>
 				<Text style={styles.label}>이메일</Text>

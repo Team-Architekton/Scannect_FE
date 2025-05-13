@@ -17,18 +17,18 @@ export default function CardPreview() {
 				{ backgroundColor: selectedCard.color || colors.grayscaleGray3 },
 			]}
 		>
-			<Text style={styles.company}>{selectedCard.company}</Text>
+			<Text style={styles.company}>{selectedCard.belongTo}</Text>
 
 			<View style={styles.infoRow}>
 				<View style={styles.leftInfo}>
 					<Text style={styles.name}>{selectedCard.name}</Text>
-					<Text style={styles.title}>{selectedCard.title}</Text>
+					<Text style={styles.title}>{selectedCard.position}</Text>
 				</View>
 
 				<View style={styles.rightInfo}>
 					<View style={styles.contactRow}>
 						<Feather name="phone" size={12} color="black" />
-						<Text style={styles.contactText}>{selectedCard.phone}</Text>
+						<Text style={styles.contactText}>{selectedCard.phoneNum}</Text>
 					</View>
 					<View style={styles.contactRow}>
 						<Feather name="mail" size={12} color="black" />
