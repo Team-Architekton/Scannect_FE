@@ -1,11 +1,45 @@
+import { View } from 'react-native';
 import LabeledInput from '../../components/cardCRUD/LabeledInput';
 import { useCardForm } from '../../hooks/useCardForm';
+import { useMypage } from '../../hooks/useMypage';
+import CommonButton from '../CommonButton';
 import JobSelector from './JobSelector';
 import LabeledTextarea from './LabeledTextarea';
 import ProfileImagePicker from './Profile';
+import spacing from '../../styles/spacing';
 
 export default function CardCreateForm() {
 	const { form, errors, handleChange, validateField } = useCardForm();
+	const { createCard } = useMypage();
+
+	const requiredFields: (keyof typeof form)[] = [
+		'cardName',
+		'name',
+		'belongTo',
+		'job',
+		'industry',
+		'position',
+		'email',
+		'phoneNum',
+	];
+
+	const handleCreate = () => {
+		let hasError = false;
+
+		requiredFields.forEach(field => {
+			const value = form[field];
+			if (typeof value === 'string') {
+				const error = validateField(field, value);
+				if (error) {
+					hasError = true;
+				}
+			}
+		});
+
+		if (!hasError) {
+			createCard(form);
+		}
+	};
 
 	return (
 		<>
@@ -21,13 +55,22 @@ export default function CardCreateForm() {
 				errorMessage={errors.content}
 			/>
 			<LabeledInput
-				label="이름"
+				label="명함 별명"
 				required
 				value={form.cardName}
 				onChangeText={text => handleChange('cardName', text)}
 				errorMessage={errors.cardName}
-				placeholder="이름을 입력하세요"
+				placeholder="명함 별명을 입력하세요"
 				onBlur={() => validateField('cardName', form.cardName)}
+			/>
+			<LabeledInput
+				label="이름"
+				required
+				value={form.name}
+				onChangeText={text => handleChange('name', text)}
+				errorMessage={errors.name}
+				placeholder="이름을 입력하세요"
+				onBlur={() => validateField('name', form.name)}
 			/>
 			<LabeledInput
 				label="소속"
@@ -36,6 +79,7 @@ export default function CardCreateForm() {
 				onChangeText={text => handleChange('belongTo', text)}
 				errorMessage={errors.belongTo}
 				placeholder="회사 이름을 입력하세요"
+				onBlur={() => validateField('belongTo', form.belongTo)}
 			/>
 			<LabeledInput
 				label="직책"
@@ -44,6 +88,7 @@ export default function CardCreateForm() {
 				onChangeText={text => handleChange('job', text)}
 				errorMessage={errors.job}
 				placeholder="직책을 입력하세요"
+				onBlur={() => validateField('job', form.job)}
 			/>
 			<LabeledInput
 				label="부서"
@@ -56,6 +101,8 @@ export default function CardCreateForm() {
 				job={form.position}
 				onChangeIndustry={value => handleChange('industry', value)}
 				onChangeJob={value => handleChange('position', value)}
+				industryError={errors.industry}
+				jobError={errors.position}
 			/>
 			<LabeledInput
 				label="휴대폰"
@@ -63,7 +110,7 @@ export default function CardCreateForm() {
 				value={form.phoneNum}
 				onChangeText={text => handleChange('phoneNum', text)}
 				errorMessage={errors.phoneNum}
-				placeholder="010-1234-5678"
+				placeholder="01012345678 (- 제외)"
 				keyboardType="phone-pad"
 				onBlur={() => validateField('phoneNum', form.phoneNum)}
 			/>
@@ -84,13 +131,17 @@ export default function CardCreateForm() {
 				keyboardType="email-address"
 				onBlur={() => validateField('email', form.email)}
 			/>
-			{/* <LabeledInput
+			<LabeledInput
 				label="URL"
 				value={form.website}
 				onChangeText={text => handleChange('website', text)}
 				placeholder="https://"
 				keyboardType="url"
-			/> */}
+			/>
+			<View style={{ flexDirection: 'row', justifyContent: 'flex-end', gap: spacing.s }}>
+				<CommonButton title="취소" onPress={() => {}} size="small" />
+				<CommonButton title="생성" onPress={() => handleCreate()} size="small" />
+			</View>
 		</>
 	);
-};
+}

@@ -2,12 +2,12 @@ export interface Card {
 	id: number;
 	cardName: string;
 	name: string;
+	belongTo: string;
+	job: string;
 	phoneNum: string;
 	email: string;
 	position: string;
-	belongTo: string;
 	industry: string;
-	job: string;
 
 	department?: string;
 	imgUrl?: string | null;

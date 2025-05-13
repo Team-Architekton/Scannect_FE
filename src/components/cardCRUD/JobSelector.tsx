@@ -11,9 +11,11 @@ interface Props {
 	job: string;
 	onChangeIndustry: (value: string) => void;
 	onChangeJob: (value: string) => void;
+	industryError?: string;
+	jobError?: string;
 }
 
-export default function JobSelector({ industry, job, onChangeIndustry, onChangeJob }: Props) {
+export default function JobSelector({ industry, job, onChangeIndustry, onChangeJob, industryError, jobError }: Props) {
 	const [jobItems, setJobItems] = useState<{ label: string; value: string }[]>([]);
 
 	const industryItems = jobOptions.map(opt => ({
@@ -33,7 +35,7 @@ export default function JobSelector({ industry, job, onChangeIndustry, onChangeJ
 					업종 <Text style={styles.required}>*</Text>
 				</Text>
 				<Dropdown
-					style={styles.dropdown}
+					style={[styles.dropdown, industryError && styles.errorBorder]}
 					data={industryItems}
 					labelField="label"
 					valueField="value"
@@ -43,13 +45,14 @@ export default function JobSelector({ industry, job, onChangeIndustry, onChangeJ
 					placeholderStyle={styles.placeholderStyle}
 					selectedTextStyle={styles.selectedTextStyle}
 				/>
+				{industryError && <Text style={styles.errorText}>{industryError}</Text>}
 			</View>
 			<View style={styles.pickerWrapper}>
 				<Text style={styles.label}>
 					직무 <Text style={styles.required}>*</Text>
 				</Text>
 				<Dropdown
-					style={styles.dropdown}
+					style={[styles.dropdown, jobError && styles.errorBorder]}
 					data={jobItems}
 					labelField="label"
 					valueField="value"
@@ -60,10 +63,11 @@ export default function JobSelector({ industry, job, onChangeIndustry, onChangeJ
 					placeholderStyle={styles.placeholderStyle}
 					selectedTextStyle={styles.selectedTextStyle}
 				/>
+				{jobError && <Text style={styles.errorText}>{jobError}</Text>}
 			</View>
 		</View>
 	);
-}
+};
 
 const styles = StyleSheet.create({
 	container: {
@@ -91,6 +95,14 @@ const styles = StyleSheet.create({
 		borderRadius: 8,
 		backgroundColor: colors.white,
 		justifyContent: 'center',
+	},
+	errorBorder: {
+		borderColor: colors.error,
+	},
+	errorText: {
+		marginTop: spacing.xs,
+		fontSize: 12,
+		color: colors.error,
 	},
 	placeholderStyle: {
 		fontSize: 14,

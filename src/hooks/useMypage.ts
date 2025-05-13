@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useMypageStore } from '../store/useMyPageStore';
 import { Card } from '../model/card';
+import { CardForm } from './useCardForm';
 
 export function useMypage() {
 	const { cards, selectedCard, setCards, setSelectedCard } = useMypageStore();
@@ -71,8 +72,26 @@ export function useMypage() {
 		setCards(mockData);
 	}, []);
 
+	const createCard = (newCard: CardForm) => {
+		const nextId = cards.length > 0 ? Math.max(...cards.map(c => c.id)) + 1 : 1;
+
+		const cardWithId: Card = {
+			id: nextId,
+			...newCard,
+			isMain: false,
+		};
+
+		const updatedCards = [...cards, cardWithId];
+		setCards(updatedCards);
+		setSelectedCard(cardWithId);
+
+		console.log('카드 생성됨:', cardWithId);
+	};
+
 	const updateCardColor = (cardId: number, color: string) => {
-		const updatedCards = cards.map(card => (card.id === cardId ? { ...card, colour: color } : card));
+		const updatedCards = cards.map(card =>
+			card.id === cardId ? { ...card, colour: color } : card
+		);
 		setCards(updatedCards);
 
 		if (selectedCard?.id === cardId) {
@@ -102,6 +121,7 @@ export function useMypage() {
 		cards,
 		selectedCard,
 		setSelectedCard,
+		createCard,
 		updateCardColor,
 		setDefaultCard,
 		deleteCard,
