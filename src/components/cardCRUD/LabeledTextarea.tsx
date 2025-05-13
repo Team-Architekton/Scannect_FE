@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
 		marginBottom: spacing.m,
 	},
 	label: {
-		...typography.body2,
+		...typography.body,
 		marginBottom: spacing.s,
         paddingLeft: spacing.xs,
         color: colors.black,
