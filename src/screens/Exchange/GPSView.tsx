@@ -20,8 +20,8 @@ export default function GPSView({navigation}: any) {
 		setGPSUserList(dummyData);
 	}, []);
 
-	const handleExchangeOption = (type: 'qr-generate' | 'qr-scan' | 'paper-scan') => {
-		console.log('클릭한 뷰로 이동 :', type);
+	const handleExchangeOption = (type: 'QRGenerate' | 'QRScan' | 'PaperScan') => {
+		//console.log('클릭한 뷰로 이동 :', type);
 		navigation.navigate(type);
 		setBottomSheetVisible(false);
 	};

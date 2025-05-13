@@ -1,7 +1,7 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import GPSView from '../screens/Exchange/GPSView';
-import QRView from '../screens/Exchange/QRView';
+import QRGenerationView from '../screens/Exchange/QRGenerationView';
 
 const Stack = createNativeStackNavigator();
 
@@ -9,9 +9,17 @@ export default function ExchangeStack() {
 	return (
 		<Stack.Navigator>
 			<Stack.Screen name="명함 교환" component={GPSView} />
-			<Stack.Screen name="qr-generate" component={QRView} />
-			<Stack.Screen name="qr-scan" component={QRView} />
-			<Stack.Screen name="paper-scan" component={QRView} />
+			<Stack.Screen
+				name="QRGenerate"
+				component={QRGenerationView}
+				options={{ title: 'QR 코드 생성' }}
+			/>
+			<Stack.Screen
+				name="QRScan"
+				component={QRGenerationView}
+				options={{ title: 'QR 코드 스캔' }}
+			/>
+			<Stack.Screen name="PaperScan" component={QRGenerationView} options={{ title: 'OCR 교환' }} />
 		</Stack.Navigator>
 	);
 }

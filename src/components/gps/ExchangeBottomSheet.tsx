@@ -7,7 +7,7 @@ import typography from '../../styles/typography';
 interface Props {
 	visible: boolean;
 	onClose: () => void;
-	onSelect: (type: 'qr-generate' | 'qr-scan' | 'paper-scan') => void;
+	onSelect: (type: 'QRGenerate' | 'QRScan' | 'PaperScan') => void;
 }
 
 export default function ExchangeBottomSheet({ visible, onClose, onSelect }: Props) {
@@ -25,19 +25,19 @@ export default function ExchangeBottomSheet({ visible, onClose, onSelect }: Prop
 
 					<CommonButton
 						title="QR 코드 생성"
-						onPress={() => onSelect('qr-generate')}
+						onPress={() => onSelect('QRGenerate')}
 						buttonStyle={{ marginBottom: spacing.m }}
 						size="large"
 					/>
 					<CommonButton
 						title="QR 코드 스캔"
-						onPress={() => onSelect('qr-scan')}
+						onPress={() => onSelect('QRScan')}
 						buttonStyle={{ marginBottom: spacing.m }}
 						size="large"
 					/>
 					<CommonButton
 						title="종이 명함 스캔"
-						onPress={() => onSelect('paper-scan')}
+						onPress={() => onSelect('PaperScan')}
 						buttonStyle={{ marginBottom: spacing.m }}
 						size="large"
 					/>
