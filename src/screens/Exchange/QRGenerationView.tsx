@@ -4,13 +4,12 @@ import ScreenContainer from '../../components/ScreenContainer';
 import MyQRCode from '../../components/qrcode/MyQRCode';
 import commonStyles from '../../styles/commonStyles';
 import spacing from '../../styles/spacing';
-import colors from '../../styles/Colors';
-import CommonButton from '../../components/CommonButton';
-
-const exampleID = 1; // QR 생성을 위한 임시 id 데이터
-const deepLinkUrl = `scannect://CardListTab/CardDetail?cardId=${exampleID}`; // 딥링크로 처리 시도 예정, 어려우면 id만 담아서 qr 생성하는 방식으로 변경
 
 export default function QRGenerationView() {
+	//const exampleID = 1; // QR 생성을 위한 id 데이터
+	//const deepLinkUrl = `scannect://CardListTab/CardDetail?cardId=${exampleID}`; // 딥링크로 처리 시도 예정, 어려우면 id만 담아서 qr 생성하는 방식으로 변경
+	const exampleUrl = 'https://github.com/Team-Architekton/Scannect_FE'; // qr 생성 테스트를 위한 임시 url
+
 	return (
 		<ScreenContainer>
 			<View style={styles.container}>
@@ -20,13 +19,7 @@ export default function QRGenerationView() {
 						이제 나만의 명함을 저장하고 공유할 수 있어요.
 					</Text>
 				</View>
-				<View style={styles.qrcodeContainer}>
-					<MyQRCode value={deepLinkUrl} />
-				</View>
-				<Text style={[commonStyles.bodyBoldText, { marginBottom: spacing.l }]}>
-					QR코드를 공유하고 내 명함을 전달해보세요!
-				</Text>
-				<CommonButton title="내 명함 공유하러 가기" onPress={() => {}} />
+				<MyQRCode value={exampleUrl} />
 			</View>
 		</ScreenContainer>
 	);
@@ -44,17 +37,5 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 		gap: spacing.s,
 		marginBottom: spacing.l,
-	},
-	qrcodeContainer: {
-		...commonStyles.sectionBox,
-		padding: spacing.xxl,
-		shadowColor: colors.darkGreen,
-		shadowOffset: {
-			width: 0,
-			height: 5,
-		},
-		shadowOpacity: 0.25,
-		shadowRadius: 10,
-		elevation: 5,
 	},
 });
