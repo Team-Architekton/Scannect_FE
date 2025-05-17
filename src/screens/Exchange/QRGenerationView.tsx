@@ -4,11 +4,12 @@ import ScreenContainer from '../../components/ScreenContainer';
 import QRCodeSection from '../../components/qrcode/QRCodeSection';
 import commonStyles from '../../styles/commonStyles';
 import spacing from '../../styles/spacing';
+import colors from '../../styles/Colors';
 
 export default function QRGenerationView() {
 	const exampleID = 1; // QR 생성을 위한 id 데이터
-	const deepLinkUrl = `scannect://CardListTab/CardDetail?cardId=${exampleID}`; // 딥링크로 처리 시도 예정, 어려우면 id만 담아서 qr 생성하는 방식으로 변경
-	//const exampleUrl = 'https://github.com/Team-Architekton/Scannect_FE'; // qr 생성 테스트를 위한 임시 url
+	const qrUrl = `scannect://cardlist-tab/card-detail/${exampleID}`; // url은 컨벤션상 kebab-case로 작성 -> 인식하려면 Navigation Linking 설정 필요
+	//const qrUrl = 'https://github.com/Team-Architekton/Scannect_FE'; // qr 생성 테스트를 위한 임시 url
 
 	return (
 		<ScreenContainer>
@@ -19,7 +20,7 @@ export default function QRGenerationView() {
 						이제 나만의 명함을 저장하고 공유할 수 있어요.
 					</Text>
 				</View>
-				<QRCodeSection value={deepLinkUrl} />
+				<QRCodeSection value={qrUrl} />
 			</View>
 		</ScreenContainer>
 	);
