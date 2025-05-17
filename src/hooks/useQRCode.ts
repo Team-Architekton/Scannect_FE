@@ -1,9 +1,13 @@
 import * as FileSystem from 'expo-file-system';
 import * as Sharing from 'expo-sharing';
+import { useRef } from 'react';
 
 export function useQRCode() {
-	const onQRShare = async (qrRef: React.RefObject<any>) => {
+	const qrRef = useRef<any>(null);
+
+	const onQRShare = async () => {
 		// qr코드 BASE64 인코딩 후 파일 공유
+		console.log('qr 공유 중...');
 		qrRef.current?.toDataURL(async (data: string) => {
 			const filename = FileSystem.documentDirectory + 'scannect_qrcode.png';
 			await FileSystem.writeAsStringAsync(filename, data, {
@@ -17,5 +21,5 @@ export function useQRCode() {
 			}
 		});
 	};
-	return { onQRShare };
+	return { qrRef, onQRShare };
 }

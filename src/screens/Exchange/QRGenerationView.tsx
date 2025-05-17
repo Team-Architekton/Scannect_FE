@@ -1,14 +1,14 @@
 import { Text, View, StyleSheet } from 'react-native';
 
 import ScreenContainer from '../../components/ScreenContainer';
-import MyQRCode from '../../components/qrcode/MyQRCode';
+import QRCodeSection from '../../components/qrcode/QRCodeSection';
 import commonStyles from '../../styles/commonStyles';
 import spacing from '../../styles/spacing';
 
 export default function QRGenerationView() {
-	//const exampleID = 1; // QR 생성을 위한 id 데이터
-	//const deepLinkUrl = `scannect://CardListTab/CardDetail?cardId=${exampleID}`; // 딥링크로 처리 시도 예정, 어려우면 id만 담아서 qr 생성하는 방식으로 변경
-	const exampleUrl = 'https://github.com/Team-Architekton/Scannect_FE'; // qr 생성 테스트를 위한 임시 url
+	const exampleID = 1; // QR 생성을 위한 id 데이터
+	const deepLinkUrl = `scannect://CardListTab/CardDetail?cardId=${exampleID}`; // 딥링크로 처리 시도 예정, 어려우면 id만 담아서 qr 생성하는 방식으로 변경
+	//const exampleUrl = 'https://github.com/Team-Architekton/Scannect_FE'; // qr 생성 테스트를 위한 임시 url
 
 	return (
 		<ScreenContainer>
@@ -19,7 +19,7 @@ export default function QRGenerationView() {
 						이제 나만의 명함을 저장하고 공유할 수 있어요.
 					</Text>
 				</View>
-				<MyQRCode value={exampleUrl} />
+				<QRCodeSection value={deepLinkUrl} />
 			</View>
 		</ScreenContainer>
 	);

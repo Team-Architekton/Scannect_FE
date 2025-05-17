@@ -1,6 +1,5 @@
 import { View, StyleSheet, Text } from 'react-native';
 import QRCode from 'react-native-qrcode-svg';
-import { useRef } from 'react';
 
 import { useQRCode } from '../../hooks/useQRCode';
 import commonStyles from '../../styles/commonStyles';
@@ -12,9 +11,8 @@ interface IQRCodeProp {
 	value: string;
 }
 
-export default function MyQRCode({ value }: IQRCodeProp) {
-	const qrRef = useRef<any>(null);
-	const { onQRShare } = useQRCode();
+export default function QRCodeSection({ value }: IQRCodeProp) {
+	const { qrRef, onQRShare } = useQRCode();
 	const logoFile = require('../../assets/teamLogo.jpeg');
 
 	return (
@@ -34,7 +32,7 @@ export default function MyQRCode({ value }: IQRCodeProp) {
 			<Text style={[commonStyles.bodyBoldText, { marginBottom: spacing.l }]}>
 				QR코드를 공유하고 내 명함을 전달해보세요!
 			</Text>
-			<CommonButton title="내 명함 공유하러 가기" onPress={() => onQRShare(qrRef)} />
+			<CommonButton title="내 명함 공유하러 가기" onPress={() => onQRShare()} />
 		</>
 	);
 }
