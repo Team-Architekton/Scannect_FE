@@ -17,7 +17,7 @@ export default function CardItem(props: ICardItem) {
 	return (
 		<Pressable
 			onLongPress={() => openModal(props.id)}
-			onPress={() => navigation.navigate('명함 상세', { cardId: props.id })}
+			onPress={() => navigation.navigate('CardDetail', { cardId: props.id })}
 			style={({ pressed }) => [
 				styles.cardItem,
 				{

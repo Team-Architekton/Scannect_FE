@@ -16,9 +16,13 @@ export default function RootNavigation() {
 					headerShown: false,
 				}}
 			>
-				<Tab.Screen name="명함리스트" component={CardListStack} />
-				<Tab.Screen name="명함교환" component={ExchangeStack} />
-				<Tab.Screen name="마이페이지" component={MyPageStack} />
+				<Tab.Screen
+					name="CardListTab"
+					component={CardListStack}
+					options={{ title: '명함리스트' }}
+				/>
+				<Tab.Screen name="ExchangeTab" component={ExchangeStack} options={{ title: '명함교환' }} />
+				<Tab.Screen name="MyPageTab" component={MyPageStack} options={{ title: '마이페이지' }} />
 			</Tab.Navigator>
 		</NavigationContainer>
 	);
