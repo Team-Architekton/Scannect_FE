@@ -19,6 +19,9 @@ export default function QRGenerationView() {
 					<Text style={commonStyles.bodyBoldText}>
 						이제 나만의 명함을 저장하고 공유할 수 있어요.
 					</Text>
+					<Text style={[commonStyles.captionText, styles.exchangedCardInfo]}>
+						프론트엔드 개발자
+					</Text>
 				</View>
 				<QRCodeSection value={qrUrl} />
 			</View>
@@ -38,5 +41,14 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 		gap: spacing.s,
 		marginBottom: spacing.l,
+	},
+	exchangedCardInfo: {
+		position: 'absolute',
+		top: -40,
+		left: 30,
+		backgroundColor: colors.paleGreen,
+		paddingVertical: spacing.s,
+		paddingHorizontal: spacing.sm,
+		borderRadius: 7,
 	},
 });
