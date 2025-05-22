@@ -13,7 +13,7 @@ import GPSOffView from '../../components/gps/GPSOffView';
 import ExchangeBottomSheet from '../../components/gps/ExchangeBottomSheet';
 import DropdownMenu from '../../components/mypage/elements/Dropdown';
 
-export default function GPSView({ navigation }: any) {
+export default function GPSView({navigation}: any) {
 	const { gpsUserList, selectedUserIds, setGPSUserList, isLocationOn } = useGPSStore();
 	const [isBottomSheetVisible, setBottomSheetVisible] = useState(false);
 
@@ -21,8 +21,9 @@ export default function GPSView({ navigation }: any) {
 		setGPSUserList(dummyData);
 	}, []);
 
-	const handleExchangeOption = (type: 'qr-generate' | 'qr-scan' | 'paper-scan') => {
-		console.log('클릭한 뷰로 이동 :', type);
+	const handleExchangeOption = (type: 'QRGenerate' | 'QRScan' | 'PaperScan') => {
+		//console.log('클릭한 뷰로 이동 :', type);
+		navigation.navigate(type);
 		setBottomSheetVisible(false);
 	};
 
