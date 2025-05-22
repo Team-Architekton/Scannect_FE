@@ -15,7 +15,7 @@ export function useMypage() {
 				job: '프론트엔드 개발자',
 				belongTo: '당근마켓',
 				department: '개발팀',
-				phoneNum: '010-1234-5678',
+				phoneNum: '01012345678',
 				email: 'yujin@daangn.com',
 				website: 'https://daangn.com',
 				isMain: true,

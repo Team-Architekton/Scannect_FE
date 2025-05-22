@@ -1,11 +1,11 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Card } from '../model/card';
 
 export type CardForm = Omit<Card, 'id' | 'isMain'>;
 export type CardFormErrors = Partial<Record<keyof CardForm, string>>;
 
 export function useCardForm(initial: Partial<CardForm> = {}) {
-	const [form, setForm] = useState<CardForm>({
+	const DEFAULT_FORM: CardForm = {
 		cardName: '',
 		name: '',
 		phoneNum: '',
@@ -20,10 +20,23 @@ export function useCardForm(initial: Partial<CardForm> = {}) {
 		job: '',
 		color: '',
 		website: '',
+	};
+
+	const [form, setForm] = useState<CardForm>({
+		...DEFAULT_FORM,
 		...initial,
 	});
 
 	const [errors, setErrors] = useState<CardFormErrors>({});
+
+	useEffect(() => {
+		setForm({ ...DEFAULT_FORM, ...initial });
+	}, [JSON.stringify(initial)]);
+
+	const resetForm = (newInitial: Partial<CardForm> = initial) => {
+		setForm({ ...DEFAULT_FORM, ...newInitial });
+		setErrors({});
+	};
 
 	const handleChange = (key: keyof CardForm, value: string | null) => {
 		setForm(prev => ({ ...prev, [key]: value }));
@@ -68,5 +81,5 @@ export function useCardForm(initial: Partial<CardForm> = {}) {
 		return error;
 	};
 
-	return { form, errors, handleChange, validateField };
-};
+	return { form, errors, handleChange, validateField, resetForm };
+}

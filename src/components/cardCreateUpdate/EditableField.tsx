@@ -5,18 +5,34 @@ import spacing from '../../styles/spacing';
 
 type EditableFieldProps = {
 	label: string;
-	value: string;
+	value: string | undefined;
 	onChange: (text: string) => void;
 	isEditing: boolean;
 	inputProps?: TextInputProps;
+	errorMessage?: string;
 };
 
-const EditableField: React.FC<EditableFieldProps> = ({ label,value,onChange,isEditing,inputProps = {}, }) => {
+const EditableField: React.FC<EditableFieldProps> = ({
+	label,
+	value,
+	onChange,
+	isEditing,
+	inputProps = {},
+	errorMessage,
+}) => {
 	return (
 		<View style={styles.infoRow}>
 			<Text style={styles.label}>{label}</Text>
 			{isEditing ? (
-				<TextInput style={styles.input} value={value} onChangeText={onChange} {...inputProps} />
+				<View style={{flexDirection: 'column'}}>
+					<TextInput
+						style={[styles.input, errorMessage && styles.inputError]}
+						value={value}
+						onChangeText={onChange}
+						{...inputProps}
+					/>
+					{errorMessage && <Text style={styles.errorText}>{errorMessage}</Text>}
+				</View>
 			) : (
 				<Text style={styles.value}>{value}</Text>
 			)}
@@ -45,6 +61,14 @@ const styles = StyleSheet.create({
 		borderBottomColor: colors.grayscaleGray3,
 		paddingBottom: 3,
 		minWidth: 150,
+	},
+	inputError: {
+		borderBottomColor: colors.error,
+	},
+	errorText: {
+		color: colors.error,
+		fontSize: 12,
+		marginTop: 3,
 	},
 });
 

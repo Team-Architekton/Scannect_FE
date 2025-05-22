@@ -7,17 +7,28 @@ import typography from '../../../styles/typography';
 import EditableField from '../../cardCreateUpdate/EditableField';
 import CommonButton from '../../CommonButton';
 import JobSelector from '../../cardCreateUpdate/JobSelector';
+import { CardForm, useCardForm } from '../../../hooks/useCardForm';
 
 export default function InfoSection() {
 	const selectedCard = useMypageStore(state => state.selectedCard);
+	const setSelectedCard = useMypageStore(state => state.setSelectedCard);
 	const isEditing = useMypageStore(state => state.isEditing);
 	const setIsEditing = useMypageStore(state => state.setIsEditing);
 
-	const [editedCard, setEditedCard] = useState(selectedCard);
+	const { form, errors, handleChange, validateField, resetForm } = useCardForm({...selectedCard});
 
-	useEffect(() => {
-		if (selectedCard) setEditedCard(selectedCard);
-	}, [selectedCard]);
+	const validateAll = () => {
+		const requiredFields: (keyof CardForm)[] = [
+			'name',
+			'belongTo',
+			'industry',
+			'position',
+			'email',
+			'phoneNum',
+		];
+		const hasError = requiredFields.some(field => validateField(field, form[field] ?? ''));
+		return !hasError;
+	};
 
 	if (!selectedCard) return null;
 
@@ -25,46 +36,51 @@ export default function InfoSection() {
 		<View style={styles.container}>
 			<Text style={[typography.h2, styles.sectionTitle]}>명함 정보</Text>
 			<View style={styles.divider} />
+
 			<EditableField
 				label="이름"
-				value={editedCard?.name || ''}
-				onChange={text => setEditedCard(prev => (prev ? { ...prev, name: text } : null))}
+				value={form.name}
+				onChange={text => handleChange('name', text)}
 				isEditing={isEditing}
+				inputProps={{ onBlur: () => validateField('name', form.name) }}
+				errorMessage={errors.name}
 			/>
 
 			<EditableField
 				label="소속"
-				value={editedCard?.belongTo || ''}
-				onChange={text => setEditedCard(prev => (prev ? { ...prev, belongTo: text } : null))}
+				value={form.belongTo}
+				onChange={text => handleChange('belongTo', text)}
 				isEditing={isEditing}
+				inputProps={{ onBlur: () => validateField('belongTo', form.belongTo) }}
+				errorMessage={errors.belongTo}
 			/>
 
 			<EditableField
 				label="부서"
-				value={editedCard?.department || ''}
-				onChange={text => setEditedCard(prev => (prev ? { ...prev, department: text } : null))}
+				value={form.department}
+				onChange={text => handleChange('department', text)}
 				isEditing={isEditing}
 			/>
 
 			<EditableField
 				label="직책"
-				value={editedCard?.job || ''}
-				onChange={text => setEditedCard(prev => (prev ? { ...prev, job: text } : null))}
+				value={form.job}
+				onChange={text => handleChange('job', text)}
 				isEditing={isEditing}
+				inputProps={{ onBlur: () => validateField('job', form.job) }}
+				errorMessage={errors.job}
 			/>
 
 			{isEditing ? (
 				<>
 					<Text style={styles.label}>업종/직무</Text>
 					<JobSelector
-						industry={editedCard?.industry || ''}
-						position={editedCard?.position || ''}
-						onChangeIndustry={value =>
-							setEditedCard(prev => (prev ? { ...prev, industry: value, position: '' } : null))
-						}
-						onChangePosition={value =>
-							setEditedCard(prev => (prev ? { ...prev, position: value } : null))
-						}
+						industry={form.industry}
+						position={form.position}
+						onChangeIndustry={value => handleChange('industry', value)}
+						onChangePosition={value => handleChange('position', value)}
+						industryError={errors.industry}
+						positionError={errors.position}
 						showLabel={false}
 					/>
 				</>
@@ -82,29 +98,33 @@ export default function InfoSection() {
 
 			<EditableField
 				label="휴대폰"
-				value={editedCard?.phoneNum || ''}
-				onChange={text => setEditedCard(prev => (prev ? { ...prev, phoneNum: text } : null))}
+				value={form.phoneNum}
+				onChange={text => handleChange('phoneNum', text)}
 				isEditing={isEditing}
+				inputProps={{ onBlur: () => validateField('phoneNum', form.phoneNum) }}
+				errorMessage={errors.phoneNum}
 			/>
 
 			<EditableField
 				label="유선전화"
-				value={editedCard?.companyTel || ''}
-				onChange={text => setEditedCard(prev => (prev ? { ...prev, companyTel: text } : null))}
+				value={form.companyTel}
+				onChange={text => handleChange('companyTel', text)}
 				isEditing={isEditing}
 			/>
 
 			<EditableField
 				label="이메일"
-				value={editedCard?.email || ''}
-				onChange={text => setEditedCard(prev => (prev ? { ...prev, email: text } : null))}
+				value={form.email}
+				onChange={text => handleChange('email', text)}
 				isEditing={isEditing}
+				inputProps={{ onBlur: () => validateField('email', form.email) }}
+				errorMessage={errors.email}
 			/>
 
 			<EditableField
 				label="URL"
-				value={editedCard?.website || ''}
-				onChange={text => setEditedCard(prev => (prev ? { ...prev, website: text } : null))}
+				value={form.website}
+				onChange={text => handleChange('website', text)}
 				isEditing={isEditing}
 			/>
 
@@ -118,7 +138,7 @@ export default function InfoSection() {
 								{
 									text: '네',
 									onPress: () => {
-										if (selectedCard) setEditedCard(selectedCard);
+										resetForm(selectedCard);
 										setIsEditing(false);
 									},
 								},
@@ -129,6 +149,12 @@ export default function InfoSection() {
 					<CommonButton
 						title="저장"
 						onPress={() => {
+							if (!validateAll()) return;
+							setSelectedCard({
+								...form,
+								id: selectedCard.id,
+								isMain: selectedCard.isMain,
+							});
 							setIsEditing(false);
 						}}
 						size="small"
