@@ -11,8 +11,9 @@ import { dummyData } from '../../model/gpsUser';
 import spacing from '../../styles/spacing';
 import GPSOffView from '../../components/gps/GPSOffView';
 import ExchangeBottomSheet from '../../components/gps/ExchangeBottomSheet';
+import DropdownMenu from '../../components/mypage/elements/Dropdown';
 
-export default function GPSView() {
+export default function GPSView({ navigation }: any) {
 	const { gpsUserList, selectedUserIds, setGPSUserList, isLocationOn } = useGPSStore();
 	const [isBottomSheetVisible, setBottomSheetVisible] = useState(false);
 
@@ -29,8 +30,7 @@ export default function GPSView() {
 		<ScreenContainer>
 			<View style={styles.header}>
 				<View style={styles.headerText}>
-					<Text style={commonStyles.titleText}>명함 교환</Text>
-					<Text style={commonStyles.captionText}>교환 할 유저를 선택하세요</Text>
+					<DropdownMenu />
 				</View>
 				<GPSSwitch></GPSSwitch>
 			</View>
