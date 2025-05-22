@@ -52,12 +52,12 @@ export default function InfoSection() {
 				isEditing={isEditing}
 			/>
 
-			<View style={styles.infoRow}>
+			{/* <View style={styles.infoRow}>
 				<Text style={styles.label}>업종/직무</Text>
 				<Text style={styles.value}>
 					{selectedCard.industry}/{selectedCard.position}
 				</Text>
-			</View>
+			</View> */}
 
 			<Text style={[typography.h2, styles.sectionTitle]}>연락처</Text>
 			<View style={styles.divider} />
@@ -140,27 +140,6 @@ const styles = StyleSheet.create({
 		height: 2,
 		backgroundColor: colors.grayscaleGray3,
 		marginBottom: spacing.s,
-	},
-	infoRow: {
-		flexDirection: 'row',
-		gap: 20,
-		marginBottom: spacing.xs,
-	},
-	label: {
-		color: colors.grayscaleGray5,
-		fontSize: 14,
-	},
-	value: {
-		color: colors.black,
-		fontSize: 14,
-	},
-	input: {
-		borderBottomWidth: 1,
-		borderBottomColor: colors.grayscaleGray3,
-		fontSize: 14,
-		color: colors.black,
-		paddingVertical: 2,
-		minWidth: 100,
 	},
 	buttonRow: {
 		flexDirection: 'row',
