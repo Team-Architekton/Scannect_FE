@@ -1,7 +1,7 @@
 import { KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
 import { useRef } from 'react';
 import ScreenContainer from '../../components/ScreenContainer';
-import CardCreateForm from '../../components/cardCRUD/CardCreateForm';
+import CardCreateForm from '../../components/cardCreateUpdate/CardCreateForm';
 
 export default function CardCreateView() {
 	const scrollRef = useRef<ScrollView>(null);

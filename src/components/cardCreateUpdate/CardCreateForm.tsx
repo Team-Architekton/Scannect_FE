@@ -1,5 +1,5 @@
 import { View } from 'react-native';
-import LabeledInput from '../../components/cardCRUD/LabeledInput';
+import LabeledInput from './LabeledInput';
 import { useCardForm } from '../../hooks/useCardForm';
 import { useMypage } from '../../hooks/useMypage';
 import CommonButton from '../CommonButton';
