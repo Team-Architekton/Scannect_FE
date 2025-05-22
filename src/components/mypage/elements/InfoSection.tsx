@@ -7,31 +7,23 @@ import typography from '../../../styles/typography';
 import EditableField from '../../cardCreateUpdate/EditableField';
 import CommonButton from '../../CommonButton';
 import JobSelector from '../../cardCreateUpdate/JobSelector';
-import { CardForm, useCardForm } from '../../../hooks/useCardForm';
+import { CardForm, CardFormErrors, useCardForm } from '../../../hooks/useCardForm';
 
-export default function InfoSection() {
-	const selectedCard = useMypageStore(state => state.selectedCard);
-	const setSelectedCard = useMypageStore(state => state.setSelectedCard);
-	const isEditing = useMypageStore(state => state.isEditing);
-	const setIsEditing = useMypageStore(state => state.setIsEditing);
+type Props = {
+	form: CardForm;
+	errors: CardFormErrors;
+	isEditing: boolean;
+	handleChange: (key: keyof CardForm, value: string | null) => void;
+	validateField: (key: keyof CardForm, value: string) => void;
+};
 
-	const { form, errors, handleChange, validateField, resetForm } = useCardForm({...selectedCard});
-
-	const validateAll = () => {
-		const requiredFields: (keyof CardForm)[] = [
-			'name',
-			'belongTo',
-			'industry',
-			'position',
-			'email',
-			'phoneNum',
-		];
-		const hasError = requiredFields.some(field => validateField(field, form[field] ?? ''));
-		return !hasError;
-	};
-
-	if (!selectedCard) return null;
-
+export default function InfoSection({
+	form,
+	errors,
+	isEditing,
+	handleChange,
+	validateField,
+}: Props) {
 	return (
 		<View style={styles.container}>
 			<Text style={[typography.h2, styles.sectionTitle]}>명함 정보</Text>
@@ -88,7 +80,7 @@ export default function InfoSection() {
 				<View style={styles.infoRow}>
 					<Text style={styles.label}>업종/직무</Text>
 					<Text style={styles.value}>
-						{selectedCard.industry}/{selectedCard.position}
+						{form.industry}/{form.position}
 					</Text>
 				</View>
 			)}
@@ -127,40 +119,6 @@ export default function InfoSection() {
 				onChange={text => handleChange('website', text)}
 				isEditing={isEditing}
 			/>
-
-			{isEditing && (
-				<View style={styles.buttonRow}>
-					<CommonButton
-						title="취소"
-						onPress={() => {
-							Alert.alert('수정 취소', '지금까지 수정한 내용이 사라집니다. 취소하시겠습니까?', [
-								{ text: '아니요' },
-								{
-									text: '네',
-									onPress: () => {
-										resetForm(selectedCard);
-										setIsEditing(false);
-									},
-								},
-							]);
-						}}
-						size="small"
-					/>
-					<CommonButton
-						title="저장"
-						onPress={() => {
-							if (!validateAll()) return;
-							setSelectedCard({
-								...form,
-								id: selectedCard.id,
-								isMain: selectedCard.isMain,
-							});
-							setIsEditing(false);
-						}}
-						size="small"
-					/>
-				</View>
-			)}
 		</View>
 	);
 }

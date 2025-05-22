@@ -109,6 +109,16 @@ export function useMypage() {
 		setSelectedCard(newDefault);
 	};
 
+	const updateCard = (updated: Card) => {
+		const updatedCards = cards.map(card =>
+			card.id === updated.id ? { ...card, ...updated } : card
+		);
+		setCards(updatedCards);
+		setSelectedCard(updatedCards.find(card => card.id === updated.id) ?? null);
+
+		console.log('카드 수정됨:', updated);
+	};
+
 	const deleteCard = (cardId: number) => {
 		const remaining = cards.filter(card => card.id !== cardId);
 		setCards(remaining);
@@ -124,6 +134,7 @@ export function useMypage() {
 		createCard,
 		updateCardColor,
 		setDefaultCard,
+		updateCard,
 		deleteCard,
 	};
 }

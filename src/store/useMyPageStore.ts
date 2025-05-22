@@ -5,7 +5,7 @@ type MypageStore = {
 	cards: Card[];
 	selectedCard: Card | null;
 	setCards: (cards: Card[]) => void;
-	setSelectedCard: (card: Card) => void;
+	setSelectedCard: (card: Card | null) => void;
 	isEditing: boolean;
 	setIsEditing: (editing: boolean) => void;
 };
