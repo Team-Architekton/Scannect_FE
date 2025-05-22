@@ -9,8 +9,8 @@ const Stack = createNativeStackNavigator<CardListStackParamList>();
 export default function CardListStack() {
 	return (
 		<Stack.Navigator>
-			<Stack.Screen name="명함 리스트" component={CardListView} />
-			<Stack.Screen name="명함 상세" component={CardDetailView} />
+			<Stack.Screen name="CardList" component={CardListView} options={{ title: '명함 리스트' }} />
+			<Stack.Screen name="CardDetail" component={CardDetailView} options={{ title: '명함 상세' }} />
 		</Stack.Navigator>
 	);
 }
