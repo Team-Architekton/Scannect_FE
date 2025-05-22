@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, TextInput, Button } from 'react-native';
+import { View, Text, StyleSheet, TextInput, Button, Alert } from 'react-native';
 import { useMypageStore } from '../../../store/useMyPageStore';
 import spacing from '../../../styles/spacing';
 import colors from '../../../styles/Colors';
 import typography from '../../../styles/typography';
 import EditableField from '../../cardCreateUpdate/EditableField';
+import CommonButton from '../../CommonButton';
 
 export default function InfoSection() {
 	const selectedCard = useMypageStore(state => state.selectedCard);
@@ -89,10 +90,40 @@ export default function InfoSection() {
 				isEditing={isEditing}
 			/>
 
-			<Button title="저장" onPress={() => setIsEditing(false)}></Button>
+			{isEditing && (
+				<View style={styles.buttonRow}>
+					<CommonButton
+						title="취소"
+						onPress={() => {
+							Alert.alert(
+								'수정 취소',
+								'지금까지 수정한 내용이 사라집니다. 취소하시겠습니까?',
+								[
+									{ text: '아니요' },
+									{
+										text: '네',
+										onPress: () => {
+											if (selectedCard) setEditedCard(selectedCard);
+											setIsEditing(false);
+										},
+									},
+								]
+							);
+						}}
+						size="small"
+					/>
+					<CommonButton
+						title="저장"
+						onPress={() => {
+							setIsEditing(false);
+						}}
+						size="small"
+					/>
+				</View>
+			)}
 		</View>
 	);
-};
+}
 
 const styles = StyleSheet.create({
 	container: {
@@ -130,5 +161,11 @@ const styles = StyleSheet.create({
 		color: colors.black,
 		paddingVertical: 2,
 		minWidth: 100,
+	},
+	buttonRow: {
+		flexDirection: 'row',
+		justifyContent: 'flex-end',
+		gap: 10,
+		marginTop: 16,
 	},
 });
