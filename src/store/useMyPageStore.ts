@@ -6,11 +6,14 @@ type MypageStore = {
 	selectedCard: Card | null;
 	setCards: (cards: Card[]) => void;
 	setSelectedCard: (card: Card) => void;
+	isEditing: boolean;
+	setIsEditing: (editing: boolean) => void;
 };
 
 export const useMypageStore = create<MypageStore>((set, get) => ({
 	cards: [],
 	selectedCard: null,
+	isEditing: false,
 
 	setCards: cards => {
 		set({ cards });
@@ -22,5 +25,9 @@ export const useMypageStore = create<MypageStore>((set, get) => ({
 
 	setSelectedCard: card => {
 		set({ selectedCard: card });
+	},
+
+	setIsEditing: editing => {
+		set({ isEditing: editing });
 	},
 }));
