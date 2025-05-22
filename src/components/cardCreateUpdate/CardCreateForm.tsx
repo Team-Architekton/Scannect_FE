@@ -103,11 +103,11 @@ export default function CardCreateForm({ onAnyInputFocus }: { onAnyInputFocus?: 
 			/>
 			<JobSelector
 				industry={form.industry}
-				job={form.position}
+				position={form.position}
 				onChangeIndustry={value => handleChange('industry', value)}
-				onChangeJob={value => handleChange('position', value)}
+				onChangePosition={value => handleChange('position', value)}
 				industryError={errors.industry}
-				jobError={errors.position}
+				positionError={errors.position}
 			/>
 			<LabeledInput
 				label="휴대폰"

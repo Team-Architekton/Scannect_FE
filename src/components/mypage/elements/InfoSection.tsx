@@ -6,6 +6,7 @@ import colors from '../../../styles/Colors';
 import typography from '../../../styles/typography';
 import EditableField from '../../cardCreateUpdate/EditableField';
 import CommonButton from '../../CommonButton';
+import JobSelector from '../../cardCreateUpdate/JobSelector';
 
 export default function InfoSection() {
 	const selectedCard = useMypageStore(state => state.selectedCard);
@@ -52,12 +53,29 @@ export default function InfoSection() {
 				isEditing={isEditing}
 			/>
 
-			{/* <View style={styles.infoRow}>
-				<Text style={styles.label}>업종/직무</Text>
-				<Text style={styles.value}>
-					{selectedCard.industry}/{selectedCard.position}
-				</Text>
-			</View> */}
+			{isEditing ? (
+				<>
+					<Text style={styles.label}>업종/직무</Text>
+					<JobSelector
+						industry={editedCard?.industry || ''}
+						position={editedCard?.position || ''}
+						onChangeIndustry={value =>
+							setEditedCard(prev => (prev ? { ...prev, industry: value, position: '' } : null))
+						}
+						onChangePosition={value =>
+							setEditedCard(prev => (prev ? { ...prev, position: value } : null))
+						}
+						showLabel={false}
+					/>
+				</>
+			) : (
+				<View style={styles.infoRow}>
+					<Text style={styles.label}>업종/직무</Text>
+					<Text style={styles.value}>
+						{selectedCard.industry}/{selectedCard.position}
+					</Text>
+				</View>
+			)}
 
 			<Text style={[typography.h2, styles.sectionTitle]}>연락처</Text>
 			<View style={styles.divider} />
@@ -95,20 +113,16 @@ export default function InfoSection() {
 					<CommonButton
 						title="취소"
 						onPress={() => {
-							Alert.alert(
-								'수정 취소',
-								'지금까지 수정한 내용이 사라집니다. 취소하시겠습니까?',
-								[
-									{ text: '아니요' },
-									{
-										text: '네',
-										onPress: () => {
-											if (selectedCard) setEditedCard(selectedCard);
-											setIsEditing(false);
-										},
+							Alert.alert('수정 취소', '지금까지 수정한 내용이 사라집니다. 취소하시겠습니까?', [
+								{ text: '아니요' },
+								{
+									text: '네',
+									onPress: () => {
+										if (selectedCard) setEditedCard(selectedCard);
+										setIsEditing(false);
 									},
-								]
-							);
+								},
+							]);
 						}}
 						size="small"
 					/>
@@ -140,6 +154,19 @@ const styles = StyleSheet.create({
 		height: 2,
 		backgroundColor: colors.grayscaleGray3,
 		marginBottom: spacing.s,
+	},
+	infoRow: {
+		flexDirection: 'row',
+		gap: 20,
+		marginBottom: spacing.s,
+	},
+	label: {
+		fontSize: 14,
+		color: colors.grayscaleGray5,
+	},
+	value: {
+		fontSize: 14,
+		color: colors.black,
 	},
 	buttonRow: {
 		flexDirection: 'row',

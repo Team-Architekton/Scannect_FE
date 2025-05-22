@@ -8,14 +8,23 @@ import typography from '../../styles/typography';
 
 interface Props {
 	industry: string;
-	job: string;
+	position: string;
 	onChangeIndustry: (value: string) => void;
-	onChangeJob: (value: string) => void;
+	onChangePosition: (value: string) => void;
 	industryError?: string;
-	jobError?: string;
+	positionError?: string;
+	showLabel?: boolean;
 }
 
-export default function JobSelector({ industry, job, onChangeIndustry, onChangeJob, industryError, jobError }: Props) {
+export default function JobSelector({
+	industry,
+	position,
+	onChangeIndustry,
+	onChangePosition,
+	industryError,
+	positionError,
+	showLabel,
+}: Props) {
 	const [jobItems, setJobItems] = useState<{ label: string; value: string }[]>([]);
 
 	const industryItems = jobOptions.map(opt => ({
@@ -31,9 +40,11 @@ export default function JobSelector({ industry, job, onChangeIndustry, onChangeJ
 	return (
 		<View style={styles.container}>
 			<View style={styles.pickerWrapper}>
-				<Text style={styles.label}>
-					업종 <Text style={styles.required}>*</Text>
-				</Text>
+				{showLabel !== false && (
+					<Text style={styles.label}>
+						업종 <Text style={styles.required}>*</Text>
+					</Text>
+				)}
 				<Dropdown
 					style={[styles.dropdown, industryError && styles.errorBorder]}
 					data={industryItems}
@@ -48,26 +59,28 @@ export default function JobSelector({ industry, job, onChangeIndustry, onChangeJ
 				{industryError && <Text style={styles.errorText}>{industryError}</Text>}
 			</View>
 			<View style={styles.pickerWrapper}>
-				<Text style={styles.label}>
-					직무 <Text style={styles.required}>*</Text>
-				</Text>
+				{showLabel !== false && (
+					<Text style={styles.label}>
+						직무 <Text style={styles.required}>*</Text>
+					</Text>
+				)}
 				<Dropdown
-					style={[styles.dropdown, jobError && styles.errorBorder]}
+					style={[styles.dropdown, positionError && styles.errorBorder]}
 					data={jobItems}
 					labelField="label"
 					valueField="value"
 					placeholder="직무를 선택하세요"
-					value={job}
-					onChange={item => onChangeJob(item.value)}
+					value={position}
+					onChange={item => onChangePosition(item.value)}
 					disable={jobItems.length === 0}
 					placeholderStyle={styles.placeholderStyle}
 					selectedTextStyle={styles.selectedTextStyle}
 				/>
-				{jobError && <Text style={styles.errorText}>{jobError}</Text>}
+				{positionError && <Text style={styles.errorText}>{positionError}</Text>}
 			</View>
 		</View>
 	);
-};
+}
 
 const styles = StyleSheet.create({
 	container: {

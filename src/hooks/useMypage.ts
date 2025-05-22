@@ -22,8 +22,8 @@ export function useMypage() {
 				imgUrl: 'https://randomuser.me/api/portraits/women/21.jpg',
 				content: '안녕하세요! 당근마켓 프론트엔드 개발자 박유진입니다 😊',
 				companyTel: '02-123-4567',
-				industry: 'IT',
-				position: '개발',
+				industry: '디자인',
+				position: 'UX 디자이너',
 			},
 			{
 				id: 2,
