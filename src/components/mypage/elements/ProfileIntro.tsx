@@ -4,11 +4,19 @@ import spacing from '../../../styles/spacing';
 import typography from '../../../styles/typography';
 import colors from '../../../styles/Colors';
 import { useMypageStore } from '../../../store/useMyPageStore';
+import LabeledTextarea from '../../cardCreateUpdate/LabeledTextarea';
+import ProfileImagePicker from '../../cardCreateUpdate/Profile';
 
 const DEFAULT_PROFILE_IMAGE = require('../../../assets/emptyProfile.png');
 
 export default function ProfileIntro() {
-	const { selectedCard } = useMypageStore();
+	const selectedCard = useMypageStore(state => state.selectedCard);
+	const isEditing = useMypageStore(state => state.isEditing);
+	const [editedCard, setEditedCard] = React.useState(selectedCard);
+
+	React.useEffect(() => {
+		if (selectedCard) setEditedCard(selectedCard);
+	}, [selectedCard]);
 
 	if (!selectedCard) return null;
 
@@ -19,20 +27,36 @@ export default function ProfileIntro() {
 
 	return (
 		<View style={styles.container}>
-			<Image source={imageSource} style={styles.profileImage} />
+			{isEditing ? (
+				<ProfileImagePicker
+					imageUri={editedCard?.imgUrl || null}
+					onChange={uri => setEditedCard(prev => (prev ? { ...prev, imgUrl: uri } : null))}
+				/>
+			) : (
+				<Image source={imageSource} style={styles.profileImage} />
+			)}
 			<View style={styles.textContainer}>
 				<Text style={[typography.h2, styles.text]}>자기소개</Text>
 				<View style={styles.divider} />
-				<Text style={styles.introText}>{selectedCard.content}</Text>
+				{isEditing ? (
+					<LabeledTextarea
+						label=""
+						value={editedCard?.content || ''}
+						onChangeText={text => setEditedCard(prev => (prev ? { ...prev, content: text } : null))}
+						placeholder="자기소개를 입력하세요"
+					/>
+				) : (
+					<Text style={styles.introText}>{selectedCard.content}</Text>
+				)}
 			</View>
 		</View>
 	);
-};
+}
 
 const styles = StyleSheet.create({
 	container: {
 		flexDirection: 'row',
-		alignItems: 'flex-end',
+		alignItems: 'center',
 		gap: spacing.m,
 		marginTop: spacing.s,
 	},
@@ -46,10 +70,10 @@ const styles = StyleSheet.create({
 		flex: 1,
 		gap: 7,
 	},
-    text: {
-        marginTop: spacing.l,
+	text: {
+		marginTop: spacing.l,
 		marginBottom: spacing.xs,
-    },
+	},
 	divider: {
 		height: 2,
 		backgroundColor: colors.grayscaleGray3,

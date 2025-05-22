@@ -22,15 +22,17 @@ export default function LabeledTextarea({
 }: Props) {
 	return (
 		<View style={styles.wrapper}>
-			<Text style={styles.label}>
-				{label}
-				{required && <Text style={styles.required}> *</Text>}
-			</Text>
+			{label ? (
+				<Text style={styles.label}>
+					{label}
+					{required && <Text style={styles.required}> *</Text>}
+				</Text>
+			) : null}
 			<TextInput
 				value={value}
 				onChangeText={onChangeText}
 				placeholder={placeholder}
-                placeholderTextColor={colors.grayscaleGray3}
+				placeholderTextColor={colors.grayscaleGray3}
 				multiline
 				numberOfLines={4}
 				style={[styles.input, errorMessage && styles.errorInput]}
@@ -48,8 +50,8 @@ const styles = StyleSheet.create({
 	label: {
 		...typography.body,
 		marginBottom: spacing.s,
-        paddingLeft: spacing.xs,
-        color: colors.black,
+		paddingLeft: spacing.xs,
+		color: colors.black,
 	},
 	required: {
 		color: colors.error,
