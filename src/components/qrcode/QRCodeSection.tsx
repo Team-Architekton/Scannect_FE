@@ -12,8 +12,10 @@ interface IQRCodeProp {
 }
 
 export default function QRCodeSection({ value }: IQRCodeProp) {
-	const { qrRef, onQRShare } = useQRCode();
+	const { qrRef, shareQR } = useQRCode();
 	const logoFile = require('../../assets/teamLogo.jpeg');
+
+	const handlePress = () => shareQR();
 
 	return (
 		<>
@@ -32,7 +34,7 @@ export default function QRCodeSection({ value }: IQRCodeProp) {
 			<Text style={[commonStyles.bodyBoldText, { marginBottom: spacing.l }]}>
 				QR코드를 공유하고 내 명함을 전달해보세요!
 			</Text>
-			<CommonButton title="내 명함 공유하러 가기" onPress={() => onQRShare()} />
+			<CommonButton title="내 명함 공유하러 가기" onPress={handlePress} />
 		</>
 	);
 }
