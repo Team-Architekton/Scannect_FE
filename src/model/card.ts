@@ -1,17 +1,20 @@
 export interface Card {
 	id: number;
+	cardName: string;
 	name: string;
-	title: string;
-	company: string;
-	department: string;
-	phone: string;
+	belongTo: string;
+	job: string;
+	phoneNum: string;
 	email: string;
-	website: string;
-	isDefault: boolean;
+	position: string;
+	industry: string;
 
-	profileImage?: string;
-	introduction?: string;
-	landline?: string;
-	category?: string;
+	department?: string;
+	imgUrl?: string | null;
+	content?: string;
+	companyTel?: string;
 	color?: string;
+	website?: string;
+
+	isMain: boolean;
 }

@@ -5,11 +5,13 @@ import { useMypage } from '../../../hooks/useMypage';
 import ColorPickerModal from './ColorPicker';
 import colors from '../../../styles/Colors';
 import { useUiStore } from '../../../store/useUiStore';
+import { useMypageStore } from '../../../store/useMyPageStore';
 
 const Hamburger = () => {
 	const [showColorPicker, setShowColorPicker] = useState(false);
 	const { selectedCard, setDefaultCard, deleteCard, updateCardColor } = useMypage();
 	const { hamburgerOpen: visible, setHamburgerOpen: setVisible } = useUiStore();
+	const { setIsEditing } = useMypageStore();
 
 	const handleAction = (action: string) => {
 		setVisible(false);
@@ -29,7 +31,7 @@ const Hamburger = () => {
 			case '수정':
 				Alert.alert('명함 수정', '수정하시겠습니까?', [
 					{ text: '취소' },
-					{ text: '확인', onPress: () => console.log('명함 수정뷰로 이동') },
+					{ text: '확인', onPress: () => setIsEditing(true) },
 				]);
 				break;
 
@@ -44,7 +46,7 @@ const Hamburger = () => {
 
 	const menuItems = [
 		'명함 색상 지정',
-		...(selectedCard?.isDefault ? ['수정', '삭제'] : ['기본 명함 지정', '수정', '삭제']),
+		...(selectedCard?.isMain ? ['수정', '삭제'] : ['기본 명함 지정', '수정', '삭제']),
 	];
 
 	return (

@@ -1,9 +1,33 @@
-import { Text } from "react-native";
+import { KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
+import { useRef } from 'react';
+import ScreenContainer from '../../components/ScreenContainer';
+import CardCreateForm from '../../components/cardCreateUpdate/CardCreateForm';
 
 export default function CardCreateView() {
-    return (
-        <Text>
-            명함 생성
-        </Text>
-    )
-};
+	const scrollRef = useRef<ScrollView>(null);
+
+	const onFocus = () => {
+		setTimeout(() => {
+			scrollRef.current?.scrollToEnd({ animated: true });
+		}, 300);
+	};
+
+	return (
+		<ScreenContainer>
+			<KeyboardAvoidingView
+				behavior={Platform.select({ ios: 'padding', android: undefined })}
+				keyboardVerticalOffset={80}
+				style={{ flex: 1 }}
+			>
+				<ScrollView
+					ref={scrollRef}
+					contentContainerStyle={{ flexGrow: 1 }}
+					keyboardShouldPersistTaps="handled"
+					showsVerticalScrollIndicator={false}
+				>
+					<CardCreateForm onAnyInputFocus={onFocus} />
+				</ScrollView>
+			</KeyboardAvoidingView>
+		</ScreenContainer>
+	);
+}

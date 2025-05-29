@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
+import { useNavigation } from '@react-navigation/native';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { useMypage } from '../../../hooks/useMypage';
 import { useMypageStore } from '../../../store/useMyPageStore';
@@ -12,21 +13,22 @@ const DropdownMenu: React.FC = () => {
 	const { selectedCard, setSelectedCard } = useMypageStore();
 	const { cards } = useMypage();
 	const { dropdownOpen: open, setDropdownOpen: setOpen } = useUiStore();
+	const navigation = useNavigation<any>();
 
 	useEffect(() => {
 		if (!selectedCard && cards.length > 0) {
-			setSelectedCard(cards.find(c => c.isDefault) ?? cards[0]);
+			setSelectedCard(cards.find(c => c.isMain) ?? cards[0]);
 		}
 	}, [cards, selectedCard]);
 
 	const sortedCards = [...cards].sort((a, b) =>
-		a.isDefault === b.isDefault ? 0 : a.isDefault ? -1 : 1
+		a.isMain === b.isMain ? 0 : a.isMain ? -1 : 1
 	);
 
 	const handleSelect = (card: Card | 'new') => {
 		setOpen(false);
 		if (card === 'new') {
-			console.log('명함 생성 뷰로 이동!');
+			navigation.navigate('명함 생성');
 		} else {
 			setSelectedCard(card);
 		}
@@ -35,7 +37,7 @@ const DropdownMenu: React.FC = () => {
 	return (
 		<View style={styles.container}>
 			<TouchableOpacity style={styles.dropdownHeader} onPress={() => setOpen(!open)}>
-				<Text>{selectedCard?.title ?? '명함 선택'}</Text>
+				<Text>{selectedCard?.cardName ?? '명함 선택'}</Text>
 				<AntDesign name="caretdown" size={12} color="black" />
 			</TouchableOpacity>
 
@@ -54,8 +56,8 @@ const DropdownMenu: React.FC = () => {
 								onPress={() => handleSelect(card)}
 							>
 								<View style={styles.cardRow}>
-									<Text>{card.title}</Text>
-									{card.isDefault && <Text style={styles.defaultBadge}>기본</Text>}
+									<Text>{card.cardName}</Text>
+									{card.isMain && <Text style={styles.defaultBadge}>기본</Text>}
 								</View>
 							</TouchableOpacity>
 						))}
