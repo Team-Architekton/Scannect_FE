@@ -16,7 +16,7 @@ export default function CardDetailView({ navigation, route }: any) {
 	const scrollRef = useRef<ScrollView>(null);
 	const { cardId } = route.params;
 	const card = useCardStore(state => state.cardList.find(c => c.id === cardId));
-	const { form, errors, handleChange, validateField } = useCardForm({ ...card });
+	const { form, errors } = useCardForm({ ...card });
 
 	useEffect(() => {
 		if (!card) navigation.goBack();
@@ -57,8 +57,8 @@ export default function CardDetailView({ navigation, route }: any) {
 						form={form}
 						errors={errors}
 						isEditing={false}
-						handleChange={handleChange}
-						validateField={validateField}
+						handleChange={(key, value) => {}}
+						validateField={(key, value) => {}}
 					/>
 					<MemoInput cardId={card.id} memo={card.memo} onFocus={handleFocus} />
 				</ScrollView>
