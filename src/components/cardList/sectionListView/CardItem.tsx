@@ -33,7 +33,7 @@ export default function CardItem(props: ICardItem) {
 				<View style={{ flexDirection: 'row', alignItems: 'center' }}>
 					<Text style={styles.cardItemName}>{props.name}</Text>
 					<Text style={{ ...styles.cardItemSubInfo, marginLeft: 7 }}>
-						{props.belong_to} | {props.department} / {props.job}
+						{props.belongTo} | {props.department} / {props.job}
 					</Text>
 				</View>
 				{props.memo ? (
