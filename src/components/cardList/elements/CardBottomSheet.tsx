@@ -1,8 +1,7 @@
-import { Modal, Pressable, StyleSheet, Text, View } from 'react-native';
+import { Modal, Pressable, StyleSheet, View } from 'react-native';
 
 import CommonButton from '../../CommonButton';
 import colors from '../../../styles/Colors';
-import typography from '../../../styles/typography';
 import { useCardStore } from '../../../store/cardStore';
 import { useModalStore } from '../../../store/modalStore';
 import { useCardModal } from '../../../hooks/useCardModal';
@@ -58,7 +57,7 @@ const styles = StyleSheet.create({
 	modalView: {
 		width: '100%',
 		backgroundColor: 'white',
-		borderRadius: 20,
+		borderRadius: spacing.ml,
 		alignItems: 'center',
 		paddingVertical: spacing.xxl,
 		shadowColor: '#000',
@@ -69,11 +68,5 @@ const styles = StyleSheet.create({
 		shadowOpacity: 0.25,
 		shadowRadius: 4,
 		elevation: 5,
-	},
-	buttonWrapper: {
-		width: '100%',
-		alignItems: 'center',
-		marginTop: 10,
-		marginBottom: 30,
 	},
 });
