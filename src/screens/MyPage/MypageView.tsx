@@ -5,9 +5,11 @@ import CardPreview from '../../components/mypage/CardPreview';
 import ProfileSection from '../../components/mypage/ProfileSection';
 import spacing from '../../styles/spacing';
 import { useUiStore } from '../../store/useUiStore';
+import { useMypageStore } from '../../store/useMyPageStore';
 
 export default function MyPage() {
 	const { clearAllPopups } = useUiStore();
+	const { selectedCard } = useMypageStore();
 
 	return (
 		<ScreenContainer>
@@ -22,7 +24,7 @@ export default function MyPage() {
 				>
 					<Pressable onPress={clearAllPopups} style={{ flex: 1, gap: spacing.m }}>
 						<Header />
-						<CardPreview />
+						<CardPreview selectedCard={selectedCard} />
 						<ProfileSection />
 					</Pressable>
 				</ScrollView>

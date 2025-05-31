@@ -1,22 +1,29 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { useMypageStore } from '../../store/useMyPageStore';
-import colors from '../../styles/Colors';
-import spacing from '../../styles/spacing';
 import { Feather, Entypo } from '@expo/vector-icons';
 
-export default function CardPreview() {
-	const { selectedCard } = useMypageStore();
+import colors from '../../styles/Colors';
+import spacing from '../../styles/spacing';
 
+interface IPreview {
+	name: string;
+	belongTo: string;
+	position: string;
+	phoneNum: string;
+	email: string;
+	website?: string;
+	color?: string;
+}
+
+interface IPreviewProps<T extends IPreview> {
+	selectedCard: T | null;
+}
+
+export default function CardPreview<T extends IPreview>({ selectedCard }: IPreviewProps<T>) {
 	if (!selectedCard) return null;
 
 	return (
-		<View
-			style={[
-				styles.card,
-				{ backgroundColor: selectedCard.color || colors.grayscaleGray3 },
-			]}
-		>
+		<View style={[styles.card, { backgroundColor: selectedCard.color || colors.grayscaleGray3 }]}>
 			<Text style={styles.company}>{selectedCard.belongTo}</Text>
 
 			<View style={styles.infoRow}>
