@@ -5,6 +5,7 @@ import CardItem from './CardItem';
 import SectionHeader from './SectionHeader';
 import colors from '../../../styles/Colors';
 import { useCardStore } from '../../../store/cardStore';
+import spacing from '../../../styles/spacing';
 
 export default function CardSectionList() {
 	const {
@@ -77,6 +78,6 @@ const styles = StyleSheet.create({
 	divider: {
 		borderBottomWidth: 1,
 		borderColor: colors.grayscaleGray2,
-		marginVertical: 8,
+		marginVertical: spacing.s,
 	},
 });
