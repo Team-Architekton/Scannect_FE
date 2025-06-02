@@ -5,7 +5,7 @@ import commonStyles from '../../styles/commonStyles';
 import colors from '../../styles/Colors';
 import ScreenContainer from '../../components/ScreenContainer';
 import SearchInput from '../../components/cardList/SearchInput';
-import SortDropDown from '../../components/cardList/elements/SortDropDown';
+import SortOption from '../../components/cardList/elements/SortOption';
 import CardSectionList from '../../components/cardList/sectionListView/SectionList';
 import CardBottomSheet from '../../components/cardList/elements/CardBottomSheet';
 import EmptyListView from '../../components/cardList/EmptyListView';
@@ -31,7 +31,7 @@ export default function CardListView({ navigation }: any) {
 				<SearchInput />
 				<View style={styles.mainLabelWrapper}>
 					<Text style={styles.mainLabel}>전체 명함 ({cardList.length})</Text>
-					<SortDropDown />
+					<SortOption />
 				</View>
 				{cardList.length === 0 ? <EmptyListView navigation={navigation} /> : <CardSectionList />}
 			</View>

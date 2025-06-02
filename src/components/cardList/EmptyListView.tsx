@@ -33,6 +33,6 @@ const styles = StyleSheet.create({
 	emptyListText: {
 		...commonStyles.bodyText,
 		color: colors.grayscaleGray6,
-		marginBottom: 5,
+		marginBottom: spacing.xs,
 	},
 });

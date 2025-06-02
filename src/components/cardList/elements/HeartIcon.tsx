@@ -31,6 +31,6 @@ export default function HeartIcon({ cardId, isFavorite, size = 30 }: IProp) {
 
 const styles = StyleSheet.create({
 	heartButton: {
-		paddingRight: 5,
+		paddingRight: spacing.xs,
 	},
 });

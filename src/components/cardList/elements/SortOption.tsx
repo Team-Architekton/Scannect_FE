@@ -5,8 +5,9 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import { useCardStore } from '../../../store/cardStore';
 import colors from '../../../styles/Colors';
 import commonStyles from '../../../styles/commonStyles';
+import spacing from '../../../styles/spacing';
 
-export default function SortDropDown() {
+export default function SortOption() {
 	const { sortOption, sortCardList } = useCardStore();
 	const [dropDownShow, setDropDownShow] = useState(false);
 
@@ -28,6 +29,7 @@ export default function SortDropDown() {
 					<TouchableOpacity
 						style={{
 							...styles.dropdownItem,
+							...styles.dropdownItemTop,
 							backgroundColor: sortOption === 'latest' ? colors.lightGreen : undefined,
 						}}
 						onPress={() => sortByOption('latest')}
@@ -37,6 +39,7 @@ export default function SortDropDown() {
 					<TouchableOpacity
 						style={{
 							...styles.dropdownItem,
+							...styles.dropdownItemBottom,
 							backgroundColor: sortOption === 'name' ? colors.lightGreen : undefined,
 						}}
 						onPress={() => sortByOption('name')}
@@ -52,17 +55,24 @@ export default function SortDropDown() {
 const styles = StyleSheet.create({
 	dropdownView: {
 		position: 'absolute',
-		zIndex: 10,
+		zIndex: 99,
 		top: 30,
 		right: 0,
-		minWidth: 80,
-		borderRadius: 5,
+		width: 80,
+		borderRadius: spacing.xs,
 		backgroundColor: colors.primary,
 	},
 	dropdownItem: {
-		paddingVertical: 4,
-		paddingHorizontal: 12,
-		borderRadius: 5,
+		paddingVertical: spacing.xs,
+		paddingHorizontal: spacing.sm,
+	},
+	dropdownItemTop: {
+		borderTopLeftRadius: spacing.xs,
+		borderTopRightRadius: spacing.xs,
+	},
+	dropdownItemBottom: {
+		borderBottomLeftRadius: spacing.xs,
+		borderBottomRightRadius: spacing.xs,
 	},
 	dropdownText: {
 		...commonStyles.bodyText,

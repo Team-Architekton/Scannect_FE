@@ -2,6 +2,7 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
 import colors from '../../../styles/Colors';
+import spacing from '../../../styles/spacing';
 
 interface ISectionHeaderProps {
 	sectionKey: string;
@@ -45,6 +46,6 @@ const styles = StyleSheet.create({
 	cardListLabel: {
 		flexDirection: 'row',
 		alignItems: 'center',
-		marginVertical: 7,
+		marginVertical: spacing.s,
 	},
 });

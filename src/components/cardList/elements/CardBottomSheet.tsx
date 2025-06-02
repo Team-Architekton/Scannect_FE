@@ -1,11 +1,11 @@
-import { Modal, StyleSheet, TouchableOpacity, View } from 'react-native';
-import Entypo from '@expo/vector-icons/Entypo';
+import { Modal, Pressable, StyleSheet, View } from 'react-native';
 
 import CommonButton from '../../CommonButton';
 import colors from '../../../styles/Colors';
 import { useCardStore } from '../../../store/cardStore';
 import { useModalStore } from '../../../store/modalStore';
 import { useCardModal } from '../../../hooks/useCardModal';
+import spacing from '../../../styles/spacing';
 
 export default function CardBottomSheet() {
 	const { isModalOpen, selectedCardId, closeModal } = useModalStore();
@@ -21,39 +21,25 @@ export default function CardBottomSheet() {
 			visible={isModalOpen}
 			onRequestClose={closeModal}
 		>
-			<View
-				style={{
-					flex: 1,
-					justifyContent: 'flex-end',
-				}}
-			>
+			<View style={styles.overlay}>
+				<Pressable style={styles.overlayPress} onPress={closeModal} />
 				<View style={styles.modalView}>
-					<TouchableOpacity
-						style={{ width: '100%', alignItems: 'flex-end', paddingHorizontal: 10 }}
-						onPress={closeModal}
-					>
-						<Entypo name="cross" size={30} color={colors.darkGreen} />
-					</TouchableOpacity>
-					<View style={styles.buttonWrapper}>
-						<CommonButton
-							title={
-								selectedCard !== undefined && !selectedCard.isActive
-									? '명함 숨김 해제하기'
-									: '명함 리스트에서 숨김'
-							}
-							onPress={() => onHideCard(selectedCardId, !selectedCard.isActive)}
-							buttonStyle={styles.button}
-							textStyle={styles.textStyle}
-							size="large"
-						/>
-						<CommonButton
-							title="명함 리스트에서 삭제"
-							onPress={() => onDeleteCard(selectedCardId)}
-							buttonStyle={{ ...styles.button, backgroundColor: colors.darkGreen }}
-							textStyle={styles.textStyle}
-							size="large"
-						/>
-					</View>
+					<CommonButton
+						title={
+							selectedCard !== undefined && !selectedCard.isActive
+								? '명함 숨김 해제하기'
+								: '명함 리스트에서 숨김'
+						}
+						onPress={() => onHideCard(selectedCardId, !selectedCard.isActive)}
+						buttonStyle={{ width: '85%', marginBottom: spacing.s }}
+						size="large"
+					/>
+					<CommonButton
+						title="명함 리스트에서 삭제"
+						onPress={() => onDeleteCard(selectedCardId)}
+						buttonStyle={{ width: '85%', backgroundColor: colors.darkGreen }}
+						size="large"
+					/>
 				</View>
 			</View>
 		</Modal>
@@ -61,12 +47,19 @@ export default function CardBottomSheet() {
 }
 
 const styles = StyleSheet.create({
+	overlay: {
+		flex: 1,
+		justifyContent: 'flex-end',
+	},
+	overlayPress: {
+		flex: 1,
+	},
 	modalView: {
 		width: '100%',
 		backgroundColor: 'white',
-		borderRadius: 20,
+		borderRadius: spacing.ml,
 		alignItems: 'center',
-		paddingVertical: 15,
+		paddingVertical: spacing.xxl,
 		shadowColor: '#000',
 		shadowOffset: {
 			width: 0,
@@ -75,22 +68,5 @@ const styles = StyleSheet.create({
 		shadowOpacity: 0.25,
 		shadowRadius: 4,
 		elevation: 5,
-	},
-	buttonWrapper: {
-		width: '100%',
-		alignItems: 'center',
-		marginTop: 10,
-		marginBottom: 30,
-	},
-	button: {
-		width: '85%',
-		paddingVertical: 18,
-		marginBottom: 7,
-	},
-	textStyle: {
-		color: 'white',
-		fontWeight: 'bold',
-		textAlign: 'center',
-		fontSize: 18,
 	},
 });

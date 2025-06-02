@@ -3,6 +3,7 @@ import { useRef, useState } from 'react';
 import Fontisto from '@expo/vector-icons/Fontisto';
 
 import colors from '../../styles/Colors';
+import spacing from '../../styles/spacing';
 
 export default function SearchInput() {
 	const inputRef = useRef<TextInput>(null);
@@ -37,14 +38,14 @@ const styles = StyleSheet.create({
 		flexDirection: 'row',
 		alignItems: 'center',
 		backgroundColor: colors.grayscaleGray1,
-		paddingHorizontal: 20,
-		paddingVertical: 10,
-		marginVertical: 20,
-		marginTop: 25,
-		borderRadius: 30,
+		paddingHorizontal: spacing.ml,
+		paddingVertical: spacing.sm,
+		marginVertical: spacing.ml,
+		marginTop: spacing.l,
+		borderRadius: spacing.xl,
 	},
 	searchInput: {
-		paddingLeft: 10,
-		fontSize: 16,
+		paddingLeft: spacing.sm,
+		fontSize: spacing.m,
 	},
 });

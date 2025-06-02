@@ -9,6 +9,7 @@ import { ICardItem } from '../../../model/cardItem';
 import { useModalStore } from '../../../store/modalStore';
 import { CardListStackParamList } from '../../../navigations/types';
 import HeartIcon from '../elements/HeartIcon';
+import spacing from '../../../styles/spacing';
 
 export default function CardItem(props: ICardItem) {
 	const navigation = useNavigation<NativeStackNavigationProp<CardListStackParamList>>();
@@ -58,9 +59,9 @@ const styles = StyleSheet.create({
 		justifyContent: 'space-between',
 		alignItems: 'center',
 		backgroundColor: colors.paleGreen,
-		borderRadius: 15,
-		padding: 15,
-		marginVertical: 5,
+		borderRadius: spacing.m,
+		padding: spacing.m,
+		marginVertical: spacing.xs,
 	},
 	cardItemName: {
 		...typography.h3,
@@ -69,6 +70,6 @@ const styles = StyleSheet.create({
 		color: colors.grayscaleGray7,
 	},
 	heartButton: {
-		paddingRight: 5,
+		paddingRight: spacing.xs,
 	},
 });
