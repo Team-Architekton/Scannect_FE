@@ -28,7 +28,7 @@ export const useAuth = () => {
 				await setIsLoggedIn(true);
 				setLoginState(true);
 			} else {
-				console.log(res.message); // 또는 toast 등
+				console.log(res.message);
 			}
 		} catch (e) {
 			console.error(e);
@@ -62,7 +62,7 @@ export const useAuth = () => {
 		setName,
 		setId,
 		setPassword,
-		errors: useAuthStore.getState().errors, // 상태 그대로 전달
+		errors: useAuthStore.getState().errors,
 		handleSignUp,
 		handleLogin,
 	};

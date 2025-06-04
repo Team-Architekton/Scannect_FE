@@ -3,14 +3,14 @@ import { httpClient } from './http';
 // 회원가입 API
 export const signUp = async (name: string, id: string, password: string) => {
 	try {
-		const { data } = await httpClient.post('/api/users', {
+		const { data } = await httpClient.post('/users', {
 			name,
 			id,
 			password,
 		});
 		return data;
 	} catch (error) {
-		// 에러 핸들링 필요시 여기에 추가
+		console.error('회원가입 실패:', error);
 		throw error;
 	}
 };
@@ -18,13 +18,13 @@ export const signUp = async (name: string, id: string, password: string) => {
 // 로그인 API
 export const login = async (id: string, password: string) => {
 	try {
-		const { data } = await httpClient.post('/api/users/login', {
+		const { data } = await httpClient.post('/users/login', {
 			id,
 			password,
 		});
 		return data;
 	} catch (error) {
-		// 에러 핸들링 필요시 여기에 추가
+		console.error('로그인 실패:', error);
 		throw error;
 	}
 };
