@@ -3,10 +3,10 @@ import AuthTextInput from '../../components/auth/AuthTextInput';
 import CommonButton from '../../components/CommonButton';
 import spacing from '../../styles/spacing';
 import typography from '../../styles/typography';
-import { useAuthStore } from '../../store/authStore';
+import { useAuth } from '../../hooks/useAuth';
 
 export default function SignUpView() {
-	const { name, id, password, setName, setId, setPassword, errors, signUp } = useAuthStore();
+	const { name, id, password, setName, setId, setPassword, errors, handleSignUp } = useAuth();
 
 	return (
 		<View style={styles.container}>
@@ -35,7 +35,7 @@ export default function SignUpView() {
 
 			<CommonButton
 				title="가입하기"
-				onPress={signUp}
+				onPress={handleSignUp}
 				size="large"
 				buttonStyle={{ marginBottom: spacing.xxxl }}
 			/>
