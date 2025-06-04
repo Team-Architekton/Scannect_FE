@@ -3,14 +3,15 @@ import CommonButton from '../../components/CommonButton';
 import typography from '../../styles/typography';
 import AuthTextInput from '../../components/auth/AuthTextInput';
 import spacing from '../../styles/spacing';
-import { useAuthStore } from '../../store/authStore';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { AuthStackParamList } from '../../navigations/types';
 import { useNavigation } from '@react-navigation/native';
+import { useAuth } from '../../hooks/useAuth';
 
 export default function LoginView() {
-	const { id, password, setId, setPassword, errors, login } = useAuthStore();
+	const { id, password, setId, setPassword, errors, handleLogin } = useAuth();
 	const navigation = useNavigation<NativeStackNavigationProp<AuthStackParamList>>();
+
 	return (
 		<View style={styles.container}>
 			<Text style={[typography.h1, styles.title]}>Scannect</Text>
@@ -32,7 +33,7 @@ export default function LoginView() {
 			</View>
 
 			<View style={styles.buttonGroup}>
-				<CommonButton title="로그인" onPress={login} size="large" />
+				<CommonButton title="로그인" onPress={handleLogin} size="large" />
 				<CommonButton
 					title="회원가입"
 					onPress={() => navigation.navigate('회원가입')}
