@@ -1,8 +1,13 @@
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { AuthStackParamList } from '../navigations/types';
 import { login as postLogin, signUp as postSignUp } from '../server/auth';
 import { useAuthStore } from '../store/authStore';
 import { setIsLoggedIn, setUserId } from '../utils/authStorage';
 
 export const useAuth = () => {
+	const navigation = useNavigation<NativeStackNavigationProp<AuthStackParamList>>();
+
 	const {
 		name,
 		id,
@@ -25,8 +30,7 @@ export const useAuth = () => {
 		try {
 			const res = await postSignUp(name, id, password);
 			if (res.success) {
-				await setIsLoggedIn(true);
-				setLoginState(true);
+				navigation.pop();
 			} else {
 				console.log(res.message);
 			}
@@ -46,8 +50,8 @@ export const useAuth = () => {
 			const res = await postLogin(id, password);
 			if (res.success) {
 				await setIsLoggedIn(true);
-				setLoginState(true);
 				await setUserId(res.data.id);
+				setLoginState(true);
 			} else {
 				console.log(res.message);
 			}
