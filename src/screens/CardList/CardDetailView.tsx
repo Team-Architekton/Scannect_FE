@@ -2,12 +2,10 @@ import { KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
 import { useEffect, useRef } from 'react';
 
 import ScreenContainer from '../../components/ScreenContainer';
+import CardBottomSheet from '../../components/cardList/elements/CardBottomSheet';
 import Header from '../../components/cardDetail/Header';
 import MemoInput from '../../components/cardDetail/Memo';
-import CardPreview from '../../components/mypage/CardPreview';
-import ProfileIntro from '../../components/mypage/ProfileSection';
-import Contacts from '../../components/cardDetail/Contacts';
-import CardBottomSheet from '../../components/cardList/elements/CardBottomSheet';
+import ProfileInfo from '../../components/cardDetail/ProfileInfo';
 import { useCardStore } from '../../store/cardStore';
 
 export default function CardDetailView({ navigation, route }: any) {
@@ -19,8 +17,7 @@ export default function CardDetailView({ navigation, route }: any) {
 		if (!card) navigation.goBack();
 	}, [card]);
 
-	const onFocus = () => {
-		// 키보드 올라올 때 화면 맨 아래로 스크롤
+	const handleFocus = () => {
 		setTimeout(() => {
 			scrollRef.current?.scrollToEnd({ animated: true });
 		}, 300);
@@ -41,10 +38,8 @@ export default function CardDetailView({ navigation, route }: any) {
 						favorite={card.favorite}
 						isActive={card.isActive}
 					/>
-					<CardPreview />
-					<Contacts phone={card.phone} email={card.email} />
-					<ProfileIntro />
-					<MemoInput cardId={card.id} memo={card.memo} onFocus={onFocus} />
+					<ProfileInfo card={card} />
+					<MemoInput cardId={card.id} memo={card.memo} onFocus={handleFocus} />
 				</ScrollView>
 			</KeyboardAvoidingView>
 			<CardBottomSheet />
