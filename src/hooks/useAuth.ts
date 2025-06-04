@@ -1,6 +1,6 @@
 import { login as postLogin, signUp as postSignUp } from '../server/auth';
 import { useAuthStore } from '../store/authStore';
-import { setIsLoggedIn } from '../utils/authStorage';
+import { setIsLoggedIn, setUserId } from '../utils/authStorage';
 
 export const useAuth = () => {
 	const {
@@ -47,6 +47,7 @@ export const useAuth = () => {
 			if (res.success) {
 				await setIsLoggedIn(true);
 				setLoginState(true);
+				await setUserId(res.data.id);
 			} else {
 				console.log(res.message);
 			}
