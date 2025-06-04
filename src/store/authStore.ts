@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { getIsLoggedIn, setIsLoggedIn } from '../utils/authStorage';
+import { getIsLoggedIn } from '../utils/authStorage';
 
 type AuthError = {
 	name?: string;
@@ -13,15 +13,15 @@ type AuthStore = {
 	password: string;
 	errors: AuthError;
 	isLoggedIn: boolean;
+
+	// 상태 제어 함수들
 	initLoginStatus: () => void;
 	setName: (value: string) => void;
 	setId: (value: string) => void;
 	setPassword: (value: string) => void;
-	validateFields: (type: 'login' | 'signup') => boolean;
+	setIsLoggedIn: (value: boolean) => void;
 	clearErrors: () => void;
-	signUp: () => void;
-	login: () => void;
-	logout: () => void;
+	validateFields: (type: 'login' | 'signup') => boolean;
 };
 
 export const useAuthStore = create<AuthStore>((set, get) => ({
@@ -39,6 +39,7 @@ export const useAuthStore = create<AuthStore>((set, get) => ({
 	setName: value => set({ name: value }),
 	setId: value => set({ id: value }),
 	setPassword: value => set({ password: value }),
+	setIsLoggedIn: value => set({ isLoggedIn: value }),
 
 	clearErrors: () => set({ errors: {} }),
 
@@ -54,32 +55,5 @@ export const useAuthStore = create<AuthStore>((set, get) => ({
 
 		set({ errors: newErrors });
 		return Object.keys(newErrors).length === 0;
-	},
-
-	signUp: async () => {
-		const { name, id, password, validateFields } = get();
-		if (validateFields('signup')) {
-			console.log('회원가입 요청:', { name, id, password });
-			await setIsLoggedIn(true);
-			set({ isLoggedIn: true });
-		} else {
-			console.log('회원가입 유효성 실패');
-		}
-	},
-
-	login: async () => {
-		const { id, password, validateFields } = get();
-		if (validateFields('login')) {
-			console.log('로그인 요청:', { id, password });
-			await setIsLoggedIn(true);
-			set({ isLoggedIn: true });
-		} else {
-			console.log('로그인 유효성 실패');
-		}
-	},
-
-	logout: async () => {
-		await setIsLoggedIn(false);
-		set({ isLoggedIn: false });
 	},
 }));
