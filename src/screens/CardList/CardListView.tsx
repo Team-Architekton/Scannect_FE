@@ -1,4 +1,4 @@
-import { Text, View, StyleSheet, Platform, UIManager } from 'react-native';
+import { Text, View, StyleSheet, Platform, UIManager, Alert } from 'react-native';
 import { useEffect } from 'react';
 
 import commonStyles from '../../styles/commonStyles';
@@ -10,7 +10,7 @@ import CardSectionList from '../../components/cardList/sectionListView/SectionLi
 import CardBottomSheet from '../../components/cardList/elements/CardBottomSheet';
 import EmptyListView from '../../components/cardList/EmptyListView';
 import { useCardStore } from '../../store/cardStore';
-import { dummyData } from '../../model/cardItem';
+import { getCards } from '../../server/cardList';
 
 // 안드로이드 환경에서도 레이아웃 애니메이션 동작하도록 설정
 if (Platform.OS === 'android' && UIManager.setLayoutAnimationEnabledExperimental) {
@@ -21,7 +21,16 @@ export default function CardListView({ navigation }: any) {
 	const { cardList, setCardList } = useCardStore();
 
 	useEffect(() => {
-		setCardList(dummyData);
+		const fetchCards = async () => {
+			try {
+				const cards = await getCards();
+				setCardList(cards ? cards : []);
+			} catch (e) {
+				console.log('명함 리스트 조회 실패', e);
+				Alert.alert('오류', '명함 리스트를 불러오는 데 실패했습니다.');
+			}
+		};
+		fetchCards();
 	}, []);
 
 	return (

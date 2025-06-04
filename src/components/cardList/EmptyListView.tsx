@@ -12,7 +12,7 @@ export default function EmptyListView({ navigation }: any) {
 			<Text style={styles.emptyListText}>명함을 저장하고 인맥을 관리해보세요!</Text>
 			<CommonButton
 				title="명함 교환하러 가기"
-				onPress={() => navigation.navigate('Exchange')}
+				onPress={() => navigation.navigate('ExchangeTab', { screen: '명함 교환' })}
 				buttonStyle={{ marginTop: spacing.m }}
 			/>
 		</View>

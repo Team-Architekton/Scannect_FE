@@ -2,12 +2,17 @@ import { getUserId } from '../utils/authStorage';
 import { httpClient } from './http';
 
 /** 타유저 명함 전체 리스트 조회 API */
-export const getCardList = async () => {
+export const getCards = async () => {
 	const userId = await getUserId();
-	if (!userId) return;
+	if (!userId) return; // id: tester, password: 123456
 
-	const { data } = await httpClient.get(`/card-list/user/${userId}`);
-	console.log(data);
+	try {
+		const { data } = await httpClient.get(`/card-list/user/${userId}`);
+		console.log('명함 리스트 조회 api 호출 res', data);
+		return data.data;
+	} catch (e) {
+		throw e;
+	}
 };
 
 /** 타유저 명함 숨김 상태 업데이트 API */
