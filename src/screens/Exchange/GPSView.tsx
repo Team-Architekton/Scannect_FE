@@ -13,7 +13,7 @@ import GPSOffView from '../../components/gps/GPSOffView';
 import ExchangeBottomSheet from '../../components/gps/ExchangeBottomSheet';
 import DropdownMenu from '../../components/mypage/elements/Dropdown';
 
-export default function GPSView({navigation}: any) {
+export default function GPSView({ navigation }: any) {
 	const { gpsUserList, selectedUserIds, setGPSUserList, isLocationOn } = useGPSStore();
 	const [isBottomSheetVisible, setBottomSheetVisible] = useState(false);
 
