@@ -27,7 +27,7 @@ export default function GPSView({ navigation }: any) {
 		<ScreenContainer>
 			<View style={styles.header}>
 				<View style={styles.headerText}>
-					<DropdownMenu />
+					<DropdownMenu showCreateOption={false} />
 				</View>
 				<GPSSwitch></GPSSwitch>
 			</View>
