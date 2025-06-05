@@ -47,4 +47,14 @@ export interface WSNotifyMessage {
 	message: string;
 }
 
-export type WSMessage = CardListMessage | WSRequestMessage | WSResponseMessage | WSNotifyMessage;
+export interface WSRemoveMessage {
+	type: 'remove';
+	userId: string;
+}
+
+export type WSMessage =
+	| CardListMessage
+	| WSRequestMessage
+	| WSResponseMessage
+	| WSNotifyMessage
+	| WSRemoveMessage;

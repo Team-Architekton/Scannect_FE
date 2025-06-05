@@ -30,7 +30,7 @@ export const useWebSocket = () => {
 						console.log('📇 카드 리스트 수신');
 						useGPSStore.getState().setGPSUserList(
 							message.cards.map(card => ({
-								id: card.id,
+								id: card.userId,
 								name: card.nickname ?? card.cardName ?? '이름없음',
 								job: card.job,
 								company: card.belongTo,
@@ -54,6 +54,10 @@ export const useWebSocket = () => {
 						console.log(`🔔 [알림] ${message.message}`);
 						break;
 
+					case 'remove':
+						console.log(`🗑️ 사용자 제거 요청: ${message.userId}`);
+						useGPSStore.getState().removeUserById(message.userId);
+						break;
 					default:
 						console.log('📦 알 수 없는 메시지 타입:', (message as any).type);
 						break;

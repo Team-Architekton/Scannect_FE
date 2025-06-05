@@ -7,7 +7,6 @@ import GPSSwitch from '../../components/gps/GPSSwitch';
 import GPSSectionList from '../../components/gps/GPSList';
 import { useGPSStore } from '../../store/gpsStore';
 import { useEffect, useState } from 'react';
-import { dummyData } from '../../model/gpsUser';
 import spacing from '../../styles/spacing';
 import GPSOffView from '../../components/gps/GPSOffView';
 import ExchangeBottomSheet from '../../components/gps/ExchangeBottomSheet';

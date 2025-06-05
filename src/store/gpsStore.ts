@@ -3,11 +3,12 @@ import { IGpsUser } from '../model/gpsUser';
 
 type GPSStore = {
 	gpsUserList: IGpsUser[];
-	selectedUserIds: number[];
+	selectedUserIds: string[];
 	isLocationOn: boolean;
 	setGPSUserList: (list: IGpsUser[]) => void;
-	toggleSelectUser: (id: number) => void;
+	toggleSelectUser: (id: string) => void;
 	setLocationOn: (status: boolean) => void;
+	removeUserById: (userId: string) => void;
 };
 
 export const useGPSStore = create<GPSStore>(set => ({
@@ -17,6 +18,7 @@ export const useGPSStore = create<GPSStore>(set => ({
 	setGPSUserList: list => set({ gpsUserList: list }),
 	toggleSelectUser: id =>
 		set(state => {
+			console.log('Toggling selection for user:', id);
 			const isSelected = state.selectedUserIds.includes(id);
 			const newSelection = isSelected
 				? state.selectedUserIds.filter(userId => userId !== id)
@@ -24,4 +26,8 @@ export const useGPSStore = create<GPSStore>(set => ({
 			return { selectedUserIds: newSelection };
 		}),
 	setLocationOn: status => set({ isLocationOn: status }),
+	removeUserById: (userId: string) =>
+		set(state => ({
+			gpsUserList: state.gpsUserList.filter(user => user.id !== userId),
+		})),
 }));
