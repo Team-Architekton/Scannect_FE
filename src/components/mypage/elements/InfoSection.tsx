@@ -1,11 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, TextInput, Button, Alert } from 'react-native';
-import { useMypageStore } from '../../../store/useMyPageStore';
+import { View, Text, StyleSheet } from 'react-native';
 import spacing from '../../../styles/spacing';
 import colors from '../../../styles/Colors';
 import typography from '../../../styles/typography';
 import EditableField from '../../cardCreateUpdate/EditableField';
-import CommonButton from '../../CommonButton';
 import JobSelector from '../../cardCreateUpdate/JobSelector';
 import { CardForm, CardFormErrors, useCardForm } from '../../../hooks/useCardForm';
 
@@ -31,11 +28,11 @@ export default function InfoSection({
 
 			<EditableField
 				label="이름"
-				value={form.name}
-				onChange={text => handleChange('name', text)}
+				value={form.nickname}
+				onChange={text => handleChange('nickname', text)}
 				isEditing={isEditing}
-				inputProps={{ onBlur: () => validateField('name', form.name) }}
-				errorMessage={errors.name}
+				inputProps={{ onBlur: () => validateField('nickname', form.nickname) }}
+				errorMessage={errors.nickname}
 			/>
 
 			<EditableField
