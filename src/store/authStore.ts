@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { getIsLoggedIn } from '../utils/authStorage';
+import { getIsLoggedIn, getUserId } from '../utils/authStorage';
 
 type AuthError = {
 	name?: string;
@@ -33,7 +33,12 @@ export const useAuthStore = create<AuthStore>((set, get) => ({
 
 	initLoginStatus: async () => {
 		const loggedIn = await getIsLoggedIn();
-		set({ isLoggedIn: loggedIn });
+		const storedId = await getUserId();
+
+		set({
+			isLoggedIn: loggedIn,
+			id: storedId || '',
+		});
 	},
 
 	setName: value => set({ name: value }),

@@ -51,6 +51,7 @@ export const useAuth = () => {
 			if (res.success) {
 				await setIsLoggedIn(true);
 				await setUserId(res.data.id);
+				useAuthStore.getState().setId(res.data.id);
 				setLoginState(true);
 			} else {
 				console.log(res.message);
