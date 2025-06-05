@@ -15,7 +15,17 @@ export const useGPSStore = create<GPSStore>(set => ({
 	gpsUserList: [],
 	selectedUserIds: [],
 	isLocationOn: false,
-	setGPSUserList: list => set({ gpsUserList: list }),
+	setGPSUserList: newList =>
+		set(state => {
+			const existingIds = new Set(state.gpsUserList.map(user => user.id));
+
+			const filteredNewUsers = newList.filter(user => !existingIds.has(user.id));
+
+			return {
+				gpsUserList: [...state.gpsUserList, ...filteredNewUsers],
+			};
+		}),
+
 	toggleSelectUser: id =>
 		set(state => {
 			console.log('Toggling selection for user:', id);
