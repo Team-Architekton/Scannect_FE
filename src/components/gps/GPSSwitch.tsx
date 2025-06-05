@@ -2,9 +2,11 @@ import { View, Text, StyleSheet, Switch } from 'react-native';
 import colors from '../../styles/Colors';
 import { useGPSStore } from '../../store/gpsStore';
 import spacing from '../../styles/spacing';
+import { useGPS } from '../../hooks/useGPS';
 
 export default function GPSSwitch() {
-	const { isLocationOn, toggleLocation } = useGPSStore();
+	const { isLocationOn } = useGPSStore();
+	const { toggleLocation } = useGPS();
 
 	return (
 		<View style={styles.wrapper}>
