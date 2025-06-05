@@ -1,11 +1,13 @@
 import * as Location from 'expo-location';
 import { useGPSStore } from '../store/gpsStore';
-import { useCallback } from 'react';
+import { use, useCallback } from 'react';
 import { postActivateLocation, postDeactivateLocation } from '../server/location';
 import { getUserId } from '../utils/authStorage'; // AsyncStorage 유틸
+import { useWebSocket } from './useWebSocket';
 
 export const useGPS = () => {
 	const { setLocationOn } = useGPSStore();
+	const { connect, disconnect } = useWebSocket();
 
 	const toggleLocation = useCallback(async () => {
 		const isCurrentlyOn = useGPSStore.getState().isLocationOn;
@@ -29,9 +31,9 @@ export const useGPS = () => {
 			const { latitude, longitude } = location.coords;
 			console.log('📍 현재 위치:', { latitude, longitude });
 
-			await postActivateLocation(userId, latitude, longitude);
+			await connect(userId, latitude, longitude);
 		} else {
-			await postDeactivateLocation(userId);
+			await disconnect(userId);
 		}
 
 		setLocationOn(newStatus);
