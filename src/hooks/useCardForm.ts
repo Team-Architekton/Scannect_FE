@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Card } from '../model/card';
 
 export type CardForm = Omit<Card, 'id' | 'isMain'>;
@@ -7,7 +7,7 @@ export type CardFormErrors = Partial<Record<keyof CardForm, string>>;
 export function useCardForm(initial: Partial<CardForm> = {}) {
 	const DEFAULT_FORM: CardForm = {
 		cardName: '',
-		name: '',
+		nickname: '',
 		phoneNum: '',
 		email: '',
 		position: '',
@@ -18,7 +18,7 @@ export function useCardForm(initial: Partial<CardForm> = {}) {
 		imgUrl: null,
 		industry: '',
 		job: '',
-		color: '',
+		colour: '',
 		website: '',
 	};
 
@@ -29,18 +29,24 @@ export function useCardForm(initial: Partial<CardForm> = {}) {
 
 	const [errors, setErrors] = useState<CardFormErrors>({});
 
+	const isDirtyRef = useRef(false); // 사용자 입력 추적
+
 	useEffect(() => {
-		setForm({ ...DEFAULT_FORM, ...initial });
-	}, [JSON.stringify(initial)]);
+		if (!isDirtyRef.current) {
+			setForm({ ...DEFAULT_FORM, ...initial });
+		}
+	}, [initial]);
 
 	const resetForm = (newInitial: Partial<CardForm> = initial) => {
 		setForm({ ...DEFAULT_FORM, ...newInitial });
 		setErrors({});
+		isDirtyRef.current = false;
 	};
 
 	const handleChange = (key: keyof CardForm, value: string | null) => {
 		setForm(prev => ({ ...prev, [key]: value }));
 		setErrors(prev => ({ ...prev, [key]: undefined }));
+		isDirtyRef.current = true;
 	};
 
 	const validateField = (field: keyof CardForm, value: string) => {
@@ -50,7 +56,7 @@ export function useCardForm(initial: Partial<CardForm> = {}) {
 				if (!value.trim()) error = '명함 별명은 필수 입력 항목입니다';
 				else if (value.length > 10) error = '명함 별명은 10자 이하로 입력해주세요';
 				break;
-			case 'name':
+			case 'nickname':
 				if (!value.trim()) error = '이름은 필수 입력 항목입니다';
 				else if (value.length > 10) error = '이름은 10자 이하로 입력해주세요';
 				break;
