@@ -43,6 +43,7 @@ export default function CardSave({ initialData }: Props) {
 		Toast.show({
 			type: 'success',
 			text1: '명함이 성공적으로 저장되었습니다.',
+			position: 'bottom'
 		});
 		resetForm();
 
