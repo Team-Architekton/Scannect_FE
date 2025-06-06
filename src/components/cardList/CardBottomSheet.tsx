@@ -30,7 +30,7 @@ export default function CardBottomSheet() {
 								? '명함 숨김 해제하기'
 								: '명함 리스트에서 숨김'
 						}
-						onPress={() => onHideCard(selectedCard.id, 'isActive', !selectedCard.isActive)}
+						onPress={() => onHideCard(selectedCard.id, !selectedCard.isActive)}
 						buttonStyle={{ width: '85%', marginBottom: spacing.s }}
 						size="large"
 					/>

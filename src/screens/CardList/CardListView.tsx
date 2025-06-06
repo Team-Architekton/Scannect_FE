@@ -1,4 +1,4 @@
-import { Text, View, StyleSheet, Platform, UIManager, Alert, Pressable } from 'react-native';
+import { Text, View, StyleSheet, Platform, UIManager, Alert } from 'react-native';
 import { useEffect } from 'react';
 
 import commonStyles from '../../styles/commonStyles';
@@ -10,8 +10,7 @@ import CardSectionList from '../../components/cardList/sectionListView/SectionLi
 import CardBottomSheet from '../../components/cardList/CardBottomSheet';
 import EmptyListView from '../../components/cardList/EmptyListView';
 import { useCardStore } from '../../store/cardStore';
-import { useAuthStore } from '../../store/authStore';
-import { useCardActions } from '../../hooks/useCardActions';
+import { useCardList } from '../../hooks/useCardList';
 
 // 안드로이드 환경에서도 레이아웃 애니메이션 동작하도록 설정
 if (Platform.OS === 'android' && UIManager.setLayoutAnimationEnabledExperimental) {
@@ -19,17 +18,15 @@ if (Platform.OS === 'android' && UIManager.setLayoutAnimationEnabledExperimental
 }
 
 export default function CardListView({ navigation }: any) {
-	const cardList = useCardStore(state => state.cardList);
-	const { fetchCards } = useCardActions();
-	const { setIsLoggedIn } = useAuthStore();
+	const { cardList, error, clearError } = useCardStore();
+	const { handleFetchCards } = useCardList();
 
 	useEffect(() => {
 		const loadCards = async () => {
-			try {
-				await fetchCards();
-			} catch (e) {
-				console.log('명함 리스트 조회 실패', e);
-				Alert.alert('오류', '명함 리스트를 불러오는 데 실패했습니다.');
+			await handleFetchCards();
+			if (error) {
+				Alert.alert(error, '잠시 후 다시 시도해주세요.');
+				clearError();
 			}
 		};
 		loadCards();
@@ -39,9 +36,6 @@ export default function CardListView({ navigation }: any) {
 		<ScreenContainer>
 			<View style={{ height: '100%' }}>
 				<Text style={styles.headerTitle}>명함 리스트</Text>
-				<Pressable onPress={() => setIsLoggedIn(false)}>
-					<Text>LogOut</Text>
-				</Pressable>
 				<SearchInput />
 				<View style={styles.mainLabelWrapper}>
 					<Text style={styles.mainLabel}>전체 명함 ({cardList.length})</Text>

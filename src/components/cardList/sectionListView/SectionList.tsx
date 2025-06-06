@@ -6,12 +6,14 @@ import SectionHeader from './SectionHeader';
 import colors from '../../../styles/Colors';
 import { useCardStore } from '../../../store/cardStore';
 import spacing from '../../../styles/spacing';
-import { useCardActions } from '../../../hooks/useCardActions';
+import { useCardList } from '../../../hooks/useCardList';
 
 export default function CardSectionList() {
-	const { fetchCards } = useCardActions();
+	const { handleFetchCards } = useCardList();
 	const {
 		renderingList: { importantCards, commonCards, hiddenCards },
+		error,
+		clearError,
 	} = useCardStore();
 	const [refreshing, setRefreshing] = useState(false);
 	const [arcodianOpen, setArcodianOpen] = useState({
@@ -26,14 +28,13 @@ export default function CardSectionList() {
 
 	const handleRefresh = useCallback(async () => {
 		setRefreshing(true);
-		try {
-			await fetchCards();
-		} catch (e) {
-			Alert.alert('오류가 발생했습니다.', '잠시 후 다시 시도해주세요.');
-		} finally {
-			setRefreshing(false);
+		await handleFetchCards();
+		if (error) {
+			Alert.alert(error, '잠시 후 다시 시도해주세요.');
+			clearError();
 		}
-	}, [fetchCards]);
+		setRefreshing(false);
+	}, [handleFetchCards]);
 
 	const sections = useMemo(() => {
 		return [

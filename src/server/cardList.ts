@@ -20,6 +20,11 @@ export const updateFavorite = async (tableId: number, newStatus: boolean) => {
 	await httpClient.patch(`/card-list/${tableId}/favorite?favorite=${newStatus}`);
 };
 
+/** 타유저 명함 메모 수정 API */
+export const updateMemo = async (tableId: number, memo: string) => {
+	await httpClient.patch(`/card-list/${tableId}/memo`, { memo });
+};
+
 /** 타유저 명함 삭제 API */
 export const deleteCard = async (tableId: number) => {
 	await httpClient.delete(`/card-list/${tableId}`);

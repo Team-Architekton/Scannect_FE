@@ -40,7 +40,7 @@ export default function CardDetailView({ navigation, route }: any) {
 						isActive={card.isActive}
 					/>
 					<ProfileInfo card={card} />
-					<MemoInput cardId={card.cardId} memo={card.memo} onFocus={handleFocus} />
+					<MemoInput id={card.id} memo={card.memo} onFocus={handleFocus} />
 				</ScrollView>
 			</KeyboardAvoidingView>
 			<CardBottomSheet />
