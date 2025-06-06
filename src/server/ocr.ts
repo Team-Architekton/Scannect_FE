@@ -22,13 +22,3 @@ export const postOCR = async (imageUri: string) => {
     }
 };
 
-export const getOCR = async () => {
-    try {
-        const { data } = await httpClient.post('');
-        return data;
-    } catch (error) {
-        console.error('OCR GET 실패:', error);
-        throw error;
-    }
-};
-

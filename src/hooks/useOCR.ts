@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { postOCR, getOCR } from '../server/ocr';
+import { postOCR } from '../server/ocr';
 
 export const useOCR = () => {
 	const [loading, setLoading] = useState(false);
@@ -22,27 +22,10 @@ export const useOCR = () => {
 		}
 	};
 
-	const fetchOCR = async () => {
-		setLoading(true);
-		setError(null);
-
-		try {
-			const data = await getOCR();
-			setResult(data);
-			return data;
-		} catch (err: any) {
-			setError(err);
-			throw err;
-		} finally {
-			setLoading(false);
-		}
-	};
-
 	return {
 		result,
 		loading,
 		error,
 		requestOCR,
-		fetchOCR,
 	};
 };
