@@ -12,8 +12,6 @@ export default function CardSectionList() {
 	const { handleFetchCards } = useCardList();
 	const {
 		renderingList: { importantCards, commonCards, hiddenCards },
-		error,
-		clearError,
 	} = useCardStore();
 	const [refreshing, setRefreshing] = useState(false);
 	const [arcodianOpen, setArcodianOpen] = useState({
@@ -28,11 +26,9 @@ export default function CardSectionList() {
 
 	const handleRefresh = useCallback(async () => {
 		setRefreshing(true);
-		await handleFetchCards();
-		if (error) {
-			Alert.alert(error, '잠시 후 다시 시도해주세요.');
-			clearError();
-		}
+		const success = await handleFetchCards(false);
+		console.log(success);
+		if (!success) Alert.alert('처리 실패', '잠시 후 다시 시도해주세요.');
 		setRefreshing(false);
 	}, [handleFetchCards]);
 

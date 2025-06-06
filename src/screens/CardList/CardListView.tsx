@@ -1,4 +1,12 @@
-import { Text, View, StyleSheet, Platform, UIManager, Alert } from 'react-native';
+import {
+	Text,
+	View,
+	StyleSheet,
+	Platform,
+	UIManager,
+	Alert,
+	ActivityIndicator,
+} from 'react-native';
 import { useEffect } from 'react';
 
 import commonStyles from '../../styles/commonStyles';
@@ -18,19 +26,24 @@ if (Platform.OS === 'android' && UIManager.setLayoutAnimationEnabledExperimental
 }
 
 export default function CardListView({ navigation }: any) {
-	const { cardList, error, clearError } = useCardStore();
+	const { cardList, isLoading } = useCardStore();
 	const { handleFetchCards } = useCardList();
 
 	useEffect(() => {
-		const loadCards = async () => {
-			await handleFetchCards();
-			if (error) {
-				Alert.alert(error, '잠시 후 다시 시도해주세요.');
-				clearError();
-			}
+		const load = async () => {
+			const success = await handleFetchCards(true);
+			if (!success) Alert.alert('처리 실패', '잠시 후 다시 시도해주세요.');
 		};
-		loadCards();
+		load();
 	}, []);
+
+	if (isLoading) {
+		return (
+			<View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+				<ActivityIndicator size="large" />
+			</View>
+		);
+	}
 
 	return (
 		<ScreenContainer>
