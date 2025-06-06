@@ -1,26 +1,29 @@
 /* eslint-disable prettier/prettier */
-import { View, Text, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import CommonButton from '../../components/CommonButton';
-import commonStyles from '../../styles/commonStyles';
 import ScreenContainer from '../../components/ScreenContainer';
 import GPSSwitch from '../../components/gps/GPSSwitch';
 import GPSSectionList from '../../components/gps/GPSList';
 import { useGPSStore } from '../../store/gpsStore';
-import { useEffect, useState } from 'react';
-import { dummyData } from '../../model/gpsUser';
+import { useState } from 'react';
 import spacing from '../../styles/spacing';
 import GPSOffView from '../../components/gps/GPSOffView';
 import ExchangeBottomSheet from '../../components/gps/ExchangeBottomSheet';
 import DropdownMenu from '../../components/mypage/elements/Dropdown';
+import OCRImageSourceModal from '../../components/ocr/OCRImageSourceModal';
 
 export default function GPSView({ navigation }: any) {
 	const { gpsUserList, selectedUserIds, setGPSUserList, isLocationOn } = useGPSStore();
 	const [isBottomSheetVisible, setBottomSheetVisible] = useState(false);
+	const [isImageSourceModalVisible, setImageSourceModalVisible] = useState(false);
 
 	const handleExchangeOption = (type: 'QRGenerate' | 'QRScan' | 'PaperScan') => {
-		//console.log('클릭한 뷰로 이동 :', type);
-		navigation.navigate(type);
 		setBottomSheetVisible(false);
+		if (type === 'PaperScan') {
+			setImageSourceModalVisible(true);
+		} else {
+			navigation.navigate(type);
+		}
 	};
 
 	return (
@@ -52,6 +55,14 @@ export default function GPSView({ navigation }: any) {
 				onSelect={type => {
 					handleExchangeOption(type);
 					setBottomSheetVisible(false);
+				}}
+			/>
+			<OCRImageSourceModal
+				visible={isImageSourceModalVisible}
+				onClose={() => setImageSourceModalVisible(false)}
+				onSelect={(source, imageUri) => {
+					setImageSourceModalVisible(false);
+					navigation.navigate('PaperScan', { source, imageUri });
 				}}
 			/>
 		</ScreenContainer>
