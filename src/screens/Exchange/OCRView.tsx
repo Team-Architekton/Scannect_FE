@@ -3,8 +3,7 @@ import ScreenContainer from '../../components/ScreenContainer';
 import CardSave from '../../components/ocr/CardSave';
 import LoadingOverlay from '../../components/ocr/LoadingOverlay';
 import { useOCR } from '../../hooks/useOCR';
-import { useEffect, useRef } from 'react';
-import { KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
+import { useEffect } from 'react';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 export default function OCRView() {

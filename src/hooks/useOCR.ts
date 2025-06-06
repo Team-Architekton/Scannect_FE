@@ -31,8 +31,8 @@ export const useOCR = () => {
 				setTimeout(() => {
 					resolve({
 						name: '홍길동',
-						company: '오픈AI 주식회사',
-						phone: '010-1234-5678',
+						belongTo: '오픈AI 주식회사',
+						phoneNum: '01012345678',
 						email: 'honggildong@example.com',
 					});
 				}, 5000)
