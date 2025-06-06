@@ -1,25 +1,40 @@
-import { LayoutAnimation, SectionList, StyleSheet, View } from 'react-native';
-import { useMemo, useState } from 'react';
+import { Alert, LayoutAnimation, SectionList, StyleSheet, View } from 'react-native';
+import { useCallback, useMemo, useState } from 'react';
 
 import CardItem from './CardItem';
 import SectionHeader from './SectionHeader';
 import colors from '../../../styles/Colors';
 import { useCardStore } from '../../../store/cardStore';
 import spacing from '../../../styles/spacing';
+import { useCardActions } from '../../../hooks/useCardActions';
 
 export default function CardSectionList() {
+	const { fetchCards } = useCardActions();
 	const {
 		renderingList: { importantCards, commonCards, hiddenCards },
 	} = useCardStore();
+	const [refreshing, setRefreshing] = useState(false);
 	const [arcodianOpen, setArcodianOpen] = useState({
 		important: true,
 		hidden: false,
 	});
+
 	const toggleArcodian = (section: keyof typeof arcodianOpen) => {
-		// 아코디언 접기/펼치기 레이아웃 변경 시 애니메이션 적용
 		LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
 		setArcodianOpen(prev => ({ ...prev, [section]: !prev[section] }));
 	};
+
+	const handleRefresh = useCallback(async () => {
+		setRefreshing(true);
+		try {
+			await fetchCards();
+		} catch (e) {
+			Alert.alert('오류가 발생했습니다.', '잠시 후 다시 시도해주세요.');
+		} finally {
+			setRefreshing(false);
+		}
+	}, [fetchCards]);
+
 	const sections = useMemo(() => {
 		return [
 			{
@@ -70,6 +85,8 @@ export default function CardSectionList() {
 			}}
 			stickySectionHeadersEnabled={false}
 			showsVerticalScrollIndicator={false}
+			refreshing={refreshing}
+			onRefresh={handleRefresh}
 		/>
 	);
 }
