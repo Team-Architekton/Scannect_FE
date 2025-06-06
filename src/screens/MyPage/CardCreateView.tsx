@@ -1,33 +1,19 @@
-import { KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
-import { useRef } from 'react';
 import ScreenContainer from '../../components/ScreenContainer';
 import CardCreateForm from '../../components/cardCreateUpdate/CardCreateForm';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 export default function CardCreateView() {
-	const scrollRef = useRef<ScrollView>(null);
-
-	const onFocus = () => {
-		setTimeout(() => {
-			scrollRef.current?.scrollToEnd({ animated: true });
-		}, 300);
-	};
-
 	return (
 		<ScreenContainer>
-			<KeyboardAvoidingView
-				behavior={Platform.select({ ios: 'padding', android: undefined })}
-				keyboardVerticalOffset={80}
-				style={{ flex: 1 }}
+			<KeyboardAwareScrollView
+				contentContainerStyle={{ flexGrow: 1 }}
+				keyboardShouldPersistTaps="handled"
+				showsVerticalScrollIndicator={false}
+				enableOnAndroid
+				extraScrollHeight={100}
 			>
-				<ScrollView
-					ref={scrollRef}
-					contentContainerStyle={{ flexGrow: 1 }}
-					keyboardShouldPersistTaps="handled"
-					showsVerticalScrollIndicator={false}
-				>
-					<CardCreateForm onAnyInputFocus={onFocus} />
-				</ScrollView>
-			</KeyboardAvoidingView>
+				<CardCreateForm />
+			</KeyboardAwareScrollView>
 		</ScreenContainer>
 	);
 }

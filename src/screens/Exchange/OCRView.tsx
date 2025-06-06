@@ -1,10 +1,11 @@
 import { useRoute } from '@react-navigation/native';
-import { View } from 'react-native';
 import ScreenContainer from '../../components/ScreenContainer';
 import CardSave from '../../components/ocr/CardSave';
 import LoadingOverlay from '../../components/ocr/LoadingOverlay';
 import { useOCR } from '../../hooks/useOCR';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
+import { KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 export default function OCRView() {
 	const route = useRoute<any>();
@@ -21,8 +22,16 @@ export default function OCRView() {
 		<>
 			{loading && <LoadingOverlay />}
 			<ScreenContainer>
-				<View style={{ flex: 1 }}>{result && <CardSave initialData={result} />}</View>
+				<KeyboardAwareScrollView
+					contentContainerStyle={{ flexGrow: 1 }}
+					enableOnAndroid
+					keyboardShouldPersistTaps="handled"
+					showsVerticalScrollIndicator={false}
+					extraScrollHeight={100}
+				>
+					{result && <CardSave initialData={result} />}
+				</KeyboardAwareScrollView>
 			</ScreenContainer>
 		</>
 	);
-};
+}
