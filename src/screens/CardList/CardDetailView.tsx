@@ -2,7 +2,7 @@ import { KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
 import { useEffect, useRef } from 'react';
 
 import ScreenContainer from '../../components/ScreenContainer';
-import CardBottomSheet from '../../components/cardList/elements/CardBottomSheet';
+import CardBottomSheet from '../../components/cardList/CardBottomSheet';
 import Header from '../../components/cardDetail/Header';
 import MemoInput from '../../components/cardDetail/Memo';
 import ProfileInfo from '../../components/cardDetail/ProfileInfo';
@@ -33,7 +33,7 @@ export default function CardDetailView({ navigation, route }: any) {
 			>
 				<ScrollView ref={scrollRef} showsVerticalScrollIndicator={false}>
 					<Header
-						name={card.name}
+						name={card.nickname}
 						cardId={card.id}
 						favorite={card.favorite}
 						isActive={card.isActive}

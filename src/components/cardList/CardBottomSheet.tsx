@@ -1,11 +1,11 @@
 import { Modal, Pressable, StyleSheet, View } from 'react-native';
 
-import CommonButton from '../../CommonButton';
-import colors from '../../../styles/Colors';
-import { useCardStore } from '../../../store/cardStore';
-import { useModalStore } from '../../../store/modalStore';
-import { useCardModal } from '../../../hooks/useCardModal';
-import spacing from '../../../styles/spacing';
+import CommonButton from '../CommonButton';
+import colors from '../../styles/Colors';
+import { useCardStore } from '../../store/cardStore';
+import { useModalStore } from '../../store/modalStore';
+import { useCardModal } from '../../hooks/useCardModal';
+import spacing from '../../styles/spacing';
 
 export default function CardBottomSheet() {
 	const { isModalOpen, selectedCardId, closeModal } = useModalStore();
