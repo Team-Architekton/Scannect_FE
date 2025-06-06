@@ -11,7 +11,7 @@ export default function ProfileInfo({ card }: { card: ICardItem }) {
 	return (
 		<>
 			<CardPreview selectedCard={card} />
-			<Contacts phone={card.phoneNum} email={card.email} />
+			<Contacts phoneNum={card.phoneNum} email={card.email} />
 
 			<ProfileIntro
 				content={card.content ?? ''}

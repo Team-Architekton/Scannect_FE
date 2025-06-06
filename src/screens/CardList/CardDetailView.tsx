@@ -11,7 +11,7 @@ import { useCardStore } from '../../store/cardStore';
 export default function CardDetailView({ navigation, route }: any) {
 	const scrollRef = useRef<ScrollView>(null);
 	const { cardId } = route.params;
-	const card = useCardStore(state => state.cardList.find(c => c.id === cardId));
+	const card = useCardStore(state => state.cardList.find(c => c.cardId === cardId));
 
 	useEffect(() => {
 		if (!card) navigation.goBack();
@@ -33,13 +33,14 @@ export default function CardDetailView({ navigation, route }: any) {
 			>
 				<ScrollView ref={scrollRef} showsVerticalScrollIndicator={false}>
 					<Header
-						name={card.nickname}
-						cardId={card.id}
+						id={card.id}
+						nickname={card.nickname}
+						cardId={card.cardId}
 						favorite={card.favorite}
 						isActive={card.isActive}
 					/>
 					<ProfileInfo card={card} />
-					<MemoInput cardId={card.id} memo={card.memo} onFocus={handleFocus} />
+					<MemoInput cardId={card.cardId} memo={card.memo} onFocus={handleFocus} />
 				</ScrollView>
 			</KeyboardAvoidingView>
 			<CardBottomSheet />
