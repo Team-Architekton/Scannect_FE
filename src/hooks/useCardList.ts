@@ -4,13 +4,14 @@ import {
 	updateFavorite,
 	deleteCard,
 	updateMemo,
+	searchCards,
 } from '../server/cardList';
 import { useCardStore } from '../store/cardStore';
 import { getUserId } from '../utils/authStorage';
 
 /** 타유저 명함 관련 비즈니스 로직 hook */
 export const useCardList = () => {
-	const { cardList, setCardList, setIsLoading } = useCardStore();
+	const { cardList, setCardList, setSearchList, setIsLoading, setIsSearching } = useCardStore();
 	const handleFetchCards = async (loading: boolean) => {
 		try {
 			const userId = await getUserId(); // id: tester, password: 123456
@@ -61,5 +62,23 @@ export const useCardList = () => {
 		}
 	};
 
-	return { handleFetchCards, handleEditCard, handleDeleteCard };
+	const handleSearchCards = async (keyword: string) => {
+		try {
+			const userId = await getUserId(); // id: tester, password: 123456
+			if (!userId) throw new Error('로그인 정보 없음');
+
+			setIsLoading(true);
+			const cards = await searchCards(userId, keyword);
+			setSearchList(cards);
+			setIsSearching(true);
+			return cards;
+		} catch (e) {
+			console.error('명함 검색 실패', e);
+			return false;
+		} finally {
+			setIsLoading(false);
+		}
+	};
+
+	return { handleFetchCards, handleEditCard, handleDeleteCard, handleSearchCards };
 };
