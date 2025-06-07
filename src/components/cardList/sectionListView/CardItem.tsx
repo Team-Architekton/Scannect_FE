@@ -30,11 +30,11 @@ export default function CardItem(props: ICardItem) {
 			]}
 		>
 			<HeartIcon id={props.id} favorite={props.favorite} />
-			<View style={{ width: '75%' }}>
+			<View style={{ width: '80%' }}>
 				<View style={{ flexDirection: 'row', alignItems: 'center' }}>
 					<Text style={styles.cardItemName}>{props.nickname}</Text>
 					<Text style={{ ...styles.cardItemSubInfo, marginLeft: 7 }}>
-						{props.belongTo} | {props.department} / {props.position}
+						{props.belongTo} | {props.job}
 					</Text>
 				</View>
 				{props.memo ? (
