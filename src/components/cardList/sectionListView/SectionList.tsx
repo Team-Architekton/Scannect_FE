@@ -1,19 +1,18 @@
-import { Alert, LayoutAnimation, SectionList, StyleSheet, View } from 'react-native';
-import { useCallback, useMemo, useState } from 'react';
+import { LayoutAnimation, SectionList, StyleSheet, View } from 'react-native';
+import { useMemo, useState } from 'react';
 
 import CardItem from './CardItem';
 import SectionHeader from './SectionHeader';
 import colors from '../../../styles/Colors';
 import { useCardStore } from '../../../store/cardStore';
 import spacing from '../../../styles/spacing';
-import { useCardList } from '../../../hooks/useCardList';
+import { useRefresh } from '../../../hooks/useRefresh';
 
 export default function CardSectionList() {
-	const { handleFetchCards } = useCardList();
+	const { refreshing, handleRefresh } = useRefresh();
 	const {
 		renderingList: { importantCards, commonCards, hiddenCards },
 	} = useCardStore();
-	const [refreshing, setRefreshing] = useState(false);
 	const [arcodianOpen, setArcodianOpen] = useState({
 		important: true,
 		hidden: false,
@@ -23,14 +22,6 @@ export default function CardSectionList() {
 		LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
 		setArcodianOpen(prev => ({ ...prev, [section]: !prev[section] }));
 	};
-
-	const handleRefresh = useCallback(async () => {
-		setRefreshing(true);
-		const success = await handleFetchCards(false);
-		console.log(success);
-		if (!success) Alert.alert('처리 실패', '잠시 후 다시 시도해주세요.');
-		setRefreshing(false);
-	}, [handleFetchCards]);
 
 	const sections = useMemo(() => {
 		return [

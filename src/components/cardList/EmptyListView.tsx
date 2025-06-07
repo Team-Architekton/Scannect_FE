@@ -1,22 +1,13 @@
-import { useCallback, useState } from 'react';
-import { Text, ScrollView, RefreshControl, StyleSheet, Alert } from 'react-native';
+import { Text, ScrollView, RefreshControl, StyleSheet } from 'react-native';
 
 import commonStyles from '../../styles/commonStyles';
 import colors from '../../styles/Colors';
 import CommonButton from '../../components/CommonButton';
 import spacing from '../../styles/spacing';
-import { useCardList } from '../../hooks/useCardList';
+import { useRefresh } from '../../hooks/useRefresh';
 
 export default function EmptyListView({ navigation }: any) {
-	const { handleFetchCards } = useCardList();
-	const [refreshing, setRefreshing] = useState(false);
-
-	const handleRefresh = useCallback(async () => {
-		setRefreshing(true);
-		const success = await handleFetchCards(false);
-		if (!success) Alert.alert('처리 실패', '잠시 후 다시 시도해주세요.');
-		setRefreshing(false);
-	}, [handleFetchCards]);
+	const { refreshing, handleRefresh } = useRefresh();
 
 	return (
 		<ScrollView

@@ -1,11 +1,7 @@
-import { getUserId } from '../utils/authStorage';
 import { httpClient } from './http';
 
 /** 타유저 명함 전체 리스트 조회 API */
-export const getCards = async () => {
-	const userId = await getUserId();
-	if (!userId) return; // id: tester, password: 123456
-
+export const getCards = async (userId: string) => {
 	const { data } = await httpClient.get(`/card-list/user/${userId}`);
 	return data.data;
 };

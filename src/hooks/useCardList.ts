@@ -6,14 +6,18 @@ import {
 	updateMemo,
 } from '../server/cardList';
 import { useCardStore } from '../store/cardStore';
+import { getUserId } from '../utils/authStorage';
 
-/** 타유저 명함과 관련된 네트워크 + 비즈니스 로직 hook */
+/** 타유저 명함 관련 비즈니스 로직 hook */
 export const useCardList = () => {
 	const { cardList, setCardList, setIsLoading } = useCardStore();
 	const handleFetchCards = async (loading: boolean) => {
 		try {
+			const userId = await getUserId(); // id: tester, password: 123456
+			if (!userId) throw new Error('로그인 정보 없음');
+
 			if (loading) setIsLoading(true);
-			const cards = await getCards();
+			const cards = await getCards(userId);
 			setCardList(cards ? cards : []);
 			return true;
 		} catch (e) {
