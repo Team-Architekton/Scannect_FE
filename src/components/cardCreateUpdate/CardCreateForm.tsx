@@ -7,18 +7,16 @@ import JobSelector from './JobSelector';
 import LabeledTextarea from './LabeledTextarea';
 import ProfileImagePicker from './Profile';
 import spacing from '../../styles/spacing';
-import { useNavigation } from '@react-navigation/native';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { useMemo } from 'react';
 
 export default function CardCreateForm({ onAnyInputFocus }: { onAnyInputFocus?: () => void }) {
-	const { form, errors, handleChange, validateField } = useCardForm();
+	const emptyInitial = useMemo(() => ({}), []);
+	const { form, errors, handleChange, validateField } = useCardForm(emptyInitial);
 	const { createCard } = useMypage();
-	const navigation = useNavigation<any>();
-
 
 	const requiredFields: (keyof typeof form)[] = [
 		'cardName',
-		'name',
+		'nickname',
 		'belongTo',
 		'job',
 		'industry',
@@ -42,7 +40,6 @@ export default function CardCreateForm({ onAnyInputFocus }: { onAnyInputFocus?: 
 
 		if (!hasError) {
 			createCard(form);
-			navigation.navigate('마이페이지');
 		}
 	};
 
@@ -71,11 +68,11 @@ export default function CardCreateForm({ onAnyInputFocus }: { onAnyInputFocus?: 
 			<LabeledInput
 				label="이름"
 				required
-				value={form.name}
-				onChangeText={text => handleChange('name', text)}
-				errorMessage={errors.name}
+				value={form.nickname}
+				onChangeText={text => handleChange('nickname', text)}
+				errorMessage={errors.nickname}
 				placeholder="이름을 입력하세요"
-				onBlur={() => validateField('name', form.name)}
+				onBlur={() => validateField('nickname', form.nickname)}
 			/>
 			<LabeledInput
 				label="소속"

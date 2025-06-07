@@ -11,7 +11,7 @@ import { CARD_COLORS } from '../../../constants/cardColors';
 
 type Props = {
 	visible: boolean;
-	onSelect: (color: string) => void;
+	onSelect: (colour: string) => void;
 	onClose: () => void;
 };
 
@@ -22,12 +22,12 @@ const ColorPickerModal: React.FC<Props> = ({ visible, onSelect, onClose }) => {
 				<TouchableWithoutFeedback>
 					<View style={styles.sheet}>
 						<View style={styles.colorGrid}>
-							{CARD_COLORS.map(color => (
+							{CARD_COLORS.map(colour => (
 								<TouchableOpacity
-									key={color}
-									style={[styles.colorCircle, { backgroundColor: color }]}
+									key={colour}
+									style={[styles.colorCircle, { backgroundColor: colour }]}
 									onPress={() => {
-										onSelect(color);
+										onSelect(colour);
 										onClose();
 									}}
 								/>

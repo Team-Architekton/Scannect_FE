@@ -5,18 +5,24 @@ import { useMypageStore } from '../../store/useMyPageStore';
 import { CardForm, useCardForm } from '../../hooks/useCardForm';
 import CommonButton from '../CommonButton';
 import { useMypage } from '../../hooks/useMypage';
+import { Card } from '../../model/card';
+import { useMemo } from 'react';
 
-export default function ProfileSection() {
-	const selectedCard = useMypageStore(state => state.selectedCard);
+type ProfileSectionProps = {
+	selectedCard: Card | null;
+};
+
+export default function ProfileSection({ selectedCard }: ProfileSectionProps) {
 	const setIsEditing = useMypageStore(state => state.setIsEditing);
 	const isEditing = useMypageStore(state => state.isEditing);
 	const { updateCard } = useMypage();
 
-	const { form, errors, handleChange, validateField, resetForm } = useCardForm({ ...selectedCard });
+	const memoizedInitial = useMemo(() => ({ ...(selectedCard ?? {}) }), [selectedCard]);
+	const { form, errors, handleChange, validateField, resetForm } = useCardForm(memoizedInitial);
 
 	const validateAll = () => {
 		const requiredFields: (keyof CardForm)[] = [
-			'name',
+			'nickname',
 			'belongTo',
 			'industry',
 			'position',
@@ -37,11 +43,7 @@ export default function ProfileSection() {
 				{
 					text: '저장',
 					onPress: () => {
-						updateCard({
-							...form,
-							id: selectedCard.id,
-							isMain: selectedCard.isMain,
-						});
+						updateCard(selectedCard.id, form);
 						setIsEditing(false);
 					},
 				},

@@ -1,7 +1,7 @@
 export interface Card {
 	id: number;
 	cardName: string;
-	name: string;
+	nickname: string;
 	belongTo: string;
 	job: string;
 	phoneNum: string;
@@ -13,7 +13,7 @@ export interface Card {
 	imgUrl?: string | null;
 	content?: string;
 	companyTel?: string;
-	color?: string;
+	colour?: string;
 	website?: string;
 
 	isMain: boolean;

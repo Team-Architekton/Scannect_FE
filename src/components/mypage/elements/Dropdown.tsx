@@ -1,7 +1,5 @@
-import React, { useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import { useMypage } from '../../../hooks/useMypage';
 import { useMypageStore } from '../../../store/useMyPageStore';
 import { Card } from '../../../model/card';
 import spacing from '../../../styles/spacing';
@@ -10,27 +8,20 @@ import AntDesign from '@expo/vector-icons/AntDesign';
 import { useUiStore } from '../../../store/useUiStore';
 
 const DropdownMenu: React.FC = () => {
-	const { selectedCard, setSelectedCard } = useMypageStore();
-	const { cards } = useMypage();
+	const cards = useMypageStore(state => state.cards);
+	const selectedCard = useMypageStore(state => state.selectedCard);
+	const setSelectedCardId = useMypageStore(state => state.setSelectedCardId);
 	const { dropdownOpen: open, setDropdownOpen: setOpen } = useUiStore();
 	const navigation = useNavigation<any>();
 
-	useEffect(() => {
-		if (!selectedCard && cards.length > 0) {
-			setSelectedCard(cards.find(c => c.isMain) ?? cards[0]);
-		}
-	}, [cards, selectedCard]);
-
-	const sortedCards = [...cards].sort((a, b) =>
-		a.isMain === b.isMain ? 0 : a.isMain ? -1 : 1
-	);
+	const sortedCards = [...cards].sort((a, b) => (a.isMain === b.isMain ? 0 : a.isMain ? -1 : 1));
 
 	const handleSelect = (card: Card | 'new') => {
 		setOpen(false);
 		if (card === 'new') {
 			navigation.navigate('명함 생성');
 		} else {
-			setSelectedCard(card);
+			setSelectedCardId(card.id);
 		}
 	};
 

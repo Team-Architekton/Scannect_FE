@@ -1,5 +1,12 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Alert, TouchableWithoutFeedback } from 'react-native';
+import {
+	View,
+	Text,
+	TouchableOpacity,
+	StyleSheet,
+	Alert,
+	TouchableWithoutFeedback,
+} from 'react-native';
 import Entypo from '@expo/vector-icons/Entypo';
 import { useMypage } from '../../../hooks/useMypage';
 import ColorPickerModal from './ColorPicker';
@@ -9,7 +16,8 @@ import { useMypageStore } from '../../../store/useMyPageStore';
 
 const Hamburger = () => {
 	const [showColorPicker, setShowColorPicker] = useState(false);
-	const { selectedCard, setDefaultCard, deleteCard, updateCardColor } = useMypage();
+	const selectedCard = useMypageStore(state => state.selectedCard);
+	const { setDefaultCard, deleteCard, updateCard } = useMypage();
 	const { hamburgerOpen: visible, setHamburgerOpen: setVisible } = useUiStore();
 	const { setIsEditing } = useMypageStore();
 
@@ -80,7 +88,12 @@ const Hamburger = () => {
 
 			<ColorPickerModal
 				visible={showColorPicker}
-				onSelect={color => updateCardColor(selectedCard!.id, color)}
+				onSelect={colour =>
+					updateCard(selectedCard!.id, {
+						...selectedCard,
+						colour,
+					})
+				}
 				onClose={() => setShowColorPicker(false)}
 			/>
 		</>
@@ -93,7 +106,10 @@ const styles = StyleSheet.create({
 	},
 	overlay: {
 		position: 'absolute',
-		top: 0, left: 0, right: 0, bottom: 0,
+		top: 0,
+		left: 0,
+		right: 0,
+		bottom: 0,
 		zIndex: 9,
 	},
 	dropdownWrapper: {
