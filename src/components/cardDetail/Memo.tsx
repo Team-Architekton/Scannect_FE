@@ -5,23 +5,23 @@ import spacing from '../../styles/spacing';
 import colors from '../../styles/Colors';
 import CommonButton from '../CommonButton';
 import typography from '../../styles/typography';
-import { useCardStore } from '../../store/cardStore';
+import { useCardList } from '../../hooks/useCardList';
 
 interface IMemoProps {
-	cardId: number;
+	id: number;
 	memo: string | undefined;
 	onFocus: () => void;
 }
 
-export default function MemoInput({ cardId, memo, onFocus }: IMemoProps) {
+export default function MemoInput({ id, memo, onFocus }: IMemoProps) {
 	const memoRef = useRef<TextInput>(null);
 	const [newMemo, setNewMemo] = useState(memo);
 	const [isEditing, setIsEditing] = useState(false);
-	const { updateMemo } = useCardStore();
+	const { handleEditCard } = useCardList();
 
 	const onChangeMemo = (payload: string) => setNewMemo(payload);
-	const onSubmitMemo = () => {
-		if (newMemo && newMemo !== memo) updateMemo(cardId, newMemo);
+	const onSubmitMemo = async () => {
+		if (newMemo !== memo) await handleEditCard(id, 'memo', newMemo ?? '');
 		setIsEditing(false);
 	};
 

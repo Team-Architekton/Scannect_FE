@@ -8,24 +8,25 @@ import { useModalStore } from '../../store/modalStore';
 import HeartIcon from '../cardList/elements/HeartIcon';
 
 interface IHeaderProps {
-	name: string;
+	id: number;
+	nickname: string;
 	cardId: number;
 	favorite: boolean;
 	isActive: boolean;
 }
 
-export default function Header({ name, cardId, favorite, isActive }: IHeaderProps) {
+export default function Header({ nickname, id, cardId, favorite, isActive }: IHeaderProps) {
 	const { openModal } = useModalStore();
 	return (
 		<View style={styles.headerContainer}>
-			<HeartIcon cardId={cardId} isFavorite={favorite} size={24} />
+			<HeartIcon id={id} favorite={favorite} size={24} />
 			<Text
 				style={[
 					commonStyles.subtitleText,
 					{ color: isActive ? colors.black : colors.grayscaleGray6 },
 				]}
 			>
-				{name}
+				{nickname}
 			</Text>
 			<TouchableOpacity hitSlop={spacing.m} onPress={() => openModal(cardId)}>
 				<Feather name="more-vertical" size={24} color="black" />

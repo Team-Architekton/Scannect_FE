@@ -2,7 +2,7 @@ import { KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
 import { useEffect, useRef } from 'react';
 
 import ScreenContainer from '../../components/ScreenContainer';
-import CardBottomSheet from '../../components/cardList/elements/CardBottomSheet';
+import CardBottomSheet from '../../components/cardList/CardBottomSheet';
 import Header from '../../components/cardDetail/Header';
 import MemoInput from '../../components/cardDetail/Memo';
 import ProfileInfo from '../../components/cardDetail/ProfileInfo';
@@ -11,7 +11,7 @@ import { useCardStore } from '../../store/cardStore';
 export default function CardDetailView({ navigation, route }: any) {
 	const scrollRef = useRef<ScrollView>(null);
 	const { cardId } = route.params;
-	const card = useCardStore(state => state.cardList.find(c => c.id === cardId));
+	const card = useCardStore(state => state.cardList.find(c => c.cardId === cardId));
 
 	useEffect(() => {
 		if (!card) navigation.goBack();
@@ -33,13 +33,14 @@ export default function CardDetailView({ navigation, route }: any) {
 			>
 				<ScrollView ref={scrollRef} showsVerticalScrollIndicator={false}>
 					<Header
-						name={card.name}
-						cardId={card.id}
+						id={card.id}
+						nickname={card.nickname}
+						cardId={card.cardId}
 						favorite={card.favorite}
 						isActive={card.isActive}
 					/>
 					<ProfileInfo card={card} />
-					<MemoInput cardId={card.id} memo={card.memo} onFocus={handleFocus} />
+					<MemoInput id={card.id} memo={card.memo} onFocus={handleFocus} />
 				</ScrollView>
 			</KeyboardAvoidingView>
 			<CardBottomSheet />
