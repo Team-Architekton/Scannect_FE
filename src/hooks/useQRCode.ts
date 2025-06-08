@@ -4,6 +4,9 @@ import * as Sharing from 'expo-sharing';
 import { useRef } from 'react';
 import { Alert } from 'react-native';
 
+import { saveQRCard } from '../server/qrcode';
+import { getUserId } from '../utils/authStorage';
+
 export function useQRCode() {
 	const qrRef = useRef<any>(null);
 	const scannedRef = useRef(false);
@@ -21,7 +24,7 @@ export function useQRCode() {
 			if (await Sharing.isAvailableAsync()) {
 				await Sharing.shareAsync(filename);
 			} else {
-				alert('공유에 실패했습니다. 잠시 후 다시 시도해주세요.');
+				Alert.alert('공유 실패', '잠시 후 다시 시도해주세요.');
 			}
 		});
 	};
@@ -30,12 +33,21 @@ export function useQRCode() {
 	const resetScan = () => (scannedRef.current = false);
 
 	/** 스캔한 명함을 저장하고 해당 명함 상세 페이지로 이동하는 함수 */
-	const saveCard = (qrCardId: number) => {
-		console.log(qrCardId, '저장 중...');
-		/* 명함 저장 */
-		/* 네비게이션 */
-		navigation.pop();
-		navigation.navigate('CardListTab', { screen: 'CardDetail', params: { cardId: qrCardId } });
+	const handleSaveQRCard = async (cardId: number) => {
+		try {
+			const userId = await getUserId(); // id: tester, password: 123456
+			if (!userId) throw new Error('로그인 정보 없음');
+
+			/* 명함 저장 */
+			await saveQRCard(userId, cardId);
+
+			/* 네비게이션 */
+			navigation.pop();
+			navigation.navigate('CardListTab', { screen: 'CardDetail', params: { cardId } });
+		} catch (e) {
+			console.error('명함 저장 실패', e);
+			return false;
+		}
 	};
 
 	/** 바코드 스캔 데이터 저장 함수 */
@@ -45,7 +57,7 @@ export function useQRCode() {
 
 		// qr코드 유효성 검사
 		if (!data.startsWith('scannect://')) {
-			Alert.alert('유효하지 않은 QR 코드입니다.', 'SCANNECT 명함 QR코드를 인식해주세요!', [
+			Alert.alert('유효하지 않은 QR 코드입니다.', '정확한 명함 QR을 인식해주세요!', [
 				{
 					text: '확인',
 					onPress: resetScan,
@@ -56,12 +68,10 @@ export function useQRCode() {
 			const parsedURL = data.split('/');
 			const scannedCardId = parseInt(parsedURL[parsedURL.length - 1]);
 
-			console.log(scannedRef.current, scannedCardId);
-
 			Alert.alert(`명함 스캔 완료! id: ${scannedCardId}`, '스캔한 명함을 저장합니다...', [
 				{
 					text: '저장',
-					onPress: () => saveCard(scannedCardId),
+					onPress: () => handleSaveQRCard(scannedCardId),
 				},
 				{ text: '취소', onPress: resetScan },
 			]);
