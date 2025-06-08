@@ -9,6 +9,8 @@ type GPSStore = {
 	toggleSelectUser: (id: string) => void;
 	setLocationOn: (status: boolean) => void;
 	removeUserById: (userId: string) => void;
+	alertMessage: string | null;
+	setAlertMessage: (msg: string | null) => void;
 };
 
 export const useGPSStore = create<GPSStore>(set => ({
@@ -40,4 +42,6 @@ export const useGPSStore = create<GPSStore>(set => ({
 		set(state => ({
 			gpsUserList: state.gpsUserList.filter(user => user.id !== userId),
 		})),
+	alertMessage: null,
+	setAlertMessage: msg => set({ alertMessage: msg }),
 }));
