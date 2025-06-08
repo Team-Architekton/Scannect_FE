@@ -17,24 +17,24 @@ export default function CardItem(props: ICardItem) {
 
 	return (
 		<Pressable
-			onLongPress={() => openModal(props.id)}
-			onPress={() => navigation.navigate('CardDetail', { cardId: props.id })}
+			onLongPress={() => openModal(props.cardId)}
+			onPress={() => navigation.navigate('CardDetail', { cardId: props.cardId })}
 			style={({ pressed }) => [
 				styles.cardItem,
 				{
 					backgroundColor:
-						pressed || (isModalOpen && selectedCardId === props.id)
+						pressed || (isModalOpen && selectedCardId === props.cardId)
 							? colors.paleDarkGreen
 							: colors.paleGreen,
 				},
 			]}
 		>
-			<HeartIcon cardId={props.id} isFavorite={props.favorite} />
+			<HeartIcon id={props.id} favorite={props.favorite} />
 			<View style={{ width: '75%' }}>
 				<View style={{ flexDirection: 'row', alignItems: 'center' }}>
-					<Text style={styles.cardItemName}>{props.name}</Text>
+					<Text style={styles.cardItemName}>{props.nickname}</Text>
 					<Text style={{ ...styles.cardItemSubInfo, marginLeft: 7 }}>
-						{props.belongTo} | {props.department} / {props.job}
+						{props.belongTo} | {props.department} / {props.position}
 					</Text>
 				</View>
 				{props.memo ? (

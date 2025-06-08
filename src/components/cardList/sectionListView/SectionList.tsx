@@ -6,8 +6,10 @@ import SectionHeader from './SectionHeader';
 import colors from '../../../styles/Colors';
 import { useCardStore } from '../../../store/cardStore';
 import spacing from '../../../styles/spacing';
+import { useRefresh } from '../../../hooks/useRefresh';
 
 export default function CardSectionList() {
+	const { refreshing, handleRefresh } = useRefresh();
 	const {
 		renderingList: { importantCards, commonCards, hiddenCards },
 	} = useCardStore();
@@ -15,11 +17,12 @@ export default function CardSectionList() {
 		important: true,
 		hidden: false,
 	});
+
 	const toggleArcodian = (section: keyof typeof arcodianOpen) => {
-		// 아코디언 접기/펼치기 레이아웃 변경 시 애니메이션 적용
 		LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
 		setArcodianOpen(prev => ({ ...prev, [section]: !prev[section] }));
 	};
+
 	const sections = useMemo(() => {
 		return [
 			{
@@ -70,6 +73,8 @@ export default function CardSectionList() {
 			}}
 			stickySectionHeadersEnabled={false}
 			showsVerticalScrollIndicator={false}
+			refreshing={refreshing}
+			onRefresh={handleRefresh}
 		/>
 	);
 }

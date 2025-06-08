@@ -1,13 +1,12 @@
-import React, { useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import { useMypage } from '../../../hooks/useMypage';
 import { useMypageStore } from '../../../store/useMyPageStore';
 import { Card } from '../../../model/card';
 import spacing from '../../../styles/spacing';
 import colors from '../../../styles/Colors';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import { useUiStore } from '../../../store/useUiStore';
+
 
 type Props = {
 	showCreateOption?: boolean;
@@ -32,7 +31,7 @@ const DropdownMenu: React.FC<Props> = ({ showCreateOption = true }) => {
 		if (card === 'new') {
 			navigation.navigate('명함 생성');
 		} else {
-			setSelectedCard(card);
+			setSelectedCardId(card.id);
 		}
 	};
 

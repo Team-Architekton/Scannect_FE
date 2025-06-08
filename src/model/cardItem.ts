@@ -1,198 +1,26 @@
 export interface ICardItem {
-	id: number;
-	name: string;
+	id: number; // 테이블 식별 id
+	cardId: number; // 명함 id
+	userId: string; // 로그인 아이디
+	cardName: string; // 명함 이름
+	nickname: string; // 유저 닉네임
 	belongTo: string; // 소속
 	department: string; // 부서
-	job: string; // 직책
+	position: string; // 직급
 	industry: string; // 업종
-	position: string; // 직무
+	job: string; // 직무
 
-	phoneNum: string;
-	email: string;
-	website?: string;
+	memo: string;
+	favorite: boolean;
+	isActive: boolean;
+	createdAt: string;
+
+	phoneNum?: string;
+	email?: string;
+	urlList?: string[];
 	companyTel?: string;
 
 	imgUrl?: string | null;
 	content?: string; // 자기소개
-	color?: string;
-
-	memo?: string;
-	favorite: boolean;
-	isActive: boolean;
-	created_at: number;
+	colour?: string;
 }
-
-// 임시 더미데이터
-export const dummyData = [
-	{
-		id: 0,
-		name: '김누구',
-		belongTo: '무슨무슨회사',
-		department: '영업부',
-		job: '대리',
-		industry: '영업/고객',
-		position: '해외영업',
-		content: '안녕하세요, 김누구입니다.',
-		memo: '어디서 만났고 어떤 사람인지 메모메모',
-		favorite: true,
-		isActive: true,
-		created_at: 1745413196729,
-		phoneNum: '010-1234-5678',
-		email: 'ababs@gmail.com',
-		website: 'github.com',
-	},
-	{
-		id: 1,
-		name: '박개발',
-		belongTo: '무슨무슨회사',
-		department: '개발부',
-		job: '인턴',
-		industry: 'IT/인터넷',
-		position: '프론트엔드 개발자',
-		imgUrl: 'https://randomuser.me/api/portraits/women/21.jpg',
-		content: '자기소개자기소개자기소개자기소개자기소개',
-		favorite: false,
-		isActive: true,
-		created_at: 1745413199809,
-		phoneNum: '010-1234-5678',
-		email: 'ababs@gmail.com',
-		website: 'github.com',
-	},
-	{
-		id: 2,
-		name: '이구매',
-		belongTo: '무슨무슨회사',
-		department: '구매팀',
-		job: '대리',
-		industry: '경영/사무',
-		position: '경영지원',
-		content: '안녕하세요, 경영지원 구매팀 이구매입니다.',
-		memo: '메모는한줄만보이게 메모는한줄만보이게 메모는한줄만보이게',
-		favorite: false,
-		isActive: true,
-		created_at: 1745413217276,
-		phoneNum: '010-1234-5678',
-		email: 'ababs@gmail.com',
-		website: 'github.com',
-	},
-	{
-		id: 3,
-		name: '조팀장',
-		belongTo: '무슨무슨회사',
-		department: '영업부',
-		job: '팀장',
-		industry: '영업/고객',
-		position: '해외영업',
-		content: '영업팀장 조팀장입니다.',
-		memo: '메모는 옵션 메모는 옵션 메모는 옵션 메모는 옵션',
-		favorite: false,
-		isActive: true,
-		created_at: 1745413228456,
-		phoneNum: '010-1234-5678',
-		email: 'ababs@gmail.com',
-		website: 'github.com',
-	},
-	{
-		id: 5,
-		name: '김예빈',
-		belongTo: '한국외대',
-		department: '아키텍톤 팀',
-		job: '팀원',
-		industry: 'IT/인터넷',
-		position: '프론트엔드 개발자',
-		content: '',
-		memo: '어디서 만났고 어떤 사람인지 메모메모',
-		favorite: false,
-		isActive: false,
-		created_at: 1945413229282,
-		phoneNum: '010-1234-5678',
-		email: 'ababs@gmail.com',
-		website: 'github.com',
-	},
-	{
-		id: 6,
-		name: '박유진',
-		belongTo: '한국외대',
-		department: '아키텍톤 팀',
-		job: '팀원',
-		industry: 'IT/인터넷',
-		position: '프론트엔드 개발자',
-		imgUrl: 'https://randomuser.me/api/portraits/women/21.jpg',
-		content: '',
-		memo: '어디서 만났고 어떤 사람인지 메모메모',
-		favorite: false,
-		isActive: false,
-		created_at: 1845413254937,
-		phoneNum: '010-1234-5678',
-		email: 'ababs@gmail.com',
-		website: 'github.com',
-	},
-	{
-		id: 7,
-		name: '김선우',
-		belongTo: '한국외대',
-		department: '아키텍톤 팀',
-		job: '팀원',
-		industry: 'IT/인터넷',
-		position: '프론트엔드 개발자',
-		content: '',
-		memo: '어디서 만났고 어떤 사람인지 메모메모',
-		favorite: false,
-		isActive: false,
-		created_at: 1745413255624,
-		phoneNum: '010-1234-5678',
-		email: 'ababs@gmail.com',
-		website: 'github.com',
-	},
-	{
-		id: 8,
-		name: '김우진',
-		belongTo: '한국외대',
-		department: '아키텍톤 팀',
-		job: '팀장',
-		industry: 'IT/인터넷',
-		position: '백엔드 개발자',
-		content: '',
-		memo: '어디서 만났고 어떤 사람인지 메모메모',
-		favorite: false,
-		isActive: false,
-		created_at: 1735413244927,
-		phoneNum: '010-1234-5678',
-		email: 'ababs@gmail.com',
-		website: 'github.com',
-	},
-	{
-		id: 9,
-		name: '조영은',
-		belongTo: '한국외대',
-		department: '아키텍톤 팀',
-		job: '팀원',
-		industry: 'IT/인터넷',
-		position: 'PM',
-		content: '',
-		memo: '어디서 만났고 어떤 사람인지 메모메모',
-		favorite: false,
-		isActive: false,
-		created_at: 1732413255620,
-		phoneNum: '010-1234-5678',
-		email: 'ababs@gmail.com',
-		website: 'github.com',
-	},
-	{
-		id: 10,
-		name: '김민지',
-		belongTo: '한국외대',
-		department: '아키텍톤 팀',
-		job: '팀원',
-		industry: 'IT/인터넷',
-		position: 'PM',
-		content: '',
-		memo: '어디서 만났고 어떤 사람인지 메모메모',
-		favorite: false,
-		isActive: false,
-		created_at: 1731413256210,
-		phoneNum: '010-1234-5678',
-		email: 'ababs@gmail.com',
-		website: 'github.com',
-	},
-];
