@@ -10,6 +10,7 @@ interface Props {
 	placeholder?: string;
 	required?: boolean;
 	errorMessage?: string;
+	onFocus?: () => void;
 }
 
 export default function LabeledTextarea({

@@ -80,7 +80,7 @@ export default function CardCreateForm({ onAnyInputFocus }: { onAnyInputFocus?: 
 				value={form.belongTo}
 				onChangeText={text => handleChange('belongTo', text)}
 				errorMessage={errors.belongTo}
-				placeholder="회사 이름을 입력하세요"
+				placeholder="소속 이름을 입력하세요"
 				onBlur={() => validateField('belongTo', form.belongTo)}
 			/>
 			<LabeledInput
@@ -115,7 +115,6 @@ export default function CardCreateForm({ onAnyInputFocus }: { onAnyInputFocus?: 
 				placeholder="01012345678 (- 제외)"
 				keyboardType="phone-pad"
 				onBlur={() => validateField('phoneNum', form.phoneNum)}
-				onFocus={onAnyInputFocus}
 			/>
 			<LabeledInput
 				label="유선전화"
@@ -123,7 +122,6 @@ export default function CardCreateForm({ onAnyInputFocus }: { onAnyInputFocus?: 
 				onChangeText={text => handleChange('companyTel', text)}
 				placeholder="02-1234-5678"
 				keyboardType="phone-pad"
-				onFocus={onAnyInputFocus}
 			/>
 			<LabeledInput
 				label="이메일"
@@ -134,7 +132,6 @@ export default function CardCreateForm({ onAnyInputFocus }: { onAnyInputFocus?: 
 				placeholder="example@domain.com"
 				keyboardType="email-address"
 				onBlur={() => validateField('email', form.email)}
-				onFocus={onAnyInputFocus}
 			/>
 			<LabeledInput
 				label="URL"
@@ -142,7 +139,6 @@ export default function CardCreateForm({ onAnyInputFocus }: { onAnyInputFocus?: 
 				onChangeText={text => handleChange('website', text)}
 				placeholder="https://"
 				keyboardType="url"
-				onFocus={onAnyInputFocus}
 			/>
 			<View style={{ flexDirection: 'row', justifyContent: 'flex-end', gap: spacing.s }}>
 				<CommonButton title="취소" onPress={() => {}} size="small" />
