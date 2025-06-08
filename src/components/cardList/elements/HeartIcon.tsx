@@ -33,6 +33,6 @@ export default function HeartIcon({ id, favorite, size = 30 }: IHeartProp) {
 
 const styles = StyleSheet.create({
 	heartButton: {
-		paddingRight: spacing.xs,
+		marginRight: spacing.sm,
 	},
 });

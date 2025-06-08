@@ -8,12 +8,16 @@ type CardStore = {
 		commonCards: ICardItem[];
 		hiddenCards: ICardItem[];
 	};
+	searchList: ICardItem[];
+	isSearching: boolean;
 	sortOption: 'latest' | 'name';
 	isLoading: boolean;
 	setCardList: (cards: ICardItem[]) => void;
+	setSearchList: (cards: ICardItem[]) => void;
 	filterCardList: () => void;
 	sortCardList: (option: 'latest' | 'name') => void;
 	setIsLoading: (loading: boolean) => void;
+	setIsSearching: (searching: boolean) => void;
 };
 
 export const useCardStore = create<CardStore>((set, get) => ({
@@ -23,8 +27,10 @@ export const useCardStore = create<CardStore>((set, get) => ({
 		commonCards: [],
 		hiddenCards: [],
 	},
+	searchList: [],
 	sortOption: 'latest', // 정렬 기준
 	isLoading: false,
+	isSearching: false,
 	setCardList: cards => {
 		set({ cardList: cards });
 		get().filterCardList();
@@ -43,5 +49,9 @@ export const useCardStore = create<CardStore>((set, get) => ({
 		else tempList.sort((a, b) => (a.nickname.toLowerCase() < b.nickname.toLowerCase() ? -1 : 1));
 		get().setCardList(tempList);
 	},
+	setSearchList: cards => {
+		set({ searchList: cards });
+	},
 	setIsLoading: loading => set({ isLoading: loading }),
+	setIsSearching: searching => set({ isSearching: searching }),
 }));

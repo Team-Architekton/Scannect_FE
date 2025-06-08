@@ -12,11 +12,12 @@ import { useEffect } from 'react';
 import commonStyles from '../../styles/commonStyles';
 import colors from '../../styles/Colors';
 import ScreenContainer from '../../components/ScreenContainer';
-import SearchInput from '../../components/cardList/SearchInput';
+import SearchInput from '../../components/cardList/elements/SearchInput';
 import SortOption from '../../components/cardList/elements/SortOption';
 import CardSectionList from '../../components/cardList/sectionListView/SectionList';
 import CardBottomSheet from '../../components/cardList/CardBottomSheet';
 import EmptyListView from '../../components/cardList/EmptyListView';
+import SearchListView from '../../components/cardList/SearchListView';
 import { useCardStore } from '../../store/cardStore';
 import { useCardList } from '../../hooks/useCardList';
 
@@ -25,8 +26,16 @@ if (Platform.OS === 'android' && UIManager.setLayoutAnimationEnabledExperimental
 	UIManager.setLayoutAnimationEnabledExperimental(true);
 }
 
+function LoadingView() {
+	return (
+		<View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+			<ActivityIndicator size="large" />
+		</View>
+	);
+}
+
 export default function CardListView({ navigation }: any) {
-	const { cardList, isLoading } = useCardStore();
+	const { cardList, searchList, isLoading, isSearching } = useCardStore();
 	const { handleFetchCards } = useCardList();
 
 	useEffect(() => {
@@ -37,24 +46,27 @@ export default function CardListView({ navigation }: any) {
 		load();
 	}, []);
 
-	if (isLoading) {
-		return (
-			<View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-				<ActivityIndicator size="large" />
-			</View>
-		);
-	}
-
 	return (
 		<ScreenContainer>
 			<View style={{ height: '100%' }}>
 				<Text style={styles.headerTitle}>명함 리스트</Text>
 				<SearchInput />
+
 				<View style={styles.mainLabelWrapper}>
-					<Text style={styles.mainLabel}>전체 명함 ({cardList.length})</Text>
-					<SortOption />
+					<Text style={styles.mainLabel}>
+						{isSearching ? `검색 결과 (${searchList.length})` : `전체 명함 (${cardList.length})`}
+					</Text>
+					{!isSearching && <SortOption />}
 				</View>
-				{cardList.length === 0 ? <EmptyListView navigation={navigation} /> : <CardSectionList />}
+				{isLoading ? (
+					<LoadingView />
+				) : cardList.length === 0 ? (
+					<EmptyListView navigation={navigation} />
+				) : isSearching ? (
+					<SearchListView />
+				) : (
+					<CardSectionList />
+				)}
 			</View>
 			<CardBottomSheet />
 		</ScreenContainer>

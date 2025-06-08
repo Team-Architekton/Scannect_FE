@@ -25,3 +25,9 @@ export const updateMemo = async (tableId: number, memo: string) => {
 export const deleteCard = async (tableId: number) => {
 	await httpClient.delete(`/card-list/${tableId}`);
 };
+
+/** 타유저 명함 검색 API */
+export const searchCards = async (userId: string, keyword: string) => {
+	const { data } = await httpClient.get(`/card-list/user/${userId}/search?keyword=${keyword}`);
+	return data.data;
+};
