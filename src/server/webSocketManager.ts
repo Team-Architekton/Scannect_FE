@@ -42,7 +42,7 @@ export const WebSocketManager = {
 						break;
 
 					case 'request':
-						useGPSStore.getState().setAlertMessage(`${message.fromUserId}님이 요청을 보냈습니다.`);
+						useGPSStore.getState().setExchangeUserId(message.fromUserId);
 						break;
 
 					case 'response':
@@ -50,7 +50,7 @@ export const WebSocketManager = {
 						break;
 
 					case 'notify':
-						console.log(`🔔 [알림] ${message.message}`);
+						useGPSStore.getState().setNotifyMessage(message.message);
 						break;
 
 					case 'remove':

@@ -30,7 +30,8 @@ export interface WSRequestMessage {
 	fromUserId: string;
 	toUserId: string;
 	cardId: number;
-	message: string;
+	message?: string;
+	status?: 'accept' | 'reject';
 }
 
 export interface WSResponseMessage {
