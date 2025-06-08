@@ -5,17 +5,17 @@ import spacing from '../../styles/spacing';
 import colors from '../../styles/Colors';
 
 interface IContactProps {
-	phone: string;
-	email: string;
+	phoneNum?: string;
+	email?: string;
 }
 
-export default function Contacts({ phone, email }: IContactProps) {
+export default function Contacts({ phoneNum, email }: IContactProps) {
 	return (
 		<View style={styles.container}>
 			<CommonButton
 				title="전화 연결"
 				size="small"
-				onPress={() => Linking.openURL(`tel:${phone}`)}
+				onPress={() => Linking.openURL(`tel:${phoneNum}`)}
 				buttonStyle={styles.contactButton}
 				textStyle={{ color: colors.darkGreen }}
 			/>

@@ -6,11 +6,11 @@ import colors from '../../styles/Colors';
 import spacing from '../../styles/spacing';
 
 interface IPreview {
-	name: string;
+	nickname: string;
 	belongTo: string;
 	position: string;
-	phoneNum: string;
-	email: string;
+	phoneNum?: string;
+	email?: string;
 	website?: string;
 	color?: string;
 }
@@ -28,7 +28,7 @@ export default function CardPreview<T extends IPreview>({ selectedCard }: IPrevi
 
 			<View style={styles.infoRow}>
 				<View style={styles.leftInfo}>
-					<Text style={styles.name}>{selectedCard.name}</Text>
+					<Text style={styles.name}>{selectedCard.nickname}</Text>
 					<Text style={styles.title}>{selectedCard.position}</Text>
 				</View>
 

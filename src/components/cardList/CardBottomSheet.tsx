@@ -1,15 +1,15 @@
 import { Modal, Pressable, StyleSheet, View } from 'react-native';
 
-import CommonButton from '../../CommonButton';
-import colors from '../../../styles/Colors';
-import { useCardStore } from '../../../store/cardStore';
-import { useModalStore } from '../../../store/modalStore';
-import { useCardModal } from '../../../hooks/useCardModal';
-import spacing from '../../../styles/spacing';
+import CommonButton from '../CommonButton';
+import colors from '../../styles/Colors';
+import { useCardStore } from '../../store/cardStore';
+import { useModalStore } from '../../store/modalStore';
+import { useCardModal } from '../../hooks/useCardModal';
+import spacing from '../../styles/spacing';
 
 export default function CardBottomSheet() {
 	const { isModalOpen, selectedCardId, closeModal } = useModalStore();
-	const selectedCard = useCardStore(state => state.cardList.find(c => c.id === selectedCardId));
+	const selectedCard = useCardStore(state => state.cardList.find(c => c.cardId === selectedCardId));
 	const { onHideCard, onDeleteCard } = useCardModal();
 
 	if (!isModalOpen || !selectedCard) return null;
@@ -30,13 +30,13 @@ export default function CardBottomSheet() {
 								? '명함 숨김 해제하기'
 								: '명함 리스트에서 숨김'
 						}
-						onPress={() => onHideCard(selectedCardId, !selectedCard.isActive)}
+						onPress={() => onHideCard(selectedCard.id, !selectedCard.isActive)}
 						buttonStyle={{ width: '85%', marginBottom: spacing.s }}
 						size="large"
 					/>
 					<CommonButton
 						title="명함 리스트에서 삭제"
-						onPress={() => onDeleteCard(selectedCardId)}
+						onPress={() => onDeleteCard(selectedCard.id)}
 						buttonStyle={{ width: '85%', backgroundColor: colors.darkGreen }}
 						size="large"
 					/>
