@@ -12,7 +12,7 @@ interface IPreview {
 	phoneNum?: string;
 	email?: string;
 	website?: string;
-	color?: string;
+	colour?: string;
 }
 
 interface IPreviewProps<T extends IPreview> {
@@ -23,7 +23,7 @@ export default function CardPreview<T extends IPreview>({ selectedCard }: IPrevi
 	if (!selectedCard) return null;
 
 	return (
-		<View style={[styles.card, { backgroundColor: selectedCard.color || colors.grayscaleGray3 }]}>
+		<View style={[styles.card, { backgroundColor: selectedCard.colour || colors.grayscaleGray3 }]}>
 			<Text style={styles.company}>{selectedCard.belongTo}</Text>
 
 			<View style={styles.infoRow}>
