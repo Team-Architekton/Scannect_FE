@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const BASE_URL = 'https://scannect-be.onrender.com/api';
-const DEFAULT_TIMEOUT = 10000;
+const DEFAULT_TIMEOUT = 5000;
 
 export const createClient = () => {
 	const axiosInstance = axios.create({
