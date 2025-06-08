@@ -1,7 +1,5 @@
-import React, { useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import { useMypage } from '../../../hooks/useMypage';
 import { useMypageStore } from '../../../store/useMyPageStore';
 import { Card } from '../../../model/card';
 import spacing from '../../../styles/spacing';
@@ -9,7 +7,12 @@ import colors from '../../../styles/Colors';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import { useUiStore } from '../../../store/useUiStore';
 
-const DropdownMenu: React.FC = () => {
+
+type Props = {
+	showCreateOption?: boolean;
+};
+
+const DropdownMenu: React.FC<Props> = ({ showCreateOption = true }) => {
 	const { selectedCard, setSelectedCard } = useMypageStore();
 	const { cards } = useMypage();
 	const { dropdownOpen: open, setDropdownOpen: setOpen } = useUiStore();
@@ -21,16 +24,14 @@ const DropdownMenu: React.FC = () => {
 		}
 	}, [cards, selectedCard]);
 
-	const sortedCards = [...cards].sort((a, b) =>
-		a.isMain === b.isMain ? 0 : a.isMain ? -1 : 1
-	);
+	const sortedCards = [...cards].sort((a, b) => (a.isMain === b.isMain ? 0 : a.isMain ? -1 : 1));
 
 	const handleSelect = (card: Card | 'new') => {
 		setOpen(false);
 		if (card === 'new') {
 			navigation.navigate('명함 생성');
 		} else {
-			setSelectedCard(card);
+			setSelectedCardId(card.id);
 		}
 	};
 
@@ -61,10 +62,15 @@ const DropdownMenu: React.FC = () => {
 								</View>
 							</TouchableOpacity>
 						))}
-						<View style={styles.divider} />
-						<TouchableOpacity style={styles.dropdownItem} onPress={() => handleSelect('new')}>
-							<Text style={styles.createCardText}>+ 새로운 명함 생성</Text>
-						</TouchableOpacity>
+
+						{showCreateOption && (
+							<>
+								<View style={styles.divider} />
+								<TouchableOpacity style={styles.dropdownItem} onPress={() => handleSelect('new')}>
+									<Text style={styles.createCardText}>+ 새로운 명함 생성</Text>
+								</TouchableOpacity>
+							</>
+						)}
 					</View>
 				</>
 			)}

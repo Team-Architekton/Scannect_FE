@@ -9,6 +9,7 @@ import spacing from '../../styles/spacing';
 import GPSOffView from '../../components/gps/GPSOffView';
 import ExchangeBottomSheet from '../../components/gps/ExchangeBottomSheet';
 import DropdownMenu from '../../components/mypage/elements/Dropdown';
+import OCRImageSourceModal from '../../components/ocr/OCRImageSourceModal';
 import { useExchangeAlert } from '../../hooks/useExchangeAlert';
 import { useNotifyAlert } from '../../hooks/useNotiftyAlert';
 import { useExchangeRequest } from '../../hooks/useExchangeRequest';
@@ -16,6 +17,7 @@ import { useExchangeRequest } from '../../hooks/useExchangeRequest';
 export default function GPSView({ navigation }: any) {
 	const { gpsUserList, isLocationOn } = useGPSStore();
 	const [isBottomSheetVisible, setBottomSheetVisible] = useState(false);
+	const [isImageSourceModalVisible, setImageSourceModalVisible] = useState(false);
 
 	useExchangeAlert();
 	useNotifyAlert();
@@ -23,13 +25,18 @@ export default function GPSView({ navigation }: any) {
 	const handleExchangeOption = (type: 'QRGenerate' | 'QRScan' | 'PaperScan') => {
 		navigation.navigate(type);
 		setBottomSheetVisible(false);
+		if (type === 'PaperScan') {
+			setImageSourceModalVisible(true);
+		} else {
+			navigation.navigate(type);
+		}
 	};
 
 	return (
 		<ScreenContainer>
 			<View style={styles.header}>
 				<View style={styles.headerText}>
-					<DropdownMenu />
+					<DropdownMenu showCreateOption={false} />
 				</View>
 				<GPSSwitch></GPSSwitch>
 			</View>
@@ -54,6 +61,14 @@ export default function GPSView({ navigation }: any) {
 				onSelect={type => {
 					handleExchangeOption(type);
 					setBottomSheetVisible(false);
+				}}
+			/>
+			<OCRImageSourceModal
+				visible={isImageSourceModalVisible}
+				onClose={() => setImageSourceModalVisible(false)}
+				onSelect={(source, imageUri) => {
+					setImageSourceModalVisible(false);
+					navigation.navigate('PaperScan', { source, imageUri });
 				}}
 			/>
 		</ScreenContainer>
