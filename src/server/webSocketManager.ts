@@ -43,6 +43,7 @@ export const WebSocketManager = {
 
 					case 'request':
 						useGPSStore.getState().setExchangeUserId(message.fromUserId);
+						useGPSStore.getState().setExchangeCardId(message.cardId);
 						break;
 
 					case 'response':

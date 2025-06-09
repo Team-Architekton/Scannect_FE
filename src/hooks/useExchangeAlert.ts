@@ -6,7 +6,7 @@ import { useMypageStore } from '../store/useMyPageStore';
 import { WebSocketManager } from '../server/webSocketManager';
 
 export const useExchangeAlert = () => {
-	const { exchangeUserId, setExchangeUserId } = useGPSStore();
+	const { exchangeUserId, setExchangeUserId, exchangeCardId } = useGPSStore();
 	const { id: currentUserId } = useAuthStore();
 	const { selectedCard } = useMypageStore() as { selectedCard: { id: number } | null };
 
@@ -17,10 +17,11 @@ export const useExchangeAlert = () => {
 					text: '수락',
 					onPress: () => {
 						WebSocketManager.sendMessage({
-							type: 'request',
+							type: 'response',
 							fromUserId: currentUserId,
 							toUserId: exchangeUserId,
-							cardId: selectedCard?.id ?? 0,
+							fromCardId: selectedCard?.id ?? 0,
+							toCardId: exchangeCardId ?? 0,
 							status: 'accept',
 						});
 						setExchangeUserId(null);

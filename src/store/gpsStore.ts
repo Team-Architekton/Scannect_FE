@@ -11,6 +11,8 @@ type GPSStore = {
 	removeUserById: (userId: string) => void;
 	exchangeUserId: string | null;
 	setExchangeUserId: (msg: string | null) => void;
+	exchangeCardId: number | null;
+	setExchangeCardId: (msg: number | null) => void;
 	notifyMessage: null;
 	setNotifyMessage: (msg: any) => void;
 };
@@ -46,6 +48,8 @@ export const useGPSStore = create<GPSStore>(set => ({
 		})),
 	exchangeUserId: null,
 	setExchangeUserId: msg => set({ exchangeUserId: msg }),
+	exchangeCardId: null,
+	setExchangeCardId: msg => set({ exchangeCardId: msg }),
 	notifyMessage: null,
 	setNotifyMessage: msg => set({ notifyMessage: msg }),
 }));
