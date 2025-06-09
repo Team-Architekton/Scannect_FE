@@ -6,13 +6,17 @@ import { useMypageStore } from '../store/useMyPageStore';
 import { WebSocketManager } from '../server/webSocketManager';
 
 export const useExchangeAlert = () => {
-	const { exchangeUserId, setExchangeUserId, exchangeCardId } = useGPSStore();
+	const { gpsUserList, exchangeUserId, exchangeCardId, setExchangeUserId } = useGPSStore();
+
 	const { id: currentUserId } = useAuthStore();
 	const { selectedCard } = useMypageStore() as { selectedCard: { id: number } | null };
 
 	useEffect(() => {
 		if (exchangeUserId) {
-			Alert.alert('명함 요청', `${exchangeUserId}가 교환을 요청했어요!`, [
+			const exchangeUser = gpsUserList.find(user => user.id === exchangeUserId);
+			const exchangeUserName = exchangeUser?.name ?? exchangeUserId;
+
+			Alert.alert('명함 요청', `${exchangeUserName}님이 교환을 요청했어요!`, [
 				{
 					text: '수락',
 					onPress: () => {
