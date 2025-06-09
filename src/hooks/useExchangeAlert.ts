@@ -11,7 +11,6 @@ export const useExchangeAlert = () => {
 
 	const { id: currentUserId } = useAuthStore();
 	const { selectedCard } = useMypageStore() as { selectedCard: { id: number } | null };
-	const { handleFetchCards } = useCardList();
 
 	useEffect(() => {
 		if (exchangeUserId) {
@@ -31,7 +30,6 @@ export const useExchangeAlert = () => {
 							status: 'accept',
 						});
 						setExchangeUserId(null);
-						handleFetchCards(false);
 					},
 				},
 				{
