@@ -6,6 +6,7 @@ import spacing from '../../../styles/spacing';
 import colors from '../../../styles/Colors';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import { useUiStore } from '../../../store/useUiStore';
+import { useEffect } from 'react';
 
 
 type Props = {
@@ -13,16 +14,9 @@ type Props = {
 };
 
 const DropdownMenu: React.FC<Props> = ({ showCreateOption = true }) => {
-	const { selectedCard, setSelectedCard } = useMypageStore();
-	const { cards } = useMypage();
+	const { cards, selectedCard, setSelectedCardId } = useMypageStore();
 	const { dropdownOpen: open, setDropdownOpen: setOpen } = useUiStore();
 	const navigation = useNavigation<any>();
-
-	useEffect(() => {
-		if (!selectedCard && cards.length > 0) {
-			setSelectedCard(cards.find(c => c.isMain) ?? cards[0]);
-		}
-	}, [cards, selectedCard]);
 
 	const sortedCards = [...cards].sort((a, b) => (a.isMain === b.isMain ? 0 : a.isMain ? -1 : 1));
 
