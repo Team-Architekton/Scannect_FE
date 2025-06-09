@@ -6,6 +6,7 @@ import LabeledTextarea from '../cardCreateUpdate/LabeledTextarea';
 import JobSelector from '../cardCreateUpdate/JobSelector';
 import Toast from 'react-native-toast-message';
 import { useNavigation } from '@react-navigation/native';
+import { useOCR } from '../../hooks/useOCR';
 
 interface Props {
 	initialData: Partial<CardForm>;
@@ -13,9 +14,10 @@ interface Props {
 
 export default function CardSave({ initialData }: Props) {
 	const { form, errors, handleChange, validateField, resetForm } = useCardForm(initialData);
+	const { saveOCRCard } = useOCR();
 	const navigation = useNavigation<any>();
 
-	const handleSave = () => {
+	const handleSave = async () => {
 		let hasError = false;
 
 		const requiredFields: (keyof typeof form)[] = [
@@ -40,14 +42,35 @@ export default function CardSave({ initialData }: Props) {
 
 		if (hasError) return;
 
-		Toast.show({
-			type: 'success',
-			text1: '명함이 성공적으로 저장되었습니다.',
-			position: 'bottom'
-		});
-		resetForm();
+		try {
+			const response = await saveOCRCard(form);
+			if (response?.success) {
+				const cardId = response.data.cardId;
+				Toast.show({
+					type: 'success',
+					text1: response.message || '명함이 저장되었습니다.',
+					position: 'bottom',
+				});
+				resetForm();
 
-		navigation.navigate('명함 교환');
+				console.log(cardId);
+
+				navigation.pop();
+				navigation.navigate('CardListTab', { screen: 'CardDetail', params: { cardId } });
+			} else {
+				Toast.show({
+					type: 'error',
+					text1: response?.message || '명함 저장에 실패했습니다.',
+					position: 'bottom',
+				});
+			}
+		} catch (error) {
+			Toast.show({
+				type: 'error',
+				text1: '명함 저장 중 오류가 발생했습니다.',
+				position: 'bottom',
+			});
+		}
 	};
 
 	const handleCancel = () => {

@@ -3,18 +3,30 @@ import ScreenContainer from '../../components/ScreenContainer';
 import CardSave from '../../components/ocr/CardSave';
 import LoadingOverlay from '../../components/ocr/LoadingOverlay';
 import { useOCR } from '../../hooks/useOCR';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { CardForm } from '../../hooks/useCardForm';
 
 export default function OCRView() {
 	const route = useRoute<any>();
 	const { imageUri } = route.params ?? {};
-	const { loading, result, requestOCR } = useOCR();
+	const { loading, requestOCR } = useOCR();
+	const [cardData, setCardData] = useState<Partial<CardForm> | null>(null);
+
 
 	useEffect(() => {
-		if (imageUri) {
-			requestOCR(imageUri);
-		}
+		const fetchData = async () => {
+			if (imageUri) {
+				try {
+					const data = await requestOCR(imageUri);
+					setCardData(data as Partial<CardForm>);
+				} catch (error) {
+					console.error('OCR 실패:', error);
+				}
+			}
+		};
+
+		fetchData();
 	}, [imageUri]);
 
 	return (
@@ -28,9 +40,9 @@ export default function OCRView() {
 					showsVerticalScrollIndicator={false}
 					extraScrollHeight={100}
 				>
-					{result && <CardSave initialData={result} />}
+					{cardData && <CardSave initialData={cardData} />}
 				</KeyboardAwareScrollView>
 			</ScreenContainer>
 		</>
 	);
-}
+};
