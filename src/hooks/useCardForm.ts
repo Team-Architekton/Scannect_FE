@@ -19,7 +19,7 @@ export function useCardForm(initial: Partial<CardForm> = {}) {
 		industry: '',
 		job: '',
 		colour: '',
-		website: '',
+		urlList: '',
 	};
 
 	const [form, setForm] = useState<CardForm>({

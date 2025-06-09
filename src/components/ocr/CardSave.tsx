@@ -19,7 +19,7 @@ export default function CardSave({ initialData }: Props) {
 		let hasError = false;
 
 		const requiredFields: (keyof typeof form)[] = [
-			'name',
+			'nickname',
 			'belongTo',
 			'job',
 			'industry',
@@ -77,11 +77,11 @@ export default function CardSave({ initialData }: Props) {
 			<LabeledInput
 				label="이름"
 				required
-				value={form.name ?? ''}
-				onChangeText={text => handleChange('name', text)}
+				value={form.nickname ?? ''}
+				onChangeText={text => handleChange('nickname', text)}
 				placeholder="이름을 입력하세요"
-				onBlur={() => validateField('name', form.name ?? '')}
-				errorMessage={errors.name}
+				onBlur={() => validateField('nickname', form.nickname ?? '')}
+				errorMessage={errors.nickname}
 			/>
 			<LabeledInput
 				label="소속"
@@ -145,8 +145,8 @@ export default function CardSave({ initialData }: Props) {
 			/>
 			<LabeledInput
 				label="URL"
-				value={form.website}
-				onChangeText={text => handleChange('website', text)}
+				value={form.urlList}
+				onChangeText={text => handleChange('urlList', text)}
 				placeholder="https://"
 				keyboardType="url"
 			/>

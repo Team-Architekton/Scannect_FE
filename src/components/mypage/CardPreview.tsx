@@ -8,10 +8,10 @@ import spacing from '../../styles/spacing';
 interface IPreview {
 	nickname: string;
 	belongTo: string;
-	position: string;
+	job: string;
 	phoneNum?: string;
 	email?: string;
-	website?: string;
+	urlList?: string;
 	colour?: string;
 }
 
@@ -29,7 +29,7 @@ export default function CardPreview<T extends IPreview>({ selectedCard }: IPrevi
 			<View style={styles.infoRow}>
 				<View style={styles.leftInfo}>
 					<Text style={styles.name}>{selectedCard.nickname}</Text>
-					<Text style={styles.title}>{selectedCard.position}</Text>
+					<Text style={styles.title}>{selectedCard.job}</Text>
 				</View>
 
 				<View style={styles.rightInfo}>
@@ -43,7 +43,7 @@ export default function CardPreview<T extends IPreview>({ selectedCard }: IPrevi
 					</View>
 					<View style={styles.contactRow}>
 						<Entypo name="link" size={12} color="black" />
-						<Text style={styles.contactText}>{selectedCard.website}</Text>
+						<Text style={styles.contactText}>{selectedCard.urlList}</Text>
 					</View>
 				</View>
 			</View>

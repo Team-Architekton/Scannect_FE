@@ -135,8 +135,8 @@ export default function CardCreateForm({ onAnyInputFocus }: { onAnyInputFocus?: 
 			/>
 			<LabeledInput
 				label="URL"
-				value={form.website}
-				onChangeText={text => handleChange('website', text)}
+				value={form.urlList}
+				onChangeText={text => handleChange('urlList', text)}
 				placeholder="https://"
 				keyboardType="url"
 			/>

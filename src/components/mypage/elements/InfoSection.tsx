@@ -74,12 +74,15 @@ export default function InfoSection({
 					/>
 				</>
 			) : (
-				<View style={styles.infoRow}>
-					<Text style={styles.label}>업종/직무</Text>
-					<Text style={styles.value}>
-						{form.industry}/{form.position}
-					</Text>
-				</View>
+				form.industry &&
+				form.position && (
+					<View style={styles.infoRow}>
+						<Text style={styles.label}>업종/직무</Text>
+						<Text style={styles.value}>
+							{form.industry} | {form.position}
+						</Text>
+					</View>
+				)
 			)}
 
 			<Text style={[typography.h2, styles.sectionTitle]}>연락처</Text>
@@ -112,8 +115,8 @@ export default function InfoSection({
 
 			<EditableField
 				label="URL"
-				value={form.website}
-				onChange={text => handleChange('website', text)}
+				value={form.urlList}
+				onChange={text => handleChange('urlList', text)}
 				isEditing={isEditing}
 			/>
 		</View>
