@@ -3,6 +3,7 @@ import { useAuthStore } from '../store/authStore';
 import { WebSocketManager } from '../server/webSocketManager';
 import { useMypageStore } from '../store/useMyPageStore';
 import { Alert } from 'react-native';
+import { useCardList } from './useCardList';
 
 export const useExchangeRequest = () => {
 	const { id: currentUserId } = useAuthStore();

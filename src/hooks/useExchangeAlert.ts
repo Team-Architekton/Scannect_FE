@@ -4,6 +4,7 @@ import { useGPSStore } from '../store/gpsStore';
 import { useAuthStore } from '../store/authStore';
 import { useMypageStore } from '../store/useMyPageStore';
 import { WebSocketManager } from '../server/webSocketManager';
+import { useCardList } from './useCardList';
 
 export const useExchangeAlert = () => {
 	const { gpsUserList, exchangeUserId, exchangeCardId, setExchangeUserId } = useGPSStore();

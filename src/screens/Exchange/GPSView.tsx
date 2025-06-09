@@ -4,7 +4,7 @@ import ScreenContainer from '../../components/ScreenContainer';
 import GPSSwitch from '../../components/gps/GPSSwitch';
 import GPSSectionList from '../../components/gps/GPSList';
 import { useGPSStore } from '../../store/gpsStore';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import spacing from '../../styles/spacing';
 import GPSOffView from '../../components/gps/GPSOffView';
 import ExchangeBottomSheet from '../../components/gps/ExchangeBottomSheet';
@@ -13,6 +13,7 @@ import OCRImageSourceModal from '../../components/ocr/OCRImageSourceModal';
 import { useExchangeAlert } from '../../hooks/useExchangeAlert';
 import { useNotifyAlert } from '../../hooks/useNotiftyAlert';
 import { useExchangeRequest } from '../../hooks/useExchangeRequest';
+import { useMypage } from '../../hooks/useMypage';
 
 export default function GPSView({ navigation }: any) {
 	const { gpsUserList, isLocationOn } = useGPSStore();
@@ -22,6 +23,12 @@ export default function GPSView({ navigation }: any) {
 	useExchangeAlert();
 	useNotifyAlert();
 	const { sendRequests } = useExchangeRequest();
+	const { fetchCards } = useMypage();
+
+	useEffect(() => {
+		fetchCards();
+	}, []);
+
 	const handleExchangeOption = (type: 'QRGenerate' | 'QRScan' | 'PaperScan') => {
 		navigation.navigate(type);
 		setBottomSheetVisible(false);
