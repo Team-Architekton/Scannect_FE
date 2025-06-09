@@ -6,8 +6,9 @@ import ExchangeStack from './ExchangeStack';
 import MyPageStack from './MyPageStack';
 import { RootTabParamList } from './types';
 import AuthStack from './AuthStack';
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useAuthStore } from '../store/authStore';
+import { Ionicons } from '@expo/vector-icons';
 
 const Tab = createBottomTabNavigator<RootTabParamList>();
 
@@ -23,9 +24,24 @@ export default function RootNavigation() {
 		<NavigationContainer>
 			{isLoggedIn ? (
 				<Tab.Navigator
-					screenOptions={{
+					screenOptions={({ route }) => ({
 						headerShown: false,
-					}}
+						tabBarIcon: ({ focused, color, size }) => {
+							let iconName: string = 'ellipse-outline';
+
+							if (route.name === 'CardListTab') {
+								iconName = focused ? 'id-card' : 'id-card-outline';
+							} else if (route.name === 'ExchangeTab') {
+								iconName = focused ? 'repeat' : 'repeat-outline';
+							} else if (route.name === 'MyPageTab') {
+								iconName = focused ? 'person' : 'person-outline';
+							}
+
+							return <Ionicons name={iconName as any} size={size} color={color} />;
+						},
+						tabBarActiveTintColor: '#05AA5B',
+						tabBarInactiveTintColor: 'gray',
+					})}
 				>
 					<Tab.Screen
 						name="CardListTab"
