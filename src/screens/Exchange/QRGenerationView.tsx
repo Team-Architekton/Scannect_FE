@@ -1,4 +1,4 @@
-import { Text, View, StyleSheet } from 'react-native';
+import { Text, View, StyleSheet, Alert } from 'react-native';
 
 import ScreenContainer from '../../components/ScreenContainer';
 import QRCodeSection from '../../components/qrcode/QRCodeSection';
@@ -7,22 +7,28 @@ import spacing from '../../styles/spacing';
 import colors from '../../styles/Colors';
 import { useMypageStore } from '../../store/useMyPageStore';
 
-export default function QRGenerationView() {
-	const exampleID = 1; // QR 생성을 위한 id 데이터
-	const qrUrl = `scannect://cardlist-tab/card-detail/${exampleID}`; // url은 컨벤션상 kebab-case로 작성 -> 인식하려면 Navigation Linking 설정 필요
-	const { selectedCard } = useMypageStore();
+export default function QRGenerationView({ navigation }: any) {
+	const { selectedCard: card } = useMypageStore();
+	const qrUrl = `scannect://cardlist-tab/card-detail/${card?.id}`; // 명함 id
+
+	if (!card) {
+		Alert.alert('공유할 수 있는 명함이 없습니다!', '확인 후 다시 시도해주세요.', [
+			{
+				text: '확인',
+				onPress: () => navigation.goBack(),
+			},
+		]);
+	}
 
 	return (
 		<ScreenContainer>
 			<View style={styles.container}>
 				<View style={styles.textWrapper}>
-					<Text style={commonStyles.subtitleText}>나의 기본명함으로 QR코드를 만들었어요.</Text>
+					<Text style={commonStyles.subtitleText}>내 명함으로 QR코드를 만들었어요.</Text>
 					<Text style={commonStyles.bodyBoldText}>
 						이제 나만의 명함을 저장하고 공유할 수 있어요.
 					</Text>
-					<Text style={[commonStyles.captionText, styles.exchangedCardInfo]}>
-						{selectedCard?.title}
-					</Text>
+					<Text style={[commonStyles.captionText, styles.exchangedCardInfo]}>{card?.cardName}</Text>
 				</View>
 				<QRCodeSection value={qrUrl} />
 			</View>
@@ -46,7 +52,7 @@ const styles = StyleSheet.create({
 	exchangedCardInfo: {
 		position: 'absolute',
 		top: -40,
-		left: 30,
+		left: 0,
 		backgroundColor: colors.paleGreen,
 		paddingVertical: spacing.s,
 		paddingHorizontal: spacing.sm,

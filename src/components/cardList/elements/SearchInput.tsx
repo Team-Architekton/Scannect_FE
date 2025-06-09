@@ -1,14 +1,24 @@
-import { Alert, Pressable, TextInput, StyleSheet } from 'react-native';
-import { useRef, useState } from 'react';
+import { Pressable, TextInput, StyleSheet } from 'react-native';
+import { useEffect, useRef, useState } from 'react';
 import Fontisto from '@expo/vector-icons/Fontisto';
 
-import colors from '../../styles/Colors';
-import spacing from '../../styles/spacing';
+import colors from '../../../styles/Colors';
+import spacing from '../../../styles/spacing';
+import { useCardList } from '../../../hooks/useCardList';
+import { useCardStore } from '../../../store/cardStore';
 
 export default function SearchInput() {
 	const inputRef = useRef<TextInput>(null);
+	const { handleSearchCards } = useCardList();
+	const isSearching = useCardStore(state => state.isSearching);
+
 	const [keyword, setKeyword] = useState('');
-	const onChangeKeyword = (payload: string) => setKeyword(payload);
+	const handleChange = (payload: string) => setKeyword(payload);
+
+	useEffect(() => {
+		if (!isSearching) setKeyword('');
+	}, [isSearching]);
+
 	return (
 		<Pressable
 			style={styles.inputContainer}
@@ -21,10 +31,8 @@ export default function SearchInput() {
 				ref={inputRef}
 				placeholder="키워드를 입력해주세요..."
 				value={keyword}
-				onChangeText={onChangeKeyword}
-				onSubmitEditing={() =>
-					Alert.alert(!keyword ? '검색할 키워드를 입력해주세요.' : `키워드: ${keyword}`)
-				}
+				onChangeText={handleChange}
+				onSubmitEditing={() => handleSearchCards(keyword)}
 				keyboardType="default"
 				returnKeyType="search"
 				style={styles.searchInput}
