@@ -30,7 +30,8 @@ export interface WSRequestMessage {
 	fromUserId: string;
 	toUserId: string;
 	cardId: number;
-	message: string;
+	message?: string;
+	status?: 'accept' | 'reject';
 }
 
 export interface WSResponseMessage {
@@ -47,4 +48,14 @@ export interface WSNotifyMessage {
 	message: string;
 }
 
-export type WSMessage = CardListMessage | WSRequestMessage | WSResponseMessage | WSNotifyMessage;
+export interface WSRemoveMessage {
+	type: 'remove';
+	userId: string;
+}
+
+export type WSMessage =
+	| CardListMessage
+	| WSRequestMessage
+	| WSResponseMessage
+	| WSNotifyMessage
+	| WSRemoveMessage;

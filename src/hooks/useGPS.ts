@@ -3,11 +3,10 @@ import { useGPSStore } from '../store/gpsStore';
 import { use, useCallback } from 'react';
 import { postActivateLocation, postDeactivateLocation } from '../server/location';
 import { getUserId } from '../utils/authStorage'; // AsyncStorage 유틸
-import { useWebSocket } from './useWebSocket';
+import { WebSocketManager } from '../server/webSocketManager';
 
 export const useGPS = () => {
 	const { setLocationOn } = useGPSStore();
-	const { connect, disconnect } = useWebSocket();
 
 	const toggleLocation = useCallback(async () => {
 		const isCurrentlyOn = useGPSStore.getState().isLocationOn;
@@ -31,9 +30,9 @@ export const useGPS = () => {
 			const { latitude, longitude } = location.coords;
 			console.log('📍 현재 위치:', { latitude, longitude });
 
-			await connect(userId, latitude, longitude);
+			await WebSocketManager.connect(userId, latitude, longitude);
 		} else {
-			await disconnect(userId);
+			await WebSocketManager.disconnect(userId);
 		}
 
 		setLocationOn(newStatus);

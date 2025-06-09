@@ -1,5 +1,4 @@
-/* eslint-disable prettier/prettier */
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Alert } from 'react-native';
 import CommonButton from '../../components/CommonButton';
 import ScreenContainer from '../../components/ScreenContainer';
 import GPSSwitch from '../../components/gps/GPSSwitch';
@@ -11,13 +10,20 @@ import GPSOffView from '../../components/gps/GPSOffView';
 import ExchangeBottomSheet from '../../components/gps/ExchangeBottomSheet';
 import DropdownMenu from '../../components/mypage/elements/Dropdown';
 import OCRImageSourceModal from '../../components/ocr/OCRImageSourceModal';
+import { useExchangeAlert } from '../../hooks/useExchangeAlert';
+import { useNotifyAlert } from '../../hooks/useNotiftyAlert';
+import { useExchangeRequest } from '../../hooks/useExchangeRequest';
 
 export default function GPSView({ navigation }: any) {
-	const { gpsUserList, selectedUserIds, setGPSUserList, isLocationOn } = useGPSStore();
+	const { gpsUserList, isLocationOn } = useGPSStore();
 	const [isBottomSheetVisible, setBottomSheetVisible] = useState(false);
 	const [isImageSourceModalVisible, setImageSourceModalVisible] = useState(false);
 
+	useExchangeAlert();
+	useNotifyAlert();
+	const { sendRequests } = useExchangeRequest();
 	const handleExchangeOption = (type: 'QRGenerate' | 'QRScan' | 'PaperScan') => {
+		navigation.navigate(type);
 		setBottomSheetVisible(false);
 		if (type === 'PaperScan') {
 			setImageSourceModalVisible(true);
@@ -38,7 +44,7 @@ export default function GPSView({ navigation }: any) {
 			<View style={styles.footer}>
 				<CommonButton
 					title="선택한 유저와 교환"
-					onPress={() => console.log(selectedUserIds)}
+					onPress={sendRequests}
 					buttonStyle={{ marginTop: spacing.s }}
 					size="large"
 				/>
