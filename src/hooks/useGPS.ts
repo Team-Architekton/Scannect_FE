@@ -33,6 +33,7 @@ export const useGPS = () => {
 			await WebSocketManager.connect(userId, latitude, longitude);
 		} else {
 			await WebSocketManager.disconnect(userId);
+			useGPSStore.getState().clearSelectedUsers();
 		}
 
 		setLocationOn(newStatus);

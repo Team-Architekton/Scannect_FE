@@ -15,6 +15,7 @@ type GPSStore = {
 	setExchangeCardId: (msg: number | null) => void;
 	notifyMessage: null;
 	setNotifyMessage: (msg: any) => void;
+	clearSelectedUsers: () => void;
 };
 
 export const useGPSStore = create<GPSStore>(set => ({
@@ -52,4 +53,5 @@ export const useGPSStore = create<GPSStore>(set => ({
 	setExchangeCardId: msg => set({ exchangeCardId: msg }),
 	notifyMessage: null,
 	setNotifyMessage: msg => set({ notifyMessage: msg }),
+	clearSelectedUsers: () => set({ selectedUserIds: [] }),
 }));
