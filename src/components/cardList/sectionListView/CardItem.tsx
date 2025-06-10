@@ -47,7 +47,7 @@ export default function CardItem(props: ICardItem) {
 					</Text>
 				) : null}
 			</View>
-			<Ionicons name="chevron-forward" size={30} color={colors.darkGreen} />
+			<Ionicons name="chevron-forward" size={20} color={colors.darkGreen} />
 		</Pressable>
 	);
 }
