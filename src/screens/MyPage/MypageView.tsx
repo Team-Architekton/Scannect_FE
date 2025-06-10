@@ -8,9 +8,11 @@ import { useUiStore } from '../../store/useUiStore';
 import { useMypageStore } from '../../store/useMyPageStore';
 import { useMypage } from '../../hooks/useMypage';
 import { useEffect } from 'react';
+import EmptyView from '../../components/mypage/EmptyView';
 
 export default function MyPage() {
 	const { clearAllPopups } = useUiStore();
+	const cards = useMypageStore(state => state.cards);
 	const selectedCard = useMypageStore(state => state.selectedCard);
 	const isLoading = useMypageStore(state => state.isLoading);
 	const { fetchCards } = useMypage();
@@ -23,6 +25,14 @@ export default function MyPage() {
 			<View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
 				<ActivityIndicator size="large" />
 			</View>
+		);
+	}
+
+	if (!cards || cards.length === 0) {
+		return (
+			<ScreenContainer>
+				<EmptyView message={`아직 등록된 명함이 없습니다 \n 새 명함을 추가해보세요!`} />
+			</ScreenContainer>
 		);
 	}
 
