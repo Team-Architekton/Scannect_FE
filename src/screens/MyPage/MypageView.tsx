@@ -1,4 +1,10 @@
-import { ActivityIndicator, KeyboardAvoidingView, Platform, Pressable, ScrollView, Text, View } from 'react-native';
+import {
+	ActivityIndicator,
+	Pressable,
+	View,
+	Keyboard,
+} from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import ScreenContainer from '../../components/ScreenContainer';
 import Header from '../../components/mypage/Header';
 import CardPreview from '../../components/mypage/CardPreview';
@@ -31,29 +37,32 @@ export default function MyPage() {
 	if (!cards || cards.length === 0) {
 		return (
 			<ScreenContainer>
-				<EmptyView message={`아직 등록된 명함이 없습니다 \n 새 명함을 추가해보세요!`} />
+				<EmptyView message={`아직 등록된 명함이 없습니다. \n 새 명함을 추가해보세요!`} />
 			</ScreenContainer>
 		);
 	}
 
 	return (
 		<ScreenContainer>
-			<KeyboardAvoidingView
-				behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-				style={{ flex: 1 }}
-				keyboardVerticalOffset={80}
-			>
-				<ScrollView
-					contentContainerStyle={{ paddingVertical: spacing.l }}
+				<KeyboardAwareScrollView
+					contentContainerStyle={{ paddingBottom: spacing.s }}
+					keyboardShouldPersistTaps="handled"
+					extraScrollHeight={30}
+					enableOnAndroid={true}
 					showsVerticalScrollIndicator={false}
 				>
-					<Pressable onPress={clearAllPopups} style={{ flex: 1, gap: spacing.m }}>
+					<Pressable
+						onPress={() => {
+							Keyboard.dismiss();
+							clearAllPopups();
+						}}
+						style={{ flex: 1, gap: spacing.m }}
+					>
 						<Header />
 						<CardPreview selectedCard={selectedCard} />
 						<ProfileSection selectedCard={selectedCard} />
 					</Pressable>
-				</ScrollView>
-			</KeyboardAvoidingView>
+				</KeyboardAwareScrollView>
 		</ScreenContainer>
 	);
 }

@@ -6,6 +6,7 @@ import { useOCR } from '../../hooks/useOCR';
 import { useEffect, useState } from 'react';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { CardForm } from '../../hooks/useCardForm';
+import spacing from '../../styles/spacing';
 
 export default function OCRView() {
 	const route = useRoute<any>();
@@ -34,12 +35,12 @@ export default function OCRView() {
 			{loading && <LoadingOverlay />}
 			<ScreenContainer>
 				<KeyboardAwareScrollView
-					contentContainerStyle={{ flexGrow: 1 }}
-					enableOnAndroid
-					keyboardShouldPersistTaps="handled"
-					showsVerticalScrollIndicator={false}
-					extraScrollHeight={100}
-				>
+				contentContainerStyle={{ paddingBottom: spacing.s }}
+				keyboardShouldPersistTaps="handled"
+				extraScrollHeight={100}
+				enableOnAndroid={true}
+				showsVerticalScrollIndicator={false}
+			>
 					{cardData && <CardSave initialData={cardData} />}
 				</KeyboardAwareScrollView>
 			</ScreenContainer>

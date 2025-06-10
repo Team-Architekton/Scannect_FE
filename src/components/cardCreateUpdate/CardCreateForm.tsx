@@ -44,7 +44,7 @@ export default function CardCreateForm({ onAnyInputFocus }: { onAnyInputFocus?: 
 	};
 
 	return (
-		<>
+		<View style={{ flex: 1 }}>
 			<ProfileImagePicker
 				imageUri={form.imgUrl ?? null}
 				onChange={uri => handleChange('imgUrl', uri)}
@@ -120,7 +120,7 @@ export default function CardCreateForm({ onAnyInputFocus }: { onAnyInputFocus?: 
 				label="유선전화"
 				value={form.companyTel}
 				onChangeText={text => handleChange('companyTel', text)}
-				placeholder="02-1234-5678"
+				placeholder="0212345678"
 				keyboardType="phone-pad"
 			/>
 			<LabeledInput
@@ -144,6 +144,6 @@ export default function CardCreateForm({ onAnyInputFocus }: { onAnyInputFocus?: 
 				<CommonButton title="취소" onPress={() => {}} size="small" />
 				<CommonButton title="생성" onPress={() => handleCreate()} size="small" />
 			</View>
-		</>
+		</View>
 	);
 }

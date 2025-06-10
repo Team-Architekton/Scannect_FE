@@ -27,7 +27,6 @@ export default function CardSave({ initialData }: Props) {
 			'industry',
 			'position',
 			'email',
-			'phoneNum',
 		];
 
 		requiredFields.forEach(field => {
