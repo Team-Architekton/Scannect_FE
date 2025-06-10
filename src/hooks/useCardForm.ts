@@ -78,7 +78,12 @@ export function useCardForm(initial: Partial<CardForm> = {}) {
 				break;
 			case 'phoneNum':
 				if (!value.trim()) error = '휴대폰 번호는 필수 입력 항목입니다';
-				else if (!/^\d{11}$/.test(value)) error = '전화번호는 숫자만 입력하며 11자리여야 합니다';
+				else if (
+					!/^(?:\d{11}|(?:\+82\s?1[0-9]\s?\d{4}\s?\d{4}))$/.test(
+						value.replace(/-/g, '').replace(/\s+/g, '')
+					)
+				)
+					error = '형식에 맞게 입력해주세요';
 				break;
 		}
 		if (error) {

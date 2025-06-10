@@ -27,6 +27,7 @@ export default function CardSave({ initialData }: Props) {
 			'industry',
 			'position',
 			'email',
+			'phoneNum',
 		];
 
 		requiredFields.forEach(field => {
@@ -142,10 +143,10 @@ export default function CardSave({ initialData }: Props) {
 				required
 				value={form.phoneNum ?? ''}
 				onChangeText={text => handleChange('phoneNum', text)}
-				placeholder="01012345678 (- 제외)"
+				placeholder="010-1234-5678"
 				keyboardType="phone-pad"
-				onBlur={() => validateField('phoneNum', form.phoneNum ?? '')}
 				errorMessage={errors.phoneNum}
+				onBlur={() => validateField('phoneNum', form.phoneNum ?? '')}
 			/>
 			<LabeledInput
 				label="유선전화"

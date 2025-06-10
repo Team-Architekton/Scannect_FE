@@ -112,7 +112,7 @@ export default function CardCreateForm({ onAnyInputFocus }: { onAnyInputFocus?: 
 				value={form.phoneNum}
 				onChangeText={text => handleChange('phoneNum', text)}
 				errorMessage={errors.phoneNum}
-				placeholder="01012345678 (- 제외)"
+				placeholder="010-1234-5678"
 				keyboardType="phone-pad"
 				onBlur={() => validateField('phoneNum', form.phoneNum)}
 			/>
@@ -120,7 +120,7 @@ export default function CardCreateForm({ onAnyInputFocus }: { onAnyInputFocus?: 
 				label="유선전화"
 				value={form.companyTel}
 				onChangeText={text => handleChange('companyTel', text)}
-				placeholder="0212345678"
+				placeholder="02-1234-5678"
 				keyboardType="phone-pad"
 			/>
 			<LabeledInput
