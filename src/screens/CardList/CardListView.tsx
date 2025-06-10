@@ -20,6 +20,7 @@ import EmptyListView from '../../components/cardList/EmptyListView';
 import SearchListView from '../../components/cardList/SearchListView';
 import { useCardStore } from '../../store/cardStore';
 import { useCardList } from '../../hooks/useCardList';
+import spacing from '../../styles/spacing';
 
 // 안드로이드 환경에서도 레이아웃 애니메이션 동작하도록 설정
 if (Platform.OS === 'android' && UIManager.setLayoutAnimationEnabledExperimental) {
@@ -78,6 +79,7 @@ const styles = StyleSheet.create({
 	mainLabelWrapper: {
 		flexDirection: 'row',
 		justifyContent: 'space-between',
+		marginBottom: spacing.xs,
 	},
 	mainLabel: { ...commonStyles.bodyText, color: colors.grayscaleGray7 },
 });
