@@ -1,3 +1,5 @@
+import { useMemo } from 'react';
+
 import CardPreview from '../mypage/CardPreview';
 import Contacts from './Contacts';
 import ProfileIntro from '../mypage/elements/ProfileIntro';
@@ -6,7 +8,7 @@ import { useCardForm } from '../../hooks/useCardForm';
 import { ICardItem } from '../../model/cardItem';
 
 export default function ProfileInfo({ card }: { card: ICardItem }) {
-	const { form, errors } = useCardForm({ ...card });
+	const { form, errors } = useCardForm(useMemo(() => ({ ...card }), []));
 
 	return (
 		<>
