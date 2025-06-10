@@ -54,7 +54,7 @@ const Hamburger = () => {
 
 	const menuItems = [
 		'명함 색상 지정',
-		...(selectedCard?.isMain ? ['수정', '삭제'] : ['기본 명함 지정', '수정', '삭제']),
+		...(selectedCard?.isMain ? ['수정'] : ['기본 명함 지정', '수정', '삭제']),
 	];
 
 	return (
