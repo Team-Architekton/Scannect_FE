@@ -1,9 +1,10 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Linking, TouchableOpacity } from 'react-native';
 import { Feather, Entypo } from '@expo/vector-icons';
 
 import colors from '../../styles/Colors';
 import spacing from '../../styles/spacing';
+import Toast from 'react-native-toast-message';
 
 interface IPreview {
 	nickname: string;
@@ -21,6 +22,25 @@ interface IPreviewProps<T extends IPreview> {
 
 export default function CardPreview<T extends IPreview>({ selectedCard }: IPreviewProps<T>) {
 	if (!selectedCard) return null;
+
+	const handleOpenURL = async () => {
+		let url = selectedCard.url;
+		if (!url) return;
+
+		if (!url.startsWith('http')) {
+			url = `https://${url}`;
+		}
+
+		if (await Linking.canOpenURL(url)) {
+			await Linking.openURL(url);
+		} else {
+			Toast.show({
+			type: 'error',
+			text1: '링크를 열 수 없습니다',
+			position: 'bottom',
+		});
+		}
+	};
 
 	return (
 		<View style={[styles.card, { backgroundColor: selectedCard.colour || colors.grayscaleGray3 }]}>
@@ -41,10 +61,12 @@ export default function CardPreview<T extends IPreview>({ selectedCard }: IPrevi
 						<Feather name="mail" size={12} color="black" />
 						<Text style={styles.contactText}>{selectedCard.email}</Text>
 					</View>
-					<View style={styles.contactRow}>
-						<Entypo name="link" size={12} color="black" />
-						<Text style={styles.contactText}>{selectedCard.url}</Text>
-					</View>
+					<TouchableOpacity onPress={handleOpenURL}>
+						<View style={styles.contactRow}>
+							<Entypo name="link" size={12} color="black" />
+							<Text style={styles.contactText}>{selectedCard.url}</Text>
+						</View>
+					</TouchableOpacity>
 				</View>
 			</View>
 		</View>
