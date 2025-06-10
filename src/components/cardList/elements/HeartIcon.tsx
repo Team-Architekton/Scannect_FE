@@ -1,4 +1,4 @@
-import { Alert, Pressable, StyleSheet } from 'react-native';
+import { Alert, Pressable } from 'react-native';
 import AntDesign from '@expo/vector-icons/AntDesign';
 
 import colors from '../../../styles/Colors';
@@ -11,7 +11,7 @@ interface IHeartProp {
 	size?: number;
 }
 
-export default function HeartIcon({ id, favorite, size = 30 }: IHeartProp) {
+export default function HeartIcon({ id, favorite, size = 20 }: IHeartProp) {
 	const { handleEditCard } = useCardList();
 	const toggleHeart = async () => {
 		const newStatus = !favorite;
@@ -21,7 +21,7 @@ export default function HeartIcon({ id, favorite, size = 30 }: IHeartProp) {
 		} else Alert.alert('처리 실패', '잠시 후 다시 시도해주세요.');
 	};
 	return (
-		<Pressable hitSlop={spacing.m} onPress={toggleHeart} style={styles.heartButton}>
+		<Pressable hitSlop={spacing.sm} onPress={toggleHeart}>
 			{favorite ? (
 				<AntDesign name="heart" size={size} color={colors.primary} />
 			) : (
@@ -30,9 +30,3 @@ export default function HeartIcon({ id, favorite, size = 30 }: IHeartProp) {
 		</Pressable>
 	);
 }
-
-const styles = StyleSheet.create({
-	heartButton: {
-		marginRight: spacing.sm,
-	},
-});

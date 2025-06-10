@@ -4,7 +4,6 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 
 import { useCardStore } from '../../../store/cardStore';
 import colors from '../../../styles/Colors';
-import commonStyles from '../../../styles/commonStyles';
 import spacing from '../../../styles/spacing';
 
 export default function SortOption() {
@@ -22,7 +21,7 @@ export default function SortOption() {
 	return (
 		<View>
 			<TouchableOpacity onPress={toggleDropDown}>
-				<Ionicons name="menu" size={30} color={colors.darkGreen} />
+				<Ionicons name="menu" size={24} color={colors.darkGreen} />
 			</TouchableOpacity>
 			{dropDownShow && (
 				<View style={styles.dropdownView}>
@@ -56,14 +55,14 @@ const styles = StyleSheet.create({
 	dropdownView: {
 		position: 'absolute',
 		zIndex: 99,
-		top: 30,
+		top: 25,
 		right: 0,
 		width: 80,
 		borderRadius: spacing.xs,
 		backgroundColor: colors.primary,
 	},
 	dropdownItem: {
-		paddingVertical: spacing.xs,
+		paddingVertical: spacing.s,
 		paddingHorizontal: spacing.sm,
 	},
 	dropdownItemTop: {
@@ -75,7 +74,6 @@ const styles = StyleSheet.create({
 		borderBottomRightRadius: spacing.xs,
 	},
 	dropdownText: {
-		...commonStyles.bodyText,
 		color: colors.white,
 	},
 });
