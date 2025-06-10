@@ -1,12 +1,12 @@
-import { View, Text, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import CommonButton from '../../components/CommonButton';
-import typography from '../../styles/typography';
 import AuthTextInput from '../../components/auth/AuthTextInput';
 import spacing from '../../styles/spacing';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { AuthStackParamList } from '../../navigations/types';
 import { useNavigation } from '@react-navigation/native';
 import { useAuth } from '../../hooks/useAuth';
+import LogoImage from '../../components/LogoImage';
 
 export default function LoginView() {
 	const { id, password, setId, setPassword, errors, handleLogin } = useAuth();
@@ -14,7 +14,7 @@ export default function LoginView() {
 
 	return (
 		<View style={styles.container}>
-			<Text style={[typography.h1, styles.title]}>Scannect</Text>
+			<LogoImage />
 
 			<View style={styles.inputGroup}>
 				<AuthTextInput
@@ -50,10 +50,6 @@ const styles = StyleSheet.create({
 		padding: spacing.l,
 		justifyContent: 'center',
 		flex: 1,
-	},
-	title: {
-		textAlign: 'center',
-		marginBottom: spacing.l,
 	},
 	inputGroup: {
 		gap: spacing.s,
