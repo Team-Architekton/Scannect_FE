@@ -115,8 +115,8 @@ export default function InfoSection({
 
 			<EditableField
 				label="URL"
-				value={form.urlList}
-				onChange={text => handleChange('urlList', text)}
+				value={form.url}
+				onChange={text => handleChange('url', text)}
 				isEditing={isEditing}
 			/>
 		</View>

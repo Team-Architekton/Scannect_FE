@@ -11,7 +11,7 @@ interface IPreview {
 	job: string;
 	phoneNum?: string;
 	email?: string;
-	urlList?: string;
+	url?: string;
 	colour?: string;
 }
 
@@ -43,7 +43,7 @@ export default function CardPreview<T extends IPreview>({ selectedCard }: IPrevi
 					</View>
 					<View style={styles.contactRow}>
 						<Entypo name="link" size={12} color="black" />
-						<Text style={styles.contactText}>{selectedCard.urlList}</Text>
+						<Text style={styles.contactText}>{selectedCard.url}</Text>
 					</View>
 				</View>
 			</View>

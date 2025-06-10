@@ -168,8 +168,8 @@ export default function CardSave({ initialData }: Props) {
 			/>
 			<LabeledInput
 				label="URL"
-				value={form.urlList}
-				onChangeText={text => handleChange('urlList', text)}
+				value={form.url}
+				onChangeText={text => handleChange('url', text)}
 				placeholder="https://"
 				keyboardType="url"
 			/>
