@@ -44,7 +44,7 @@ export default function CardCreateForm({ onAnyInputFocus }: { onAnyInputFocus?: 
 	};
 
 	return (
-		<>
+		<View style={{ flex: 1 }}>
 			<ProfileImagePicker
 				imageUri={form.imgUrl ?? null}
 				onChange={uri => handleChange('imgUrl', uri)}
@@ -112,7 +112,7 @@ export default function CardCreateForm({ onAnyInputFocus }: { onAnyInputFocus?: 
 				value={form.phoneNum}
 				onChangeText={text => handleChange('phoneNum', text)}
 				errorMessage={errors.phoneNum}
-				placeholder="01012345678 (- 제외)"
+				placeholder="010-1234-5678"
 				keyboardType="phone-pad"
 				onBlur={() => validateField('phoneNum', form.phoneNum)}
 			/>
@@ -135,8 +135,8 @@ export default function CardCreateForm({ onAnyInputFocus }: { onAnyInputFocus?: 
 			/>
 			<LabeledInput
 				label="URL"
-				value={form.website}
-				onChangeText={text => handleChange('website', text)}
+				value={form.url}
+				onChangeText={text => handleChange('url', text)}
 				placeholder="https://"
 				keyboardType="url"
 			/>
@@ -144,6 +144,6 @@ export default function CardCreateForm({ onAnyInputFocus }: { onAnyInputFocus?: 
 				<CommonButton title="취소" onPress={() => {}} size="small" />
 				<CommonButton title="생성" onPress={() => handleCreate()} size="small" />
 			</View>
-		</>
+		</View>
 	);
 }

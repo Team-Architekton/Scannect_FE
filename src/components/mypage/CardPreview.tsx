@@ -1,17 +1,18 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Linking, TouchableOpacity } from 'react-native';
 import { Feather, Entypo } from '@expo/vector-icons';
 
 import colors from '../../styles/Colors';
 import spacing from '../../styles/spacing';
+import Toast from 'react-native-toast-message';
 
 interface IPreview {
 	nickname: string;
 	belongTo: string;
-	position: string;
+	job: string;
 	phoneNum?: string;
 	email?: string;
-	website?: string;
+	url?: string;
 	colour?: string;
 }
 
@@ -22,6 +23,25 @@ interface IPreviewProps<T extends IPreview> {
 export default function CardPreview<T extends IPreview>({ selectedCard }: IPreviewProps<T>) {
 	if (!selectedCard) return null;
 
+	const handleOpenURL = async () => {
+		let url = selectedCard.url;
+		if (!url) return;
+
+		if (!url.startsWith('http')) {
+			url = `https://${url}`;
+		}
+
+		if (await Linking.canOpenURL(url)) {
+			await Linking.openURL(url);
+		} else {
+			Toast.show({
+			type: 'error',
+			text1: '링크를 열 수 없습니다',
+			position: 'bottom',
+		});
+		}
+	};
+
 	return (
 		<View style={[styles.card, { backgroundColor: selectedCard.colour || colors.grayscaleGray3 }]}>
 			<Text style={styles.company}>{selectedCard.belongTo}</Text>
@@ -29,7 +49,7 @@ export default function CardPreview<T extends IPreview>({ selectedCard }: IPrevi
 			<View style={styles.infoRow}>
 				<View style={styles.leftInfo}>
 					<Text style={styles.name}>{selectedCard.nickname}</Text>
-					<Text style={styles.title}>{selectedCard.position}</Text>
+					<Text style={styles.title}>{selectedCard.job}</Text>
 				</View>
 
 				<View style={styles.rightInfo}>
@@ -41,10 +61,12 @@ export default function CardPreview<T extends IPreview>({ selectedCard }: IPrevi
 						<Feather name="mail" size={12} color="black" />
 						<Text style={styles.contactText}>{selectedCard.email}</Text>
 					</View>
-					<View style={styles.contactRow}>
-						<Entypo name="link" size={12} color="black" />
-						<Text style={styles.contactText}>{selectedCard.website}</Text>
-					</View>
+					<TouchableOpacity onPress={handleOpenURL}>
+						<View style={styles.contactRow}>
+							<Entypo name="link" size={12} color="black" />
+							<Text style={styles.contactText}>{selectedCard.url}</Text>
+						</View>
+					</TouchableOpacity>
 				</View>
 			</View>
 		</View>

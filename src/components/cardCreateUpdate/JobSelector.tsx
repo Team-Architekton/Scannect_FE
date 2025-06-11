@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import { Dropdown } from 'react-native-element-dropdown';
+import { View, Text, StyleSheet, Keyboard, TouchableOpacity } from 'react-native';
+import { useActionSheet } from '@expo/react-native-action-sheet';
 import { jobOptions } from '../../constants/jopOptions';
 import colors from '../../styles/Colors';
 import spacing from '../../styles/spacing';
@@ -37,6 +37,39 @@ export default function JobSelector({
 		setJobItems(selected ? selected.roles.map(role => ({ label: role, value: role })) : []);
 	}, [industry]);
 
+	const { showActionSheetWithOptions } = useActionSheet();
+
+	const openIndustrySheet = () => {
+		const options = industryItems.map(i => i.label).concat('취소');
+		showActionSheetWithOptions(
+			{
+				options,
+				cancelButtonIndex: options.length - 1,
+			},
+			idx => {
+				if (idx !== undefined && idx < industryItems.length) {
+					onChangeIndustry(industryItems[idx].value);
+				}
+			}
+		);
+	};
+
+	const openPositionSheet = () => {
+		if (jobItems.length === 0) return;
+		const options = jobItems.map(i => i.label).concat('취소');
+		showActionSheetWithOptions(
+			{
+				options,
+				cancelButtonIndex: options.length - 1,
+			},
+			idx => {
+				if (idx !== undefined && idx < jobItems.length) {
+					onChangePosition(jobItems[idx].value);
+				}
+			}
+		);
+	};
+
 	return (
 		<View style={styles.container}>
 			<View style={styles.pickerWrapper}>
@@ -45,17 +78,11 @@ export default function JobSelector({
 						업종 <Text style={styles.required}>*</Text>
 					</Text>
 				)}
-				<Dropdown
-					style={[styles.dropdown, industryError && styles.errorBorder]}
-					data={industryItems}
-					labelField="label"
-					valueField="value"
-					placeholder="업종을 선택하세요"
-					value={industry}
-					onChange={item => onChangeIndustry(item.value)}
-					placeholderStyle={styles.placeholderStyle}
-					selectedTextStyle={styles.selectedTextStyle}
-				/>
+				<TouchableOpacity style={styles.dropdown} onPress={openIndustrySheet}>
+					<Text style={industry ? styles.selectedTextStyle : styles.placeholderStyle}>
+						{industry || '업종을 선택하세요'}
+					</Text>
+				</TouchableOpacity>
 				{industryError && <Text style={styles.errorText}>{industryError}</Text>}
 			</View>
 			<View style={styles.pickerWrapper}>
@@ -64,18 +91,15 @@ export default function JobSelector({
 						직무 <Text style={styles.required}>*</Text>
 					</Text>
 				)}
-				<Dropdown
-					style={[styles.dropdown, positionError && styles.errorBorder]}
-					data={jobItems}
-					labelField="label"
-					valueField="value"
-					placeholder="직무를 선택하세요"
-					value={position}
-					onChange={item => onChangePosition(item.value)}
-					disable={jobItems.length === 0}
-					placeholderStyle={styles.placeholderStyle}
-					selectedTextStyle={styles.selectedTextStyle}
-				/>
+				<TouchableOpacity
+					style={[styles.dropdown, jobItems.length === 0 && { backgroundColor: '#f0f0f0' }]}
+					onPress={openPositionSheet}
+					disabled={jobItems.length === 0}
+				>
+					<Text style={position ? styles.selectedTextStyle : styles.placeholderStyle}>
+						{position || '직무를 선택하세요'}
+					</Text>
+				</TouchableOpacity>
 				{positionError && <Text style={styles.errorText}>{positionError}</Text>}
 			</View>
 		</View>

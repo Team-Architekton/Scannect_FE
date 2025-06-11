@@ -1,10 +1,11 @@
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Linking } from 'react-native';
 import spacing from '../../../styles/spacing';
 import colors from '../../../styles/Colors';
 import typography from '../../../styles/typography';
 import EditableField from '../../cardCreateUpdate/EditableField';
 import JobSelector from '../../cardCreateUpdate/JobSelector';
 import { CardForm, CardFormErrors, useCardForm } from '../../../hooks/useCardForm';
+import Toast from 'react-native-toast-message';
 
 type Props = {
 	form: CardForm;
@@ -21,6 +22,25 @@ export default function InfoSection({
 	handleChange,
 	validateField,
 }: Props) {
+	const handleOpenURL = async () => {
+		let url = form.url;
+		if (!url) return;
+
+		if (!url.startsWith('http')) {
+			url = `https://${url}`;
+		}
+
+		if (await Linking.canOpenURL(url)) {
+			await Linking.openURL(url);
+		} else {
+			Toast.show({
+				type: 'error',
+				text1: '링크를 열 수 없습니다',
+				position: 'bottom',
+			});
+		}
+	};
+
 	return (
 		<View style={styles.container}>
 			<Text style={[typography.h2, styles.sectionTitle]}>명함 정보</Text>
@@ -74,12 +94,15 @@ export default function InfoSection({
 					/>
 				</>
 			) : (
-				<View style={styles.infoRow}>
-					<Text style={styles.label}>업종/직무</Text>
-					<Text style={styles.value}>
-						{form.industry}/{form.position}
-					</Text>
-				</View>
+				form.industry &&
+				form.position && (
+					<View style={styles.infoRow}>
+						<Text style={styles.label}>업종/직무</Text>
+						<Text style={styles.value}>
+							{form.industry} | {form.position}
+						</Text>
+					</View>
+				)
 			)}
 
 			<Text style={[typography.h2, styles.sectionTitle]}>연락처</Text>
@@ -110,12 +133,23 @@ export default function InfoSection({
 				errorMessage={errors.email}
 			/>
 
-			<EditableField
-				label="URL"
-				value={form.website}
-				onChange={text => handleChange('website', text)}
-				isEditing={isEditing}
-			/>
+			{isEditing ? (
+				<EditableField
+					label="URL"
+					value={form.url}
+					onChange={text => handleChange('url', text)}
+					isEditing={isEditing}
+				/>
+			) : form.url ? (
+				<View style={styles.infoRow}>
+					<Text style={styles.label}>URL</Text>
+					<TouchableOpacity onPress={() => handleOpenURL()}>
+						<Text style={[styles.value, { textDecorationLine: 'underline', color: 'blue' }]}>
+							{form.url}
+						</Text>
+					</TouchableOpacity>
+				</View>
+			) : null}
 		</View>
 	);
 }

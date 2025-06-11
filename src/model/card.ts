@@ -14,7 +14,7 @@ export interface Card {
 	content?: string;
 	companyTel?: string;
 	colour?: string;
-	website?: string;
+	url?: string;
 
 	isMain: boolean;
 }

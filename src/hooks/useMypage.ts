@@ -4,6 +4,7 @@ import { CardForm } from './useCardForm';
 import { getCards, patchMainCard, postCard, putCard } from '../server/myPage';
 import { deleteCard as deleteCardAPI } from '../server/myPage';
 import { useNavigation } from '@react-navigation/native';
+import Toast from 'react-native-toast-message';
 
 export function useMypage() {
 	const setCards = useMypageStore(state => state.setCards);
@@ -35,6 +36,11 @@ export function useMypage() {
 		try {
 			const res = await postCard(newCard);
 			if (res.success) {
+				Toast.show({
+					type: 'success',
+					text1: '명함이 생성되었습니다.',
+					position: 'bottom',
+				});
 				navigation.navigate('마이페이지');
 			} else {
 				console.log(res.message);
@@ -48,6 +54,11 @@ export function useMypage() {
 		try {
 			const res = await putCard(id, form);
 			if (res?.success) {
+				Toast.show({
+					type: 'success',
+					text1: '명함이 수정되었습니다.',
+					position: 'bottom',
+				});
 				await fetchCards(id, false);
 			}
 		} catch (error) {
@@ -59,6 +70,11 @@ export function useMypage() {
 		try {
 			const res = await patchMainCard(cardId);
 			if (res.success) {
+				Toast.show({
+					type: 'success',
+					text1: '기본 명함으로 설정되었습니다.',
+					position: 'bottom',
+				});
 				await fetchCards(null, true);
 			} else {
 				console.warn('기본 명함 설정 실패:', res.message);
@@ -72,6 +88,11 @@ export function useMypage() {
 		try {
 			const res = await deleteCardAPI(cardId);
 			if (res.success) {
+				Toast.show({
+					type: 'success',
+					text1: '명함이 삭제되었습니다.',
+					position: 'bottom',
+				});
 				await fetchCards(null, false);
 			} else {
 				console.warn('명함 삭제 실패:', res.message);

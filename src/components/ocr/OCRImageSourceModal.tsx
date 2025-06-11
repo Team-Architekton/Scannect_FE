@@ -6,6 +6,8 @@ import colors from '../../styles/Colors';
 import typography from '../../styles/typography';
 import { pickImage } from '../../utils/pickImage';
 import { takePhoto } from '../../utils/takePhoto';
+import { resizeImage } from '../../utils/resizeImage';
+import * as FileSystem from 'expo-file-system';
 
 interface Props {
 	visible: boolean;
@@ -17,7 +19,8 @@ export default function OCRImageSourceModal({ visible, onClose, onSelect }: Prop
 	const handleGallery = async () => {
 		const uri = await pickImage();
 		if (uri) {
-			onSelect('gallery', uri);
+			const resizedUri = await resizeImage(uri);
+			onSelect('gallery', resizedUri);
 			onClose();
 		}
 	};
@@ -25,7 +28,8 @@ export default function OCRImageSourceModal({ visible, onClose, onSelect }: Prop
 	const handleCamera = async () => {
 		const uri = await takePhoto();
 		if (uri) {
-			onSelect('camera', uri);
+			const resizedUri = await resizeImage(uri);
+			onSelect('camera', resizedUri);
 			onClose();
 		}
 	};
