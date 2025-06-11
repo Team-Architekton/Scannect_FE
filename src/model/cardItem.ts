@@ -5,21 +5,20 @@ export interface ICardItem {
 	cardName: string; // 명함 이름
 	nickname: string; // 유저 닉네임
 	belongTo: string; // 소속
-	department?: string; // 부서
+	department: string | null; // 부서
 	position: string; // 직책
 	industry: string; // 업종
 	job: string; // 직무
 
-	memo: string;
+	memo: string | null;
 	favorite: boolean;
 	isActive: boolean;
+	colour: string;
 
 	phoneNum: string;
 	email: string;
-	url?: string;
-	companyTel?: string;
-
-	imgUrl?: string | null;
-	content?: string; // 자기소개
-	colour?: string;
+	url: string | null;
+	companyTel: string | null;
+	imgUrl: string | null;
+	content: string | null; // 자기소개
 }

@@ -9,19 +9,19 @@ import { useCardList } from '../../hooks/useCardList';
 
 interface IMemoProps {
 	id: number;
-	memo: string | undefined;
+	memo: string | null;
 	onFocus: () => void;
 }
 
 export default function MemoInput({ id, memo, onFocus }: IMemoProps) {
 	const memoRef = useRef<TextInput>(null);
-	const [newMemo, setNewMemo] = useState(memo);
+	const [newMemo, setNewMemo] = useState(memo ? memo : '');
 	const [isEditing, setIsEditing] = useState(false);
 	const { handleEditCard } = useCardList();
 
 	const onChangeMemo = (payload: string) => setNewMemo(payload);
 	const onSubmitMemo = async () => {
-		if (newMemo !== memo) await handleEditCard(id, 'memo', newMemo ?? '');
+		if (newMemo !== memo) await handleEditCard(id, 'memo', newMemo);
 		setIsEditing(false);
 	};
 
